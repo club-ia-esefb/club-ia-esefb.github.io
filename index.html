@@ -99,7 +99,7 @@
         <span id="toast-message" class="text-xs md:text-sm font-semibold tracking-wide">Lien copié dans le presse-papier !</span>
     </div>
 
-    <!-- Main Responsive Container: Full Mobile view & Expanded PC View -->
+    <!-- Main Responsive Container -->
     <main class="relative z-10 w-full max-w-md md:max-w-xl mx-auto px-4 md:px-6 py-6 md:py-10 flex flex-col items-center min-h-screen">
 
         <!-- Top Header Navigation -->
@@ -161,17 +161,18 @@
                     Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment... 🔒💥
                 </p>
 
-                <div class="grid grid-cols-2 gap-2.5 mb-4">
-                    <div class="bg-slate-900/90 border border-tech-cyan/30 p-2.5 md:p-3 rounded-xl text-center">
+                <!-- Status Box (Fixed Mobile Alignment) -->
+                <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="bg-slate-900/90 border border-tech-cyan/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">DESTINATION</span>
-                        <span class="text-xs md:text-sm font-bold text-tech-cyan font-mono tracking-widest flex items-center justify-center gap-1 mt-0.5">
-                            <i class="fa-solid fa-lock text-[10px]"></i> [ CONFIDENTIEL ]
+                        <span class="text-[10px] sm:text-xs md:text-sm font-bold text-tech-cyan font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
+                            <i class="fa-solid fa-lock text-[9px]"></i> [ CONFIDENTIEL ]
                         </span>
                     </div>
-                    <div class="bg-slate-900/90 border border-purple-500/30 p-2.5 md:p-3 rounded-xl text-center">
+                    <div class="bg-slate-900/90 border border-purple-500/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">ANNONCE</span>
-                        <span class="text-xs md:text-sm font-bold text-purple-300 font-mono tracking-widest flex items-center justify-center gap-1 mt-0.5">
-                            <i class="fa-solid fa-clock-three text-[10px]"></i> TRÈS BIENTÔT
+                        <span class="text-[10px] sm:text-xs md:text-sm font-bold text-purple-300 font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
+                            <i class="fa-solid fa-clock-three text-[9px]"></i> TRÈS BIENTÔT
                         </span>
                     </div>
                 </div>
@@ -286,7 +287,7 @@
                         title="Copier l'e-mail"
                         class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                 </button>
             </div>
@@ -467,7 +468,6 @@
         });
         window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
-        // TERMINAL AI LOGIC
         function executeTerminalCommand() {
             const input = document.getElementById('terminal-input');
             const query = input.value.trim();
