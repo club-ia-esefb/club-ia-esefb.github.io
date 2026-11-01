@@ -326,158 +326,203 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script>
-        // Interactive Canvas Neural Network Animation
-        const canvas = document.getElementById('neuralCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-        let mouse = { x: null, y: null, radius: 120 };
+   <!-- Scripts -->
+<script>
+    // Canvas Neural Network Interactive Setup
+    const canvas = document.getElementById('neuralCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 140 };
 
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            particles = [];
-            const count = Math.min(Math.floor((width * height) / 12000), 55);
-            for (let i = 0; i < count; i++) {
-                particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.8,
-                    vy: (Math.random() - 0.5) * 0.8,
-                    radius: Math.random() * 2 + 1
-                });
-            }
+    function initCanvas() {
+        // Support HD display for Mobile (Retina Screens)
+        const dpr = window.devicePixelRatio || 1;
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.scale(dpr, dpr);
+
+        particles = [];
+        // Adjust particle count for Mobile vs PC performance
+        const density = width < 768 ? 10000 : 13000;
+        const count = Math.min(Math.floor((width * height) / density), 60);
+
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8,
+                radius: Math.random() * 2 + 1
+            });
         }
+    }
 
-        function drawNeuralNet() {
-            ctx.clearRect(0, 0, width, height);
+    function drawNeuralNet() {
+        ctx.clearRect(0, 0, width, height);
 
-            for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
 
-                if (p.x < 0 || p.x > width) p.vx *= -1;
-                if (p.y < 0 || p.y > height) p.vy *= -1;
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#00f2fe';
-                ctx.fill();
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#00f2fe';
+            ctx.fill();
 
-                // Connect nearby particles
-                for (let j = i + 1; j < particles.length; j++) {
-                    let p2 = particles[j];
-                    let dx = p.x - p2.x;
-                    let dy = p.y - p2.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 130) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 130 * 0.85})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.stroke();
-                    }
+            // Interactive connection to Mouse / Touch
+            if (mouse.x !== null && mouse.y !== null) {
+                let mdx = p.x - mouse.x;
+                let mdy = p.y - mouse.y;
+                let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${1 - mdist / mouse.radius})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
                 }
             }
-            requestAnimationFrame(drawNeuralNet);
-        }
 
-        window.addEventListener('resize', initCanvas);
-        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+            // Connect nearby particles
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j];
+                let dx = p.x - p2.x;
+                let dy = p.y - p2.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
 
-        // Copy Page Link to Clipboard
-        function copyPageLink() {
-            const currentUrl = window.location.href;
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(currentUrl).then(() => showToast("Lien copié avec succès !"));
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = currentUrl;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast("Lien copié dans le presse-papier !");
-                } catch (err) {
-                    showToast("Erreur lors de la copie du lien.");
+                if (dist < 130) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${(1 - dist / 130) * 0.75})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
                 }
-                document.body.removeChild(textArea);
             }
         }
+        requestAnimationFrame(drawNeuralNet);
+    }
 
-        // Toast Notification System
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-message');
-            toastMsg.innerText = message;
-            
-            toast.classList.remove('-translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
+    // Event Listeners for PC Mouse
+    window.addEventListener('resize', initCanvas);
+    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('-translate-y-20', 'opacity-0');
-            }, 3000);
+    // Touch Support for Mobile / Smartphone
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
         }
-
-        function handleRegistration(e) {
-            e.preventDefault();
-            showToast("Redirection vers le formulaire d'inscription...");
+    });
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
         }
+    });
+    window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
-        // VIP Waitlist Click Handler for Mystery Event
-        function handleVIPWaitlist() {
-            showToast("🔒 Restez connectés sur WhatsApp pour la grande annonce !");
-            setTimeout(() => {
-                window.open("https://whatsapp.com", "_blank");
-            }, 1200);
+    // Copy Page Link to Clipboard
+    function copyPageLink() {
+        const currentUrl = window.location.href;
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(currentUrl).then(() => showToast("Lien copié avec succès !"));
+        } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = currentUrl;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Lien copié dans le presse-papier !");
+            } catch (err) {
+                showToast("Erreur lors de la copie du lien.");
+            }
+            document.body.removeChild(textArea);
         }
+    }
 
-        // QR Code Modal Functions
-        function openQRModal() {
-            const modal = document.getElementById('qr-modal');
-            const card = document.getElementById('qr-card');
-            const qrImg = document.getElementById('qr-img');
-            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}&color=070f1e`;
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            card.classList.remove('scale-90');
-            card.classList.add('scale-100');
-        }
+    // Copy Specific Email Function
+    function copyEmailToClipboard() {
+        const email = "clubdintelligenceartificielle@gmail.com";
+        navigator.clipboard.writeText(email).then(() => {
+            showToast("E-mail copié dans le presse-papier !");
+            const btn = document.getElementById('copy-email-btn');
+            if (btn) {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<span class="text-xs font-bold text-emerald-400 px-1">Copié !</span>';
+                setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+            }
+        }).catch(err => {
+            alert('Email: ' + email);
+        });
+    }
 
-        function closeQRModal() {
-            const modal = document.getElementById('qr-modal');
-            const card = document.getElementById('qr-card');
-            card.classList.remove('scale-100');
-            card.classList.add('scale-90');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        window.onload = function() {
-            initCanvas();
-            drawNeuralNet();
-        }
+    // Toast Notification System
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+        if (!toast || !toastMsg) return;
+        toastMsg.innerText = message;
         
-        function copyEmailToClipboard() {
-    const email = "clubdintelligenceartificielle@gmail.com";
-    navigator.clipboard.writeText(email).then(() => {
-        const btn = document.getElementById('copy-email-btn');
-        const originalHTML = btn.innerHTML;
-        
-        // Kiy-tbdl l-bouton l "Copié !" لمدة 2 ثواني
-        btn.innerHTML = '<span class="text-xs font-bold text-emerald-400 px-1">Copié !</span>';
-        
+        toast.classList.remove('-translate-y-20', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
         setTimeout(() => {
-            btn.innerHTML = originalHTML;
-        }, 2000);
-    }).catch(err => {
-        alert('Email: ' + email);
-    })
-}
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('-translate-y-20', 'opacity-0');
+        }, 3000);
+    }
+
+    function handleRegistration(e) {
+        e.preventDefault();
+        showToast("Redirection vers le formulaire d'inscription...");
+    }
+
+    function handleVIPWaitlist() {
+        showToast("🔒 Restez connectés sur WhatsApp pour la grande annonce !");
+        setTimeout(() => {
+            window.open("https://whatsapp.com", "_blank");
+        }, 1200);
+    }
+
+    // QR Code Modal Functions
+    function openQRModal() {
+        const modal = document.getElementById('qr-modal');
+        const card = document.getElementById('qr-card');
+        const qrImg = document.getElementById('qr-img');
+        if (!modal || !card || !qrImg) return;
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}&color=070f1e`;
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        card.classList.remove('scale-90');
+        card.classList.add('scale-100');
+    }
+
+    function closeQRModal() {
+        const modal = document.getElementById('qr-modal');
+        const card = document.getElementById('qr-card');
+        if (!modal || !card) return;
+        card.classList.remove('scale-100');
+        card.classList.add('scale-90');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    window.onload = function() {
+        initCanvas();
+        drawNeuralNet();
+    }
 </script>
 </body>
 </html>
