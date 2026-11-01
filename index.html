@@ -54,7 +54,6 @@
         h1, h2, h3, .font-tech {
             font-family: 'Space Grotesk', sans-serif;
         }
-        /* Custom Glassmorphism CSS */
         .glass-panel {
             background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(16px);
@@ -73,23 +72,6 @@
             transform: translateY(-3px) scale(1.01);
             box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.35);
         }
-        .cyber-border {
-            position: relative;
-        }
-        .cyber-border::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            background: linear-gradient(135deg, #00f2fe, #4facfe, transparent);
-            border-radius: inherit;
-            z-index: -1;
-            opacity: 0.4;
-            transition: opacity 0.3s ease;
-        }
-        .cyber-border:hover::before {
-            opacity: 1;
-        }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -114,10 +96,10 @@
     <!-- Toast Notification -->
     <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 border border-tech-cyan text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none backdrop-blur-md">
         <i id="toast-icon" class="fa-solid fa-circle-check text-tech-cyan text-lg"></i>
-        <span id="toast-message" class="text-xs font-semibold tracking-wide">Link copied to clipboard!</span>
+        <span id="toast-message" class="text-xs font-semibold tracking-wide">Lien copié dans le presse-papier !</span>
     </div>
 
-    <!-- Main Container (Mobile First Layout) -->
+    <!-- Main Container -->
     <main class="relative z-10 max-w-md mx-auto px-4 py-8 flex flex-col items-center min-h-screen">
 
         <!-- Top Header Navigation -->
@@ -128,20 +110,17 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <!-- QR Code Modal Button -->
                 <button onclick="openQRModal()" title="Show QR Code" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-tech-cyan hover:border-tech-cyan transition-all active:scale-95">
                     <i class="fa-solid fa-qrcode text-sm"></i>
                 </button>
-                <!-- Share Button -->
                 <button onclick="copyPageLink()" title="Share Link" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-tech-cyan hover:border-tech-cyan transition-all active:scale-95">
                     <i class="fa-solid fa-share-nodes text-sm"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Profile Section with Exact logo.png -->
+        <!-- Profile Section -->
         <div class="text-center flex flex-col items-center mb-8 w-full">
-            <!-- Glowing Neon Logo Frame -->
             <div class="relative mb-5 group">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
                 <div class="relative w-32 h-32 rounded-full p-1 bg-slate-950 flex items-center justify-center overflow-hidden animate-float">
@@ -152,7 +131,6 @@
                 </div>
             </div>
 
-            <!-- Titles -->
             <h1 class="text-2xl font-extrabold tracking-tight text-white font-tech uppercase flex items-center justify-center gap-1">
                 <span class="bg-gradient-to-r from-tech-cyan via-cyan-200 to-white bg-clip-text text-transparent">CLUB IA ESEF-B</span>
             </h1>
@@ -165,8 +143,6 @@
         <!-- MYSTERY TEASER EVENT CARD: Sortie d'Intégration 2026 -->
         <div class="w-full mb-8 relative rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-purple-500 to-tech-blue shadow-2xl group">
             <div class="bg-slate-950/95 rounded-[15px] p-5 backdrop-blur-xl relative overflow-hidden border border-tech-cyan/20">
-                
-                <!-- Background Mystery Glows -->
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-tech-cyan/20 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -185,7 +161,6 @@
                     Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment... 🔒💥
                 </p>
 
-                <!-- Mystery Status Box -->
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <div class="bg-slate-900/90 border border-tech-cyan/30 p-2.5 rounded-xl text-center">
                         <span class="block text-[9px] font-mono uppercase text-slate-400">DESTINATION</span>
@@ -201,7 +176,6 @@
                     </div>
                 </div>
 
-                <!-- Action CTA -->
                 <button onclick="handleVIPWaitlist()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/25 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-bell text-xs"></i>
                     <span>ÊTRE INFORMÉ EN PREMIER (WHATSAPP)</span>
@@ -209,8 +183,27 @@
             </div>
         </div>
 
-        <!-- STRICT REQUIREMENT: EXACTLY 5 PRIMARY ACTIONS -->
+        <!-- PRIMARY ACTIONS & LINKS -->
         <div class="w-full space-y-3.5">
+
+            <!-- 💥 0. KHANA JDIDA: REJOINDRE LE CLUB (FORMULAIRE D'INSCRIPTION) -->
+            <a href="https://forms.gle/YOUR_FORM_LINK" target="_blank" rel="noopener noreferrer" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
+                <span class="absolute inset-0 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
+                <div class="relative flex items-center justify-between gap-4 rounded-2xl bg-slate-950/90 backdrop-blur-xl px-5 py-4 transition-all duration-300 group-hover:bg-slate-900/95 border border-tech-cyan/30">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-tech-cyan/15 border border-tech-cyan/40 text-tech-cyan flex items-center justify-center text-xl shadow-md group-hover:scale-110 group-hover:bg-tech-cyan/25 transition-all">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="text-sm font-bold text-white group-hover:text-tech-cyan transition-colors font-tech">Rejoindre le CLUB IA</h3>
+                            <p class="text-xs text-slate-400">Formulaire d'adhésion & Inscription</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-tech-cyan group-hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </div>
+                </div>
+            </a>
 
             <!-- 1. INSTAGRAM -->
             <a href="https://www.instagram.com/ia.esefb/" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
@@ -279,27 +272,26 @@
                 </div>
             </a>
 
-           <!-- Container dyal Email ma'a option dyal Copie -->
-<div class="flex items-center gap-2 w-full max-w-md mx-auto my-3">
-    <!-- Bouton 1: Direct Mailto (Open App) -->
-    <a href="mailto:clubdintelligenceartificielle@gmail.com" 
-       class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-white hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
-        <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-        </svg>
-        <span class="text-sm font-semibold">Envoyer un E-mail</span>
-    </a>
+            <!-- 5. E-MAIL CONTAINER WITH COPY OPTION -->
+            <div class="flex items-center gap-2 w-full max-w-md mx-auto my-3">
+                <a href="mailto:clubdintelligenceartificielle@gmail.com" 
+                   class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-white hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
+                    <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="text-sm font-semibold">Envoyer un E-mail</span>
+                </a>
 
-    <!-- Bouton 2: Copy to Clipboard -->
-    <button id="copy-email-btn" onclick="copyEmailToClipboard()" 
-            title="Copier l'e-mail"
-            class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-        </svg>
-    </button>
-</div>
+                <button id="copy-email-btn" onclick="copyEmailToClipboard()" 
+                        title="Copier l'e-mail"
+                        class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                </button>
+            </div>
 
+        </div>
 
         <!-- Footer -->
         <footer class="mt-12 text-center text-xs text-slate-500 space-y-1.5 font-mono">
@@ -319,210 +311,194 @@
             <p class="text-xs text-slate-400 mb-4">Access CLUB IA ESEF-B Hub instantly</p>
             
             <div class="bg-white p-3 rounded-2xl inline-block shadow-lg mb-4">
-                <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://clubia-esefb.vercel.app&color=070f1e" alt="QR Code" class="w-44 h-44 rounded-lg" />
+                <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://club-ia-esefb.github.io&color=070f1e" alt="QR Code" class="w-44 h-44 rounded-lg" />
             </div>
             
-            <p class="text-[11px] text-tech-cyan font-mono">esefb.ma/club-ia</p>
+            <p class="text-[11px] text-tech-cyan font-mono">club-ia-esefb.github.io</p>
         </div>
     </div>
 
-   <!-- Scripts -->
-<script>
-    // Canvas Neural Network Interactive Setup
-    const canvas = document.getElementById('neuralCanvas');
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    let mouse = { x: null, y: null, radius: 140 };
+    <!-- Scripts -->
+    <script>
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 140 };
 
-    function initCanvas() {
-        // Support HD display for Mobile (Retina Screens)
-        const dpr = window.devicePixelRatio || 1;
-        width = window.innerWidth;
-        height = window.innerHeight;
+        function initCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
 
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        canvas.style.width = width + 'px';
-        canvas.style.height = height + 'px';
-        ctx.scale(dpr, dpr);
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.scale(dpr, dpr);
 
-        particles = [];
-        // Adjust particle count for Mobile vs PC performance
-        const density = width < 768 ? 10000 : 13000;
-        const count = Math.min(Math.floor((width * height) / density), 60);
+            particles = [];
+            const density = width < 768 ? 10000 : 13000;
+            const count = Math.min(Math.floor((width * height) / density), 60);
 
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.8,
-                vy: (Math.random() - 0.5) * 0.8,
-                radius: Math.random() * 2 + 1
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    radius: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function drawNeuralNet() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#00f2fe';
+                ctx.fill();
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    let mdx = p.x - mouse.x;
+                    let mdy = p.y - mouse.y;
+                    let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                    if (mdist < mouse.radius) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${1 - mdist / mouse.radius})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let dx = p.x - p2.x;
+                    let dy = p.y - p2.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 242, 254, ${(1 - dist / 130) * 0.75})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(drawNeuralNet);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        });
+        window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+
+        function copyPageLink() {
+            const currentUrl = window.location.href;
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(currentUrl).then(() => showToast("Lien copié avec succès !"));
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = currentUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast("Lien copié dans le presse-papier !");
+                } catch (err) {
+                    showToast("Erreur lors de la copie du lien.");
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function copyEmailToClipboard() {
+            const email = "clubdintelligenceartificielle@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                showToast("E-mail copié dans le presse-papier !");
+                const btn = document.getElementById('copy-email-btn');
+                if (btn) {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<span class="text-xs font-bold text-emerald-400 px-1">Copié !</span>';
+                    setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+                }
+            }).catch(err => {
+                alert('Email: ' + email);
             });
         }
-    }
 
-    function drawNeuralNet() {
-        ctx.clearRect(0, 0, width, height);
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+            toastMsg.innerText = message;
+            
+            toast.classList.remove('-translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
 
-        for (let i = 0; i < particles.length; i++) {
-            let p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-
-            if (p.x < 0 || p.x > width) p.vx *= -1;
-            if (p.y < 0 || p.y > height) p.vy *= -1;
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = '#00f2fe';
-            ctx.fill();
-
-            // Interactive connection to Mouse / Touch
-            if (mouse.x !== null && mouse.y !== null) {
-                let mdx = p.x - mouse.x;
-                let mdy = p.y - mouse.y;
-                let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mdist < mouse.radius) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = `rgba(0, 242, 254, ${1 - mdist / mouse.radius})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            }
-
-            // Connect nearby particles
-            for (let j = i + 1; j < particles.length; j++) {
-                let p2 = particles[j];
-                let dx = p.x - p2.x;
-                let dy = p.y - p2.y;
-                let dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 130) {
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = `rgba(0, 242, 254, ${(1 - dist / 130) * 0.75})`;
-                    ctx.lineWidth = 0.6;
-                    ctx.stroke();
-                }
-            }
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('-translate-y-20', 'opacity-0');
+            }, 3000);
         }
-        requestAnimationFrame(drawNeuralNet);
-    }
 
-    // Event Listeners for PC Mouse
-    window.addEventListener('resize', initCanvas);
-    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-
-    // Touch Support for Mobile / Smartphone
-    window.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) {
-            mouse.x = e.touches[0].clientX;
-            mouse.y = e.touches[0].clientY;
+        function handleVIPWaitlist() {
+            showToast("🔒 Restez connectés sur WhatsApp pour la grande annonce !");
+            setTimeout(() => {
+                window.open("https://chat.whatsapp.com/Gz2z30Hc0lT6hjMHcvBgbK", "_blank");
+            }, 1200);
         }
-    });
-    window.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-            mouse.x = e.touches[0].clientX;
-            mouse.y = e.touches[0].clientY;
+
+        function openQRModal() {
+            const modal = document.getElementById('qr-modal');
+            const card = document.getElementById('qr-card');
+            const qrImg = document.getElementById('qr-img');
+            if (!modal || !card || !qrImg) return;
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}&color=070f1e`;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-90');
+            card.classList.add('scale-100');
         }
-    });
-    window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
-    // Copy Page Link to Clipboard
-    function copyPageLink() {
-        const currentUrl = window.location.href;
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(currentUrl).then(() => showToast("Lien copié avec succès !"));
-        } else {
-            const textArea = document.createElement("textarea");
-            textArea.value = currentUrl;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast("Lien copié dans le presse-papier !");
-            } catch (err) {
-                showToast("Erreur lors de la copie du lien.");
-            }
-            document.body.removeChild(textArea);
+        function closeQRModal() {
+            const modal = document.getElementById('qr-modal');
+            const card = document.getElementById('qr-card');
+            if (!modal || !card) return;
+            card.classList.remove('scale-100');
+            card.classList.add('scale-90');
+            modal.classList.add('opacity-0', 'pointer-events-none');
         }
-    }
 
-    // Copy Specific Email Function
-    function copyEmailToClipboard() {
-        const email = "clubdintelligenceartificielle@gmail.com";
-        navigator.clipboard.writeText(email).then(() => {
-            showToast("E-mail copié dans le presse-papier !");
-            const btn = document.getElementById('copy-email-btn');
-            if (btn) {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<span class="text-xs font-bold text-emerald-400 px-1">Copié !</span>';
-                setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
-            }
-        }).catch(err => {
-            alert('Email: ' + email);
-        });
-    }
-
-    // Toast Notification System
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        const toastMsg = document.getElementById('toast-message');
-        if (!toast || !toastMsg) return;
-        toastMsg.innerText = message;
-        
-        toast.classList.remove('-translate-y-20', 'opacity-0');
-        toast.classList.add('translate-y-0', 'opacity-100');
-
-        setTimeout(() => {
-            toast.classList.remove('translate-y-0', 'opacity-100');
-            toast.classList.add('-translate-y-20', 'opacity-0');
-        }, 3000);
-    }
-
-    function handleRegistration(e) {
-        e.preventDefault();
-        showToast("Redirection vers le formulaire d'inscription...");
-    }
-
-    function handleVIPWaitlist() {
-        showToast("🔒 Restez connectés sur WhatsApp pour la grande annonce !");
-        setTimeout(() => {
-            window.open("https://whatsapp.com", "_blank");
-        }, 1200);
-    }
-
-    // QR Code Modal Functions
-    function openQRModal() {
-        const modal = document.getElementById('qr-modal');
-        const card = document.getElementById('qr-card');
-        const qrImg = document.getElementById('qr-img');
-        if (!modal || !card || !qrImg) return;
-        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(window.location.href)}&color=070f1e`;
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        card.classList.remove('scale-90');
-        card.classList.add('scale-100');
-    }
-
-    function closeQRModal() {
-        const modal = document.getElementById('qr-modal');
-        const card = document.getElementById('qr-card');
-        if (!modal || !card) return;
-        card.classList.remove('scale-100');
-        card.classList.add('scale-90');
-        modal.classList.add('opacity-0', 'pointer-events-none');
-    }
-
-    window.onload = function() {
-        initCanvas();
-        drawNeuralNet();
-    }
-</script>
+        window.onload = function() {
+            initCanvas();
+            drawNeuralNet();
+        }
+    </script>
 </body>
 </html>
