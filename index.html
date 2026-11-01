@@ -460,9 +460,9 @@
         window.onload = function() {
             initCanvas();
             drawNeuralNet();
-        };
-    <script>
-function copyEmailToClipboard() {
+        }
+        
+        function copyEmailToClipboard() {
     const email = "clubdintelligenceartificielle@gmail.com";
     navigator.clipboard.writeText(email).then(() => {
         const btn = document.getElementById('copy-email-btn');
@@ -476,7 +476,7 @@ function copyEmailToClipboard() {
         }, 2000);
     }).catch(err => {
         alert('Email: ' + email);
-    });
+    })
 }
 </script>
 </body>
