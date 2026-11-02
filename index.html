@@ -48,6 +48,8 @@
             }
         }
     </script>
+    <!-- HTML2PDF Library for Exporting ID Card -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts (Space Grotesk & Inter) -->
@@ -224,6 +226,25 @@
                 </div>
             </a>
 
+            <!-- 💳 VIP MEMBER ID CARD GENERATOR BUTTON -->
+            <button onclick="openIDModal()" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group border-cyan-500/30 hover:border-tech-cyan">
+                <div class="flex items-center gap-3.5 md:gap-4">
+                    <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <div class="text-left">
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-sm md:text-base font-bold text-white group-hover:text-tech-cyan transition-colors font-tech">Carte Membre VIP (PDF)</h3>
+                            <span class="text-[9px] md:text-[10px] bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/40 px-1.5 py-0.5 rounded font-mono">OFFICIEL</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-400">Obtenez votre pass VIP & ID membre unique</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-tech-cyan group-hover:border-tech-cyan transition-all">
+                    <i class="fa-solid fa-wand-magic-sparkles text-xs md:text-sm"></i>
+                </div>
+            </button>
+
             <!-- 1. INSTAGRAM -->
             <a href="https://www.instagram.com/ia.esefb/" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
                 <div class="flex items-center gap-3.5 md:gap-4">
@@ -305,112 +326,15 @@
                         title="Copier l'e-mail"
                         class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                 </button>
             </div>
 
         </div>
 
-        <!-- 💳 CYBER MEMBER PASS / ID GENERATOR -->
-        <div class="w-full my-6 glass-panel rounded-2xl p-5 border border-tech-cyan/30 relative overflow-hidden shadow-2xl">
-            <div class="flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-id-card text-tech-cyan text-base"></i>
-                <h3 class="text-sm md:text-base font-bold text-white font-tech uppercase tracking-wide">Générateur de Carte Membre VIP 💳</h3>
-            </div>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                Créez votre carte officielle du CLUB IA ESEF-B et partagez-la en story !
-            </p>
-
-            <!-- Form Inputs -->
-            <div class="space-y-3 mb-4">
-                <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase mb-1">Nom & Prénom</label>
-                    <input type="text" id="pass-name" placeholder="Ex: Mohamed Alami" class="w-full bg-slate-900/90 border border-slate-800 text-white text-xs md:text-sm rounded-xl px-3.5 py-2.5 outline-none focus:border-tech-cyan transition-colors font-mono">
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-mono text-slate-400 uppercase mb-1">Filière (ESEF Berrechid)</label>
-                    <select id="pass-filiere" class="w-full bg-slate-900/90 border border-slate-800 text-white text-xs md:text-sm rounded-xl px-3.5 py-2.5 outline-none focus:border-tech-cyan transition-colors font-mono">
-                        <option value="" disabled selected>Sélectionnez votre Filière</option>
-                        <optgroup label="── LICENCE ──" class="text-tech-cyan font-bold bg-slate-950">
-                            <option value="LE - English">LE - English</option>
-                            <option value="LE - Arabic">LE - Arabic</option>
-                            <option value="LE - Français">LE - Français</option>
-                            <option value="LE - Primaire">LE - Primaire</option>
-                            <option value="LE - Informatique">LE - Informatique</option>
-                            <option value="LE - Maths">LE - Maths</option>
-                            <option value="LE - SPC">LE - SPC (Physique-Chimie)</option>
-                            <option value="LE - SVT">LE - SVT</option>
-                        </optgroup>
-                        <optgroup label="── MASTER ──" class="text-purple-400 font-bold bg-slate-950">
-                            <option value="Master - Didactique SPC">Master - Didactique Sciences Chimiques & Physiques</option>
-                            <option value="Master - Epistémologie SS">Master - Épistémologie & Didactique Sciences Sociales</option>
-                            <option value="Master - Psychopédagogie">Master - Orientation & Intervention Psychopédagogique</option>
-                            <option value="Master - Didactique FR S3">Master - Didactique du Français & Innovation Pédagogique</option>
-                            <option value="Master - Digital Learning S1">Master - Ingénierie de Formation & Digital Learning</option>
-                        </optgroup>
-                    </select>
-                </div>
-            </div>
-
-            <button onclick="generateMemberPass()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs md:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:brightness-110 active:scale-95 transition-all">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <span>Générer mon Pass VIP</span>
-            </button>
-
-            <!-- Rendered VIP Pass Card (Hidden by default) -->
-            <div id="generated-pass" class="hidden mt-5 relative rounded-2xl p-[2px] bg-gradient-to-br from-tech-cyan via-purple-500 to-tech-blue shadow-2xl animate-float">
-                <div class="bg-slate-950 rounded-[14px] p-4 md:p-5 relative overflow-hidden border border-tech-cyan/40">
-                    <!-- Hologram Orbs -->
-                    <div class="absolute -right-8 -top-8 w-24 h-24 bg-tech-cyan/20 rounded-full blur-xl pointer-events-none"></div>
-                    <div class="absolute -left-8 -bottom-8 w-24 h-24 bg-purple-600/20 rounded-full blur-xl pointer-events-none"></div>
-
-                    <!-- Header -->
-                    <div class="flex justify-between items-start mb-3 pb-2 border-b border-slate-800">
-                        <div class="flex items-center gap-2">
-                            <img src="logo.png" alt="Club Logo" class="w-8 h-8 rounded-full bg-white p-0.5" onerror="this.onerror=null; this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
-                            <div>
-                                <h4 class="text-xs md:text-sm font-extrabold text-white font-tech uppercase tracking-wider">CLUB IA ESEF-B</h4>
-                                <p class="text-[9px] font-mono text-tech-cyan">OFFICIAL MEMBER VIP PASS</p>
-                            </div>
-                        </div>
-                        <span class="text-[9px] font-mono bg-tech-cyan/15 text-tech-cyan border border-tech-cyan/40 px-2 py-0.5 rounded-full font-bold">EDITION 2026</span>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="space-y-2 mb-3">
-                        <div>
-                            <span class="block text-[8px] font-mono uppercase text-slate-500">MEMBRE OFFICIEL</span>
-                            <span id="pass-display-name" class="text-sm md:text-base font-extrabold text-white font-tech tracking-wide bg-gradient-to-r from-white via-cyan-100 to-tech-cyan bg-clip-text text-transparent">---</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <span class="block text-[8px] font-mono uppercase text-slate-500">FILIÈRE / ESEF-B</span>
-                                <span id="pass-display-filiere" class="text-[10px] md:text-xs font-bold text-slate-300 font-mono truncate block">---</span>
-                            </div>
-                            <div>
-                                <span class="block text-[8px] font-mono uppercase text-slate-500">ID CODE</span>
-                                <span id="pass-display-id" class="text-[10px] md:text-xs font-bold text-tech-cyan font-mono">#CIA-2026-0000</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="pt-2 border-t border-slate-800/80 flex justify-between items-center text-[9px] font-mono text-slate-500">
-                        <span>ÉCOLE SUPÉRIEURE D'ÉDUCATION ET DE FORMATION</span>
-                        <span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle-check text-[8px]"></i> VERIFIED</span>
-                    </div>
-                </div>
-            </div>
-            
-            <p id="pass-hint" class="hidden text-center text-[10px] text-slate-400 font-mono mt-2">
-                📸 Prenez une capture d'écran pour la partager sur Instagram/WhatsApp !
-            </p>
-        </div>
-
         <!-- 💬 DAILY AI INSIGHT & QUOTE CARD -->
-        <div class="w-full my-4 glass-panel rounded-2xl p-5 border border-tech-cyan/25 relative overflow-hidden group">
+        <div class="w-full my-5 glass-panel rounded-2xl p-5 border border-tech-cyan/25 relative overflow-hidden group">
             <div class="absolute -right-10 -bottom-10 w-28 h-28 bg-tech-cyan/10 rounded-full blur-xl pointer-events-none"></div>
             
             <div class="flex items-center justify-between mb-3">
@@ -489,7 +413,117 @@
 
     </main>
 
-    <!-- Modal QR Code -->
+    <!-- Modal VIP Member ID Card Generator -->
+    <div id="id-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
+        <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-sm md:max-w-md w-full text-center relative border border-tech-cyan/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="id-card-modal">
+            <button onclick="closeIDModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-base md:text-lg font-bold text-white font-tech mb-0.5">Générateur de Carte Membre</h3>
+            <p class="text-xs text-slate-400 mb-4">Saisissez votre Nom & Code à 4 Chiffres</p>
+
+            <!-- Input Form -->
+            <div id="id-form" class="space-y-3 text-left mb-4">
+                <div>
+                    <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Nom et Prénom *</label>
+                    <input type="text" id="member-name" placeholder="ex: Aymane El Amrani" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Code Secret (4 chiffres) *</label>
+                    <input type="password" id="member-pin" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono tracking-widest text-center">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Filière / Spécialité *</label>
+                    <select id="member-filiere" class="w-full bg-slate-900 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
+                        <optgroup label="LICENCE">
+                            <option value="LE-ENGLISH">LE-ENGLISH</option>
+                            <option value="LE-ARABIC">LE-ARABIC</option>
+                            <option value="LE-FRANCAIS">LE-FRANCAIS</option>
+                            <option value="LE-PRIMAIRE">LE-PRIMAIRE</option>
+                            <option value="LE-INFORMATIQUE" selected>LE-INFORMATIQUE</option>
+                            <option value="LE-MATHS">LE-MATHS</option>
+                            <option value="LE-SPC">LE-SPC</option>
+                            <option value="LE-SVT">LE-SVT</option>
+                        </optgroup>
+                        <optgroup label="MASTER">
+                            <option value="M-Sciences Chimiques et Physiques">Master: Didactique Sciences Chimiques et Physiques</option>
+                            <option value="M-Didactique Sciences Sociales">Master: Épistémologie & Didactique Sciences Sociales</option>
+                            <option value="M-Orientation Psychopédagogique">Master: Orientation & Intervention Psychopédagogique</option>
+                            <option value="M-Didactique du Français S3">Master: Didactique du Français & Innovation S3</option>
+                            <option value="M-Ingénierie de Formation S1">Master: Ingénierie de Formation & Digital Learning S1</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <button onclick="generateMemberCard()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/20 hover:brightness-110 active:scale-95 transition-all">
+                    <i class="fa-solid fa-id-badge"></i>
+                    <span>Générer Ma Carte ID</span>
+                </button>
+            </div>
+
+            <!-- ID Card Output View (Hidden by default) -->
+            <div id="id-card-view" class="hidden text-left space-y-4">
+                <!-- ID Card Visual Container -->
+                <div id="cyber-id-card" class="bg-slate-950 p-4 rounded-2xl border border-tech-cyan/60 relative overflow-hidden shadow-2xl font-mono text-slate-100">
+                    <div class="absolute -right-8 -top-8 w-24 h-24 bg-tech-cyan/20 rounded-full blur-xl pointer-events-none"></div>
+                    
+                    <!-- Header -->
+                    <div class="flex items-center justify-between border-b border-cyan-500/30 pb-2 mb-3">
+                        <div class="flex items-center gap-2">
+                            <img src="logo.png" class="w-7 h-7 rounded-full bg-white p-0.5" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
+                            <div>
+                                <h4 class="text-[11px] font-bold text-white tracking-tight leading-none font-tech">CLUB IA ESEF-B</h4>
+                                <span class="text-[8px] text-cyan-400">OFFICIAL MEMBER VIP PASS</span>
+                            </div>
+                        </div>
+                        <span class="text-[9px] bg-cyan-500/20 text-tech-cyan border border-cyan-400/40 px-1.5 py-0.5 rounded font-bold">2026</span>
+                    </div>
+
+                    <!-- Main Info -->
+                    <div class="grid grid-cols-3 gap-2 items-center mb-3">
+                        <div class="col-span-2 space-y-1">
+                            <div>
+                                <span class="text-[8px] text-slate-400 block uppercase">NOM & PRÉNOM</span>
+                                <span id="card-out-name" class="text-xs md:text-sm font-bold text-white font-tech truncate block">AYMANE EL AMRANI</span>
+                            </div>
+                            <div>
+                                <span class="text-[8px] text-slate-400 block uppercase">FILIÈRE / SPÉCIALITÉ</span>
+                                <span id="card-out-filiere" class="text-[10px] font-semibold text-cyan-300 block">LE-INFORMATIQUE</span>
+                            </div>
+                            <div>
+                                <span class="text-[8px] text-slate-400 block uppercase">ID UNIQUE MEMBRE</span>
+                                <span id="card-out-id" class="text-[10px] font-extrabold text-purple-300 tracking-wider block">CIA-2026-84920</span>
+                            </div>
+                        </div>
+                        <div class="col-span-1 flex flex-col items-center justify-center bg-white p-1 rounded-lg shadow">
+                            <img id="card-out-qr" src="" alt="QR ID" class="w-16 h-16 rounded" />
+                        </div>
+                    </div>
+
+                    <!-- Footer Bar -->
+                    <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[8px] text-slate-400">
+                        <span>STATUS: <strong class="text-emerald-400">VERIFIED</strong></span>
+                        <span>ESEF BERRECHID</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-2">
+                    <button onclick="downloadCardPDF()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Télécharger PDF</span>
+                    </button>
+                    <button onclick="resetIDForm()" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:text-white text-xs font-mono">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Modal QR Code Page -->
     <div id="qr-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
         <div class="glass-panel p-6 rounded-3xl max-w-xs w-full text-center relative border border-tech-cyan/40 shadow-2xl transform scale-90 transition-all duration-300" id="qr-card">
             <button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -575,6 +609,7 @@
             currentQuoteIndex = nextIndex;
             const item = aiQuotes[currentQuoteIndex];
 
+            // Smooth opacity transition
             quoteText.style.opacity = '0';
             quoteAuthor.style.opacity = '0';
             quoteRole.style.opacity = '0';
@@ -590,33 +625,98 @@
             }, 200);
         }
 
-        // GENERATE MEMBER PASS LOGIC
-        function generateMemberPass() {
-            const nameInput = document.getElementById('pass-name').value.trim();
-            const filiereSelect = document.getElementById('pass-filiere').value;
+        // VIP Member ID Card Generator Logic
+        function openIDModal() {
+            const modal = document.getElementById('id-modal');
+            const cardModal = document.getElementById('id-card-modal');
+            if (!modal || !cardModal) return;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            cardModal.classList.remove('scale-90');
+            cardModal.classList.add('scale-100');
+        }
 
-            if (!nameInput) {
-                showToast("⚠️ Veuillez entrer votre Nom & Prénom !");
+        function closeIDModal() {
+            const modal = document.getElementById('id-modal');
+            const cardModal = document.getElementById('id-card-modal');
+            if (!modal || !cardModal) return;
+            cardModal.classList.remove('scale-100');
+            cardModal.classList.add('scale-90');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Deterministic Hash Algorithm (Name + 4-digit Pin -> Always Same ID)
+        function generateDeterministicID(str) {
+            let hash = 0;
+            const cleanStr = str.toLowerCase().trim().replace(/\s+/g, '');
+            for (let i = 0; i < cleanStr.length; i++) {
+                let char = cleanStr.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash |= 0;
+            }
+            const positiveHash = Math.abs(hash);
+            const codeNum = (positiveHash % 89999) + 10000;
+            return `CIA-2026-${codeNum}`;
+        }
+
+        function generateMemberCard() {
+            const name = document.getElementById('member-name').value.trim();
+            const pin = document.getElementById('member-pin').value.trim();
+            const filiere = document.getElementById('member-filiere').value;
+
+            if (!name) {
+                showToast("⚠️ Veuillez entrer votre Nom & Prénom.");
                 return;
             }
-            if (!filiereSelect) {
-                showToast("⚠️ Veuillez sélectionner votre Filière !");
+
+            if (!pin || pin.length !== 4 || isNaN(pin)) {
+                showToast("⚠️ Le code secret doit comporter exactement 4 chiffres.");
                 return;
             }
 
-            const randomID = "CIA-2026-" + Math.floor(1000 + Math.random() * 9000);
+            // Generate Consistent Unique ID
+            const uniqueID = generateDeterministicID(name + pin);
 
-            document.getElementById('pass-display-name').innerText = nameInput;
-            document.getElementById('pass-display-filiere').innerText = filiereSelect;
-            document.getElementById('pass-display-id').innerText = "#" + randomID;
+            // Populate Card View
+            document.getElementById('card-out-name').innerText = name.toUpperCase();
+            document.getElementById('card-out-filiere').innerText = filiere;
+            document.getElementById('card-out-id').innerText = uniqueID;
 
-            const card = document.getElementById('generated-pass');
-            const hint = document.getElementById('pass-hint');
-            card.classList.remove('hidden');
-            hint.classList.remove('hidden');
+            // Generate Dynamic QR Code
+            const qrData = encodeURIComponent(`https://club-ia-esefb.github.io/?member=${encodeURIComponent(name)}&id=${uniqueID}`);
+            document.getElementById('card-out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}&color=070f1e`;
 
-            showToast("💳 Votre Pass VIP est prêt !");
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Switch Views
+            document.getElementById('id-form').classList.add('hidden');
+            document.getElementById('id-card-view').classList.remove('hidden');
+
+            showToast("✅ Carte ID générée avec succès !");
+        }
+
+        function resetIDForm() {
+            document.getElementById('id-card-view').classList.add('hidden');
+            document.getElementById('id-form').classList.remove('hidden');
+        }
+
+        function downloadCardPDF() {
+            const cardElement = document.getElementById('cyber-id-card');
+            const name = document.getElementById('card-out-name').innerText;
+            if (!cardElement) return;
+
+            showToast("⏳ Préparation du PDF...");
+
+            const opt = {
+                margin:       [0.2, 0.2, 0.2, 0.2],
+                filename:     `CLUB_IA_Carte_${name.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 3, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'a6', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(cardElement).save().then(() => {
+                showToast("📥 Carte PDF téléchargée !");
+            }).catch(() => {
+                showToast("❌ Erreur lors du téléchargement.");
+            });
         }
 
         function initCanvas() {
