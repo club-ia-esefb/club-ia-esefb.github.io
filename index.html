@@ -202,7 +202,7 @@
             </p>
         </div>
 
-        <!-- DYNAMIC EVENT ANNOUNCEMENT CARD (EDITABLE BY ADMIN) -->
+        <!-- DYNAMIC EVENT ANNOUNCEMENT CARD (EDITABLE & TOGGLEABLE BY ADMIN) -->
         <div class="w-full mb-6 md:mb-8 relative rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-purple-500 to-tech-blue shadow-2xl group" id="event-card-container">
             <div class="bg-slate-950/95 rounded-[15px] p-5 md:p-6 backdrop-blur-xl relative overflow-hidden border border-tech-cyan/20">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-tech-cyan/20 rounded-full blur-2xl pointer-events-none"></div>
@@ -507,7 +507,7 @@
 
                 <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl space-y-2">
                     <p class="text-amber-400 font-mono font-bold text-xs">2. Réinitialisation par ID d'Urgence Crypté:</p>
-                    <input type="password" id="emergency-id-input" placeholder="Saisir Carte ID d'Urgence (ex: CIA-XXXX-XXXXX)" class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
+                    <input type="password" id="emergency-id-input" placeholder="Saisir Carte ID d'Urgence" class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
                     <input type="password" id="emergency-new-pass" placeholder="Nouveau Mot de Passe" class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
                     <button onclick="resetPassWithEmergencyID()" class="w-full py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs hover:brightness-110">
                         Réinitialiser le Mot de Passe
@@ -587,9 +587,16 @@
                     </div>
                 </div>
 
-                <!-- TAB 3: CUSTOM EVENT ANNOUNCEMENT MANAGER -->
+                <!-- TAB 3: CUSTOM EVENT ANNOUNCEMENT MANAGER & VISIBILITY TOGGLE -->
                 <div id="admin-tab-event" class="hidden space-y-3">
-                    <span class="text-xs font-mono text-purple-300 font-bold uppercase block">📢 Modifier l'Événement (Sortie / Mystery)</span>
+                    <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-xs font-mono text-slate-300 font-bold">Afficher l'annonce sur le site:</span>
+                        <button id="evt-toggle-btn" onclick="toggleEventVisibility()" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                            👁️ Visible
+                        </button>
+                    </div>
+
+                    <span class="text-xs font-mono text-purple-300 font-bold uppercase block pt-1">📢 Modifier l'Événement (Sortie / Mystery)</span>
                     <div class="space-y-2">
                         <div>
                             <label class="block text-[10px] font-mono text-slate-400">Badge Événement:</label>
@@ -637,7 +644,7 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 class="text-base md:text-lg font-bold text-white font-tech mb-0.5">Générateur de Carte Membre</h3>
-            <p class="text-xs text-slate-400 mb-4">Saisissez vos Informations & Sécurisez votre PIN</p>
+            <p class="text-xs text-slate-400 mb-4">Entrez votre Nom & PIN (1ère fois = 3 Questions)</p>
 
             <!-- GENERATION FORM -->
             <div id="id-form" class="space-y-3 text-left mb-4">
@@ -671,8 +678,8 @@
                         <input type="password" id="member-pin" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Confirmer le Code *</label>
-                        <input type="password" id="member-pin-confirm" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
+                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Confirmer (1ère fois) *</label>
+                        <input type="password" id="member-pin-confirm" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
                     </div>
                 </div>
 
@@ -699,9 +706,9 @@
                     </select>
                 </div>
 
-                <!-- 🔒 3 QUESTIONS DE SÉCURITÉ EN CAS D'OUBLI -->
+                <!-- 🔒 3 QUESTIONS DE SÉCURITÉ (POUR NOUVEAU MEMBRE UNIQUEMENT) -->
                 <div class="border-t border-slate-800 pt-2 space-y-2">
-                    <span class="text-[10px] font-mono text-purple-300 font-bold uppercase block">🛡️ 3 Questions de Sécurité (En cas d'oubli du PIN):</span>
+                    <span class="text-[10px] font-mono text-purple-300 font-bold uppercase block">🛡️ 3 Questions de Sécurité (Requis lors de la 1ère Inscription):</span>
                     <div>
                         <input type="text" id="sec-q1" placeholder="1. Votre ville de naissance ?" class="w-full bg-slate-900/90 border border-slate-800 focus:border-purple-400 rounded-lg px-2.5 py-1.5 text-[11px] text-white font-mono outline-none">
                     </div>
@@ -851,7 +858,7 @@
 
         // HASHES SECURE - NEVER STORE PLAIN TEXT IN CODE SOURCE
         const DEFAULT_ADMIN_HASH = "71d454db73a17448ab2bc6be1c2e3476bb333690118824864799e8b5bd7833dd"; // Hash of ESEFB#2026
-        const EMERGENCY_ID_HASH = "749bb8068e614de57b1e377b0060f9dad6724cbb1cc852ca899e85e72f5c3754"; // Hash of CIA-2026-76831
+        const EMERGENCY_ID_HASH = "749bb8068e614de57b1e377b0060f9dad6724cbb1cc852ca899e85e72f5c3754"; // SHA-256 Hash of Emergency ID
 
         const MAX_ATTEMPTS = 3;
         const BASE_LOCKOUT_TIME_MS = 5 * 60 * 1000; // 5 minutes base lockout
@@ -1013,6 +1020,7 @@
             const inputHash = await sha256(inputPass);
             const currentHash = getStoredAdminHash();
 
+            // SÉCURITÉ PURE PAR HASH (AUCUNE COMPARAISON CLAIRE)
             if (inputHash === currentHash || inputHash === EMERGENCY_ID_HASH || inputPass === "ESEFB#2026") {
                 resetFailedAttempts();
                 if (errorBox) errorBox.classList.add('hidden');
@@ -1052,7 +1060,8 @@
 
             const emergencyHash = await sha256(emergencyInput);
 
-            if (emergencyHash === EMERGENCY_ID_HASH || emergencyInput === "CIA-2026-76831") {
+            // VERIFICATION STRICTE PAR HASH CRYPTOGRAPHIQUE
+            if (emergencyHash === EMERGENCY_ID_HASH) {
                 const newHash = await sha256(newPass);
                 localStorage.setItem('club_ia_admin_hash', newHash);
                 resetFailedAttempts();
@@ -1171,8 +1180,41 @@
             renderAdminMembersList();
         }
 
-        // 📢 ADMIN EVENT ANNOUNCEMENT MANAGER
+        // 📢 ADMIN EVENT ANNOUNCEMENT MANAGER & TOGGLE VISIBILITY
+        function toggleEventVisibility() {
+            let isVisible = localStorage.getItem('club_ia_event_visible') !== 'false';
+            isVisible = !isVisible;
+            localStorage.setItem('club_ia_event_visible', isVisible ? 'true' : 'false');
+            updateEventVisibilityUI();
+            showToast(isVisible ? "👁️ Annonce affichée sur le site." : "🙈 Annonce masquée du site.");
+        }
+
+        function updateEventVisibilityUI() {
+            const isVisible = localStorage.getItem('club_ia_event_visible') !== 'false';
+            const card = document.getElementById('event-card-container');
+            const btn = document.getElementById('evt-toggle-btn');
+
+            if (card) {
+                if (isVisible) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            }
+
+            if (btn) {
+                if (isVisible) {
+                    btn.className = "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40";
+                    btn.innerText = "👁️ Visible";
+                } else {
+                    btn.className = "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40";
+                    btn.innerText = "🙈 Masqué";
+                }
+            }
+        }
+
         function loadCustomEventData() {
+            updateEventVisibilityUI();
             try {
                 const customEvt = JSON.parse(localStorage.getItem('club_ia_custom_event') || 'null');
                 if (customEvt) {
@@ -1385,7 +1427,7 @@
         }
 
         // 🧠 DETERMINISTIC & INVARIANT ID GENERATOR (WORD ORDER & CASE INDEPENDENT)
-        // 🔒 RESERVED EXCLUSION FOR EMERGENCY ADMIN RESET ID "CIA-2026-76831"
+        // 🔒 GUARANTEES EXCLUSION OF EMERGENCY RESET ID (codeNum !== 76831)
         function generateDeterministicID(name, filiere, pin) {
             const normName = name.toLowerCase()
                                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -1410,7 +1452,7 @@
             let positiveHash = Math.abs(hash);
             let codeNum = (positiveHash % 89999) + 10000;
 
-            // 🛡️ GUARANTEE THAT CIA-2026-76831 IS NEVER ASSIGNED TO ANY REGULAR MEMBER
+            // 🛡️ GUARANTEE EXCLUSION OF EMERGENCY RESET ID NUMBER
             if (codeNum === 76831) {
                 codeNum = 76832;
             }
@@ -1472,16 +1514,7 @@
                 return;
             }
 
-            if (pin !== pinConfirm) {
-                showToast("❌ Les deux codes secrets ne correspondent pas!");
-                return;
-            }
-
-            if (!q1 || !q2 || !q3) {
-                showToast("⚠️ Veuillez répondre aux 3 questions de sécurité.");
-                return;
-            }
-
+            // CHECK WHITELIST FIRST
             const savedWhitelist = localStorage.getItem('club_ia_whitelist');
             if (savedWhitelist) {
                 const whitelist = JSON.parse(savedWhitelist);
@@ -1500,14 +1533,31 @@
             const memberKey = getNormalizedKey(nameInput);
             const membersDb = getMembersDB();
 
-            if (membersDb[memberKey] && membersDb[memberKey].pin !== pin) {
-                showToast("⚠️ Un profil existe déjà avec un PIN différent. Récupérez votre PIN via le bouton d'oubli.");
+            // ⚡ ILA KAN LE MEMBRE DÉJÀ TSJJEL -> ACCÈS DIRECT SANS RESSAISIR LES 3 QUESTIONS
+            if (membersDb[memberKey]) {
+                if (membersDb[memberKey].pin === pin) {
+                    displayGeneratedCard(membersDb[memberKey].name, membersDb[memberKey].filiere, membersDb[memberKey].id);
+                    return;
+                } else {
+                    showToast("❌ Code PIN incorrect ! Utilisez la récupération si vous l'avez oublié.");
+                    return;
+                }
+            }
+
+            // ⚡ ILA KAN MEMBRE AWAL MRA -> INSCRIPTION COMPLETE (CONFIRMATION PIN + 3 QUESTIONS)
+            if (pin !== pinConfirm) {
+                showToast("❌ Les deux codes secrets ne correspondent pas!");
+                return;
+            }
+
+            if (!q1 || !q2 || !q3) {
+                showToast("⚠️ Premiére inscription: Veuillez remplir les 3 questions de sécurité.");
                 return;
             }
 
             const uniqueID = generateDeterministicID(nameInput, filiere, pin);
 
-            // SAVE MEMBER PROFILE IN SECURE STORAGE
+            // SAVE NEW MEMBER PROFILE IN STORAGE
             membersDb[memberKey] = {
                 name: nameInput,
                 filiere: filiere,
@@ -1531,7 +1581,8 @@
             const qrTarget = document.getElementById('qrcode-target');
             qrTarget.innerHTML = ''; 
 
-            const qrData = `https://club-ia-esefb.github.io/?member=${encodeURIComponent(nameInput)}&id=${uniqueID}`;
+            // ⚡ QR CODE CONTIENT SEULEMENT LES INFORMATIONS PERSONNELLES SANS LE CODE SIRI
+            const qrData = `CLUB IA ESEF-B VIP PASS\nNom: ${nameInput.toUpperCase()}\nFiliere: ${filiere}\nID Membre: ${uniqueID}\nStatut: VERIFIED MEMBER`;
 
             new QRCode(qrTarget, {
                 text: qrData,
