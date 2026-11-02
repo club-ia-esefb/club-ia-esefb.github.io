@@ -48,9 +48,10 @@
             }
         }
     </script>
-    <!-- HTML2PDF & HTML2CANVAS Libraries -->
+    <!-- HTML2PDF, HTML2CANVAS & QRCode.js Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts (Space Grotesk & Inter) -->
@@ -464,52 +465,55 @@
                 </button>
             </div>
 
-            <!-- ID Card Output View (Optimized for Canvas & Mobile Render) -->
+            <!-- ID Card Output View (Exact Pixel Sizing for HTML2Canvas) -->
             <div id="id-card-view" class="hidden text-left space-y-4">
-                <!-- ID Card Visual Container -->
-                <div id="cyber-id-card" style="background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5);" class="p-4 rounded-2xl relative overflow-hidden shadow-2xl font-mono">
+                
+                <!-- Fixed Dimensions Card (380px x 230px) -->
+                <div id="cyber-id-card" style="width: 380px; height: 230px; background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5); box-sizing: border-box; position: relative; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;">
                     
                     <!-- Header -->
-                    <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3);" class="flex items-center justify-between pb-2 mb-3">
-                        <div class="flex items-center gap-2">
-                            <img src="logo.png" class="w-7 h-7 rounded-full bg-white p-0.5" crossorigin="anonymous" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
+                    <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3); padding-bottom: 6px; display: flex; items-center: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <img src="logo.png" style="width: 28px; height: 28px; border-radius: 50%; background: #ffffff; padding: 2px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
                             <div>
-                                <h4 class="text-[11px] font-bold text-white tracking-tight leading-none font-tech">CLUB IA ESEF-B</h4>
-                                <span class="text-[8px] text-cyan-400">OFFICIAL MEMBER VIP PASS</span>
+                                <h4 style="font-size: 12px; font-weight: bold; color: #ffffff; margin: 0; line-height: 1; font-family: 'Space Grotesk', sans-serif;">CLUB IA ESEF-B</h4>
+                                <span style="font-size: 8px; color: #00f2fe; font-family: monospace;">OFFICIAL MEMBER VIP PASS</span>
                             </div>
                         </div>
-                        <span style="background-color: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.4);" class="text-[9px] px-1.5 py-0.5 rounded font-bold">2026</span>
+                        <span style="background-color: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.4); font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-family: monospace;">2026</span>
                     </div>
 
-                    <!-- Main Info -->
-                    <div class="grid grid-cols-3 gap-2 items-center mb-3">
-                        <div class="col-span-2 space-y-1">
+                    <!-- Main Info Grid -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex: 1; padding: 6px 0;">
+                        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; font-family: monospace;">
                             <div>
-                                <span class="text-[8px] text-slate-400 block uppercase">NOM & PRÉNOM</span>
-                                <span id="card-out-name" class="text-xs md:text-sm font-bold text-white font-tech truncate block">AYMANE EL AMRANI</span>
+                                <span style="font-size: 8px; color: #94a3b8; display: block; text-transform: uppercase;">NOM & PRÉNOM</span>
+                                <span id="card-out-name" style="font-size: 11px; font-weight: bold; color: #ffffff; word-break: break-word; line-height: 1.2; display: block; font-family: 'Space Grotesk', sans-serif;">AYMANE EL AMRANI</span>
                             </div>
                             <div>
-                                <span class="text-[8px] text-slate-400 block uppercase">FILIÈRE / SPÉCIALITÉ</span>
-                                <span id="card-out-filiere" class="text-[10px] font-semibold text-cyan-300 block">LE-INFORMATIQUE</span>
+                                <span style="font-size: 8px; color: #94a3b8; display: block; text-transform: uppercase;">FILIÈRE / SPÉCIALITÉ</span>
+                                <span id="card-out-filiere" style="font-size: 10px; font-weight: 600; color: #67e8f9; display: block; word-break: break-word;">LE-INFORMATIQUE</span>
                             </div>
                             <div>
-                                <span class="text-[8px] text-slate-400 block uppercase">ID UNIQUE MEMBRE</span>
-                                <span id="card-out-id" class="text-[10px] font-extrabold text-purple-300 tracking-wider block">CIA-2026-84920</span>
+                                <span style="font-size: 8px; color: #94a3b8; display: block; text-transform: uppercase;">ID UNIQUE MEMBRE</span>
+                                <span id="card-out-id" style="font-size: 10px; font-weight: 800; color: #d8b4fe; letter-spacing: 0.5px; display: block;">CIA-2026-84920</span>
                             </div>
                         </div>
-                        <div class="col-span-1 flex flex-col items-center justify-center bg-white p-1 rounded-lg shadow">
-                            <img id="card-out-qr" src="" alt="QR ID" class="w-16 h-16 rounded" crossorigin="anonymous" />
+
+                        <!-- Perfect Square QR Container (75px x 75px) -->
+                        <div style="width: 75px; height: 75px; min-width: 75px; min-height: 75px; background: #ffffff; padding: 4px; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
+                            <div id="qrcode-target" style="width: 67px; height: 67px;"></div>
                         </div>
                     </div>
 
-                    <!-- Footer Bar -->
-                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1);" class="pt-2 flex items-center justify-between text-[8px] text-slate-400">
+                    <!-- Footer -->
+                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 4px; display: flex; align-items: center; justify-content: space-between; font-size: 8px; color: #94a3b8; font-family: monospace;">
                         <span>STATUS: <strong style="color: #34d399;">VERIFIED</strong></span>
                         <span>ESEF BERRECHID</span>
                     </div>
                 </div>
 
-                <!-- Action Buttons (PDF + PNG Image Option for iPhone) -->
+                <!-- Action Buttons -->
                 <div class="space-y-2">
                     <div class="flex gap-2">
                         <button onclick="downloadCardPDF()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
@@ -683,14 +687,25 @@
             // Generate Consistent Unique ID
             const uniqueID = generateDeterministicID(name + pin);
 
-            // Populate Card View
+            // Populate Text Info
             document.getElementById('card-out-name').innerText = name.toUpperCase();
             document.getElementById('card-out-filiere').innerText = filiere;
             document.getElementById('card-out-id').innerText = uniqueID;
 
-            // Generate Dynamic QR Code
-            const qrData = encodeURIComponent(`https://club-ia-esefb.github.io/?member=${encodeURIComponent(name)}&id=${uniqueID}`);
-            document.getElementById('card-out-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}&color=070f1e`;
+            // Generate Local Perfect 1:1 QR Code with QRCode.js
+            const qrTarget = document.getElementById('qrcode-target');
+            qrTarget.innerHTML = ''; // Clear previous QR
+
+            const qrData = `https://club-ia-esefb.github.io/?member=${encodeURIComponent(name)}&id=${uniqueID}`;
+
+            new QRCode(qrTarget, {
+                text: qrData,
+                width: 67,
+                height: 67,
+                colorDark: "#070f1e",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
 
             // Switch Views
             document.getElementById('id-form').classList.add('hidden');
@@ -704,50 +719,50 @@
             document.getElementById('id-form').classList.remove('hidden');
         }
 
-        // PDF Generation function with Safari/iPhone Fix
+        // PDF Generator with Fixed Dimensions
         function downloadCardPDF() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
             if (!cardElement) return;
 
-            showToast("⏳ Préparation du PDF...");
+            showToast("⏳ Génération du PDF...");
 
-            // Check if user is on iPhone/iPad (iOS)
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
             const opt = {
-                margin:       [5, 5, 5, 5],
+                margin:       0,
                 filename:     `Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { 
                     scale: 3, 
                     useCORS: true, 
                     allowTaint: true,
-                    backgroundColor: '#0f172a'
+                    backgroundColor: '#0f172a',
+                    width: 380,
+                    height: 230
                 },
-                jsPDF:        { unit: 'mm', format: [110, 75], orientation: 'landscape' }
+                jsPDF:        { unit: 'px', format: [380, 230], orientation: 'landscape' }
             };
 
             if (isIOS) {
-                // On Safari/iOS, open PDF directly in new tab for easy saving
                 html2pdf().set(opt).from(cardElement).toPdf().get('pdf').then(function(pdf) {
                     const blob = pdf.output('blob');
                     const blobUrl = URL.createObjectURL(blob);
                     window.open(blobUrl, '_blank');
                     showToast("📲 PDF ouvert dans un nouvel onglet !");
                 }).catch(err => {
-                    downloadCardImage(); // Fallback to Image on error
+                    downloadCardImage();
                 });
             } else {
                 html2pdf().set(opt).from(cardElement).save().then(() => {
                     showToast("📥 Carte PDF téléchargée !");
                 }).catch((err) => {
-                    downloadCardImage(); // Fallback to Image
+                    downloadCardImage();
                 });
             }
         }
 
-        // Dedicated High-Res Image Download Function (100% Reliable for iPhone & Android)
+        // High-Res Image Generator
         function downloadCardImage() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
@@ -759,16 +774,17 @@
                 scale: 3,
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: '#0f172a'
+                backgroundColor: '#0f172a',
+                width: 380,
+                height: 230
             }).then(canvas => {
                 const imageUrl = canvas.toDataURL("image/png");
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
                 if (isIOS) {
-                    // Open image in new window so iPhone users can long-press and save to Photos
                     const imgWindow = window.open("");
                     if (imgWindow) {
-                        imgWindow.document.write(`<body style="margin:0;background:#0b0f19;display:flex;flex-direction:column;align-items:center;justify-center:center;min-height:100vh;color:white;font-family:sans-serif;text-align:center;padding:20px;">
+                        imgWindow.document.write(`<body style="margin:0;background:#0b0f19;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;color:white;font-family:sans-serif;text-align:center;padding:20px;">
                             <h3 style="margin-bottom:10px;color:#00f2fe;">CLUB IA ESEF-B - Votre Carte VIP</h3>
                             <p style="font-size:12px;color:#aaa;margin-bottom:15px;">Appuyez longuement sur l'image ci-dessous puis choisissez <strong>"Enregistrer dans Photos"</strong> 📲</p>
                             <img src="${imageUrl}" style="max-width:90%;border-radius:16px;border:1px solid #00f2fe;box-shadow:0 10px 30px rgba(0,242,254,0.3);" />
