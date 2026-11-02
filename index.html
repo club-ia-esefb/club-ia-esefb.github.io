@@ -90,6 +90,9 @@
             background: #00f2fe;
             border-radius: 3px;
         }
+        .quote-transition {
+            transition: opacity 0.25s ease-in-out;
+        }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-tech-cyan selection:text-slate-950">
@@ -309,8 +312,32 @@
 
         </div>
 
+        <!-- 💬 DAILY AI INSIGHT & QUOTE CARD -->
+        <div class="w-full my-5 glass-panel rounded-2xl p-5 border border-tech-cyan/25 relative overflow-hidden group">
+            <div class="absolute -right-10 -bottom-10 w-28 h-28 bg-tech-cyan/10 rounded-full blur-xl pointer-events-none"></div>
+            
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] md:text-xs font-mono font-bold text-tech-cyan uppercase tracking-widest flex items-center gap-1.5">
+                    <i class="fa-solid fa-quote-left"></i> AI INSIGHT DU JOUR
+                </span>
+                <button onclick="getRandomQuote()" title="Changer de citation" class="text-[11px] md:text-xs text-slate-400 hover:text-tech-cyan transition-colors font-mono flex items-center gap-1.5 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-800 hover:border-tech-cyan/40 active:scale-95">
+                    <i class="fa-solid fa-rotate text-[10px]"></i>
+                    <span>Autre Citation</span>
+                </button>
+            </div>
+
+            <p id="quote-text" class="text-xs md:text-sm text-slate-200 italic leading-relaxed min-h-[44px] flex items-center quote-transition">
+                "Nous ne pouvons voir qu'à une courte distance devant nous, mais nous pouvons voir largement assez de choses qui doivent être faites."
+            </p>
+
+            <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] md:text-xs font-mono">
+                <span id="quote-author" class="text-tech-cyan font-semibold quote-transition">— Alan Turing</span>
+                <span id="quote-role" class="text-slate-500 text-[10px] quote-transition">Père de l'Informatique</span>
+            </div>
+        </div>
+
         <!-- 🤖 MINI CYBER TERMINAL -->
-        <div class="w-full my-6 rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-blue-500 to-purple-600 shadow-xl">
+        <div class="w-full mb-6 rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-blue-500 to-purple-600 shadow-xl">
             <div class="bg-slate-950/95 rounded-[15px] p-4 md:p-5 backdrop-blur-xl border border-tech-cyan/30 font-mono text-xs md:text-sm">
                 <!-- Terminal Bar Header -->
                 <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[10px] md:text-xs text-slate-400">
@@ -395,6 +422,77 @@
         const matrixChars = "01010101010101010101010101010101ABCDEF0123456789CLUBIA";
         let drops = [];
         let fontSize = 14;
+
+        // Daily AI Quotes Data
+        const aiQuotes = [
+            {
+                quote: "Nous ne pouvons voir qu'à une courte distance devant nous, mais nous pouvons voir largement assez de choses qui doivent être faites.",
+                author: "Alan Turing",
+                role: "Père de l'Informatique"
+            },
+            {
+                quote: "L'intelligence artificielle est la nouvelle électricité. Elle va transformer chaque industrie.",
+                author: "Andrew Ng",
+                role: "Fondateur de DeepLearning.AI"
+            },
+            {
+                quote: "L'apprentissage profond est le moteur qui alimente la révolution actuelle de l'intelligence artificielle.",
+                author: "Yann LeCun",
+                role: "Chief AI Scientist chez Meta"
+            },
+            {
+                quote: "L'IA ne remplacera pas les humains, mais les humains qui utilisent l'IA remplaceront ceux qui ne l'utilisent pas.",
+                author: "Karim Lakhani",
+                role: "Professeur à Harvard Business School"
+            },
+            {
+                quote: "L'IA sera le plus grand levier d'émancipation intellectuelle et de création de l'histoire humaine.",
+                author: "Sam Altman",
+                role: "CEO d'OpenAI"
+            },
+            {
+                quote: "Ce que nous voulons, c'est une machine capable d'apprendre de sa propre expérience.",
+                author: "Alan Turing",
+                role: "Pionnier de l'IA"
+            },
+            {
+                quote: "Le vrai risque avec l'IA n'est pas la malice, mais la compétence. Une IA ultra-compétente atteindra ses objectifs avec une précision totale.",
+                author: "Stephen Hawking",
+                role: "Physicien Théoricien"
+            }
+        ];
+
+        let currentQuoteIndex = 0;
+
+        function getRandomQuote() {
+            const quoteText = document.getElementById('quote-text');
+            const quoteAuthor = document.getElementById('quote-author');
+            const quoteRole = document.getElementById('quote-role');
+            if (!quoteText || !quoteAuthor || !quoteRole) return;
+
+            let nextIndex;
+            do {
+                nextIndex = Math.floor(Math.random() * aiQuotes.length);
+            } while (nextIndex === currentQuoteIndex && aiQuotes.length > 1);
+
+            currentQuoteIndex = nextIndex;
+            const item = aiQuotes[currentQuoteIndex];
+
+            // Smooth opacity transition
+            quoteText.style.opacity = '0';
+            quoteAuthor.style.opacity = '0';
+            quoteRole.style.opacity = '0';
+
+            setTimeout(() => {
+                quoteText.innerText = `"${item.quote}"`;
+                quoteAuthor.innerText = `— ${item.author}`;
+                quoteRole.innerText = item.role;
+
+                quoteText.style.opacity = '1';
+                quoteAuthor.style.opacity = '1';
+                quoteRole.style.opacity = '1';
+            }, 200);
+        }
 
         function initCanvas() {
             const dpr = window.devicePixelRatio || 1;
