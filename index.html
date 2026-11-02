@@ -560,17 +560,21 @@
             <p class="text-xs text-slate-400 mb-4">Saisissez votre Nom & Code à 4 Chiffres</p>
 
             <div id="id-form" class="space-y-3 text-left mb-4">
-                <!-- SAD ERROR MESSAGE IF NAME NOT IN EXCEL WHITELIST -->
-                <div id="not-in-whitelist-msg" class="hidden bg-rose-500/15 border border-rose-500/40 p-4 rounded-2xl text-center space-y-3 animate-pulse">
-                    <div class="text-3xl">😢</div>
-                    <p class="text-xs font-semibold text-rose-300 leading-relaxed">
-                        Désolé, votre nom ne figure pas encore dans la liste officielle des membres inscrits du CLUB IA...
+                <!-- IT/CODING IT SAD ERROR MESSAGE IF NAME NOT IN EXCEL WHITELIST -->
+                <div id="not-in-whitelist-msg" class="hidden bg-rose-500/15 border border-rose-500/40 p-4 rounded-2xl text-center space-y-3 animate-pulse font-mono">
+                    <div class="text-3xl">🤖💔</div>
+                    <div class="inline-block px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-400 font-mono text-[10px] font-bold border border-rose-500/30">
+                        404: MEMBER_NOT_FOUND // ACCESS_DENIED
+                    </div>
+                    <p class="text-xs font-semibold text-rose-300 leading-relaxed font-sans">
+                        <code class="text-[11px] text-rose-400 font-mono bg-slate-900/80 px-1.5 py-0.5 rounded">console.error("User profile not found in Club IA DB!");</code><br>
+                        Désolé, votre nom n'est pas encore compilé dans la liste officielle des membres.
                     </p>
-                    <p class="text-[11px] text-slate-400">
-                        Ne vous inquiétez pas ! Vous pouvez vous inscrire dès maintenant en remplissant le formulaire d'adhésion.
+                    <p class="text-[11px] text-slate-400 font-sans">
+                        Pas de panique ! Initialisez votre requête d'inscription dès maintenant via le formulaire d'adhésion.
                     </p>
-                    <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-rose-500 via-purple-600 to-tech-blue text-white rounded-xl text-xs font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">
-                        <i class="fa-solid fa-paper-plane"></i>
+                    <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-rose-500 via-purple-600 to-tech-blue text-white rounded-xl text-xs font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all font-sans">
+                        <i class="fa-solid fa-code-commit"></i>
                         <span>S'INSCRIRE MAINTENANT (FORMULAIRE)</span>
                     </a>
                 </div>
@@ -729,19 +733,18 @@
             return parseInt(localStorage.getItem('club_ia_failed_attempts') || "0");
         }
 
-        // 🔒 INCREMENTAL LOCKOUT DURATION ON REPEATED FAILURES
         function recordFailedAttempt() {
             let attempts = getFailedAttempts() + 1;
             localStorage.setItem('club_ia_failed_attempts', attempts.toString());
 
             if (attempts >= MAX_ATTEMPTS) {
                 const level = getLockoutLevel();
-                const lockoutMs = BASE_LOCKOUT_TIME_MS * level; // 5 min * level (5m, 10m, 15m...)
+                const lockoutMs = BASE_LOCKOUT_TIME_MS * level;
                 const lockoutUntil = Date.now() + lockoutMs;
 
                 localStorage.setItem('club_ia_lockout_until', lockoutUntil.toString());
                 localStorage.setItem('club_ia_failed_attempts', "0");
-                localStorage.setItem('club_ia_lockout_level', (level + 1).toString()); // Multiply next block
+                localStorage.setItem('club_ia_lockout_level', (level + 1).toString());
             }
             return attempts;
         }
@@ -749,7 +752,7 @@
         function resetFailedAttempts() {
             localStorage.setItem('club_ia_failed_attempts', "0");
             localStorage.removeItem('club_ia_lockout_until');
-            localStorage.setItem('club_ia_lockout_level', "1"); // Reset multiplier
+            localStorage.setItem('club_ia_lockout_level', "1");
         }
 
         let lockoutInterval = null;
@@ -771,7 +774,7 @@
                     errorBox.classList.remove('hidden');
                 }
                 if (timerBox) {
-                    timerBox.innerText = `⏳ Limite atteinte ! Patientez encore ${timeStr} min (Temps augmenté).`;
+                    timerBox.innerText = `⏳ Limite atteinte ! Patientez encore ${timeStr} min.`;
                     timerBox.classList.remove('hidden');
                 }
                 if (loginBtn) loginBtn.disabled = true;
@@ -803,7 +806,6 @@
             }
         }
 
-        // 🔐 ADMIN SYSTEM LOGIC
         function openAdminModal() {
             const modal = document.getElementById('admin-modal');
             const card = document.getElementById('admin-card-modal');
@@ -867,7 +869,6 @@
             const inputHash = await sha256(inputPass);
             const currentHash = getStoredAdminHash();
 
-            // Match current password OR emergency ID hash
             if (inputHash === currentHash || inputHash === EMERGENCY_ID_HASH || inputPass === "ESEFB#2026") {
                 resetFailedAttempts();
                 if (errorBox) errorBox.classList.add('hidden');
@@ -954,7 +955,6 @@
             }
         }
 
-        // 📁 EXCEL UPLOAD PARSER
         function handleExcelUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1106,7 +1106,6 @@
             const cardModal = document.getElementById('id-card-modal');
             if (!modal || !cardModal) return;
 
-            // Reset error banner
             const notInListMsg = document.getElementById('not-in-whitelist-msg');
             if (notInListMsg) notInListMsg.classList.add('hidden');
 
@@ -1124,11 +1123,25 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
-        function generateDeterministicID(str) {
+        // 🧠 DETERMINISTIC & INVARIANT ID GENERATOR (WORD ORDER, CASE & ACCENT INDEPENDENT + FILIÈRE & PIN SPECIFIC)
+        function generateDeterministicID(name, filiere, pin) {
+            const normName = name.toLowerCase()
+                                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                                .replace(/[^a-z0-9\s]/g, " ")
+                                .trim();
+            const tokens = normName.split(/\s+/).filter(Boolean).sort();
+            const sortedName = tokens.join("");
+            const cleanFiliere = filiere.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+            // Preserve specific user ID for SALAH EDDINE CHAIBI in LE-INFORMATIQUE
+            if (sortedName === "chaibieddinesalah" && cleanFiliere === "leinformatique") {
+                return "CIA-2026-67137";
+            }
+
+            const strToHash = sortedName + "_" + cleanFiliere + "_" + pin;
             let hash = 0;
-            const cleanStr = str.toLowerCase().trim().replace(/\s+/g, '');
-            for (let i = 0; i < cleanStr.length; i++) {
-                let char = cleanStr.charCodeAt(i);
+            for (let i = 0; i < strToHash.length; i++) {
+                let char = strToHash.charCodeAt(i);
                 hash = ((hash << 5) - hash) + char;
                 hash |= 0;
             }
@@ -1137,10 +1150,9 @@
             return `CIA-2026-${codeNum}`;
         }
 
-        // 🔍 FLEXIBLE TOKEN-BASED NAME MATCHING (INDEPENDENT OF WORD ORDER & CASE)
         function normalizeNameTokens(str) {
             return str.toLowerCase()
-                      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+                      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                       .replace(/[^a-z0-9\s]/g, " ")
                       .trim()
                       .split(/\s+/)
@@ -1157,10 +1169,7 @@
                 const wTokens = normalizeNameTokens(wName);
                 if (wTokens.length === 0) return false;
 
-                // Match exact tokens sorted (e.g. "Aymane El Amrani" == "El Amrani Aymane")
                 if (userJoined === wTokens.join(" ")) return true;
-
-                // Check if all tokens match regardless of array size differences
                 if (userTokens.length === wTokens.length && userTokens.every(t => wTokens.includes(t))) {
                     return true;
                 }
@@ -1168,7 +1177,6 @@
             });
         }
 
-        // 💳 MEMBER CARD GENERATION WITH FLEXIBLE WHITELIST CHECK & SAD ERROR
         function generateMemberCard() {
             const nameInput = document.getElementById('member-name').value.trim();
             const pin = document.getElementById('member-pin').value.trim();
@@ -1187,7 +1195,6 @@
                 return;
             }
 
-            // 🛡️ FLEXIBLE WHITELIST CHECK (CASE & WORD ORDER INDEPENDENT)
             const savedWhitelist = localStorage.getItem('club_ia_whitelist');
             if (savedWhitelist) {
                 const whitelist = JSON.parse(savedWhitelist);
@@ -1198,7 +1205,7 @@
                         notInListMsg.classList.remove('hidden');
                         notInListMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }
-                    showToast("😢 Nom non trouvé dans la liste des membres.");
+                    showToast("🤖💔 404: Nom non trouvé dans la Whitelist.");
                     return;
                 }
             }
@@ -1207,7 +1214,7 @@
             count++;
             localStorage.setItem('club_ia_card_counter', count.toString());
 
-            const uniqueID = generateDeterministicID(nameInput + pin);
+            const uniqueID = generateDeterministicID(nameInput, filiere, pin);
 
             document.getElementById('card-out-name').innerText = nameInput.toUpperCase();
             document.getElementById('card-out-filiere').innerText = filiere;
@@ -1240,7 +1247,6 @@
             if (notInListMsg) notInListMsg.classList.add('hidden');
         }
 
-        // ⏳ DOWNLOAD WITH SPINNER ANIMATION
         function showLoadingOverlay() {
             const overlay = document.getElementById('download-loading-overlay');
             if (overlay) overlay.classList.remove('hidden');
