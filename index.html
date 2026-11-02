@@ -115,6 +115,14 @@
         <span id="toast-message" class="text-xs md:text-sm font-semibold tracking-wide">Lien copié dans le presse-papier !</span>
     </div>
 
+    <!-- Downloading / Processing Overlay Animation -->
+    <div id="download-loading-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300">
+        <div class="glass-panel p-6 rounded-3xl border border-tech-cyan flex flex-col items-center gap-4 shadow-2xl">
+            <div class="w-12 h-12 border-4 border-tech-cyan border-t-transparent rounded-full animate-spin"></div>
+            <span class="text-sm font-mono text-cyan-300 font-bold tracking-wider">Génération & Téléchargement en cours...</span>
+        </div>
+    </div>
+
     <!-- Main Responsive Container -->
     <main class="relative z-10 w-full max-w-md md:max-w-xl mx-auto px-4 md:px-6 py-6 md:py-10 flex flex-col items-center min-h-screen">
 
@@ -513,7 +521,7 @@
                         📁 Importer la Liste Officielle Excel (.xlsx, .csv)
                     </label>
                     <p class="text-[10px] text-slate-400 leading-normal">
-                        Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID (Majuscule/Minuscule gérés automatiquement).
+                        Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID (Ordre des mots, majuscule/minuscule gérés automatiquement).
                     </p>
                     
                     <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelUpload(event)" class="hidden">
@@ -552,6 +560,21 @@
             <p class="text-xs text-slate-400 mb-4">Saisissez votre Nom & Code à 4 Chiffres</p>
 
             <div id="id-form" class="space-y-3 text-left mb-4">
+                <!-- SAD ERROR MESSAGE IF NAME NOT IN EXCEL WHITELIST -->
+                <div id="not-in-whitelist-msg" class="hidden bg-rose-500/15 border border-rose-500/40 p-4 rounded-2xl text-center space-y-3 animate-pulse">
+                    <div class="text-3xl">😢</div>
+                    <p class="text-xs font-semibold text-rose-300 leading-relaxed">
+                        Désolé, votre nom ne figure pas encore dans la liste officielle des membres inscrits du CLUB IA...
+                    </p>
+                    <p class="text-[11px] text-slate-400">
+                        Ne vous inquiétez pas ! Vous pouvez vous inscrire dès maintenant en remplissant le formulaire d'adhésion.
+                    </p>
+                    <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-rose-500 via-purple-600 to-tech-blue text-white rounded-xl text-xs font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>S'INSCRIRE MAINTENANT (FORMULAIRE)</span>
+                    </a>
+                </div>
+
                 <div>
                     <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Nom et Prénom *</label>
                     <input type="text" id="member-name" placeholder="ex: Aymane El Amrani" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono">
@@ -633,11 +656,11 @@
 
                 <div class="space-y-2">
                     <div class="flex gap-2">
-                        <button onclick="downloadCardPDF()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
+                        <button id="btn-download-pdf" onclick="downloadCardPDF()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
                             <i class="fa-solid fa-file-pdf"></i>
                             <span>Télécharger PDF</span>
                         </button>
-                        <button onclick="downloadCardImage()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
+                        <button id="btn-download-img" onclick="downloadCardImage()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
                             <i class="fa-solid fa-image"></i>
                             <span>Image (iPhone)</span>
                         </button>
@@ -683,10 +706,14 @@
         const EMERGENCY_ID_HASH = "749bb8068e614de57b1e377b0060f9dad6724cbb1cc852ca899e85e72f5c3754"; // Hash of CIA-2026-76831
 
         const MAX_ATTEMPTS = 3;
-        const LOCKOUT_TIME_MS = 5 * 60 * 1000; // 5 minutes lockout
+        const BASE_LOCKOUT_TIME_MS = 5 * 60 * 1000; // 5 minutes base lockout
 
         function getStoredAdminHash() {
             return localStorage.getItem('club_ia_admin_hash') || DEFAULT_ADMIN_HASH;
+        }
+
+        function getLockoutLevel() {
+            return parseInt(localStorage.getItem('club_ia_lockout_level') || "1");
         }
 
         function getLockoutStatus() {
@@ -702,13 +729,19 @@
             return parseInt(localStorage.getItem('club_ia_failed_attempts') || "0");
         }
 
+        // 🔒 INCREMENTAL LOCKOUT DURATION ON REPEATED FAILURES
         function recordFailedAttempt() {
             let attempts = getFailedAttempts() + 1;
             localStorage.setItem('club_ia_failed_attempts', attempts.toString());
+
             if (attempts >= MAX_ATTEMPTS) {
-                const lockoutUntil = Date.now() + LOCKOUT_TIME_MS;
+                const level = getLockoutLevel();
+                const lockoutMs = BASE_LOCKOUT_TIME_MS * level; // 5 min * level (5m, 10m, 15m...)
+                const lockoutUntil = Date.now() + lockoutMs;
+
                 localStorage.setItem('club_ia_lockout_until', lockoutUntil.toString());
                 localStorage.setItem('club_ia_failed_attempts', "0");
+                localStorage.setItem('club_ia_lockout_level', (level + 1).toString()); // Multiply next block
             }
             return attempts;
         }
@@ -716,6 +749,7 @@
         function resetFailedAttempts() {
             localStorage.setItem('club_ia_failed_attempts', "0");
             localStorage.removeItem('club_ia_lockout_until');
+            localStorage.setItem('club_ia_lockout_level', "1"); // Reset multiplier
         }
 
         let lockoutInterval = null;
@@ -733,11 +767,11 @@
                 const timeStr = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 
                 if (errorBox) {
-                    errorBox.innerText = "❌ Accès temporairement bloqué suite à 3 tentatives échouées !";
+                    errorBox.innerText = `❌ Accès bloqué suite à ${MAX_ATTEMPTS} tentatives échouées !`;
                     errorBox.classList.remove('hidden');
                 }
                 if (timerBox) {
-                    timerBox.innerText = `⏳ Bloqué ! Veuillez patienter encore ${timeStr} min avant de réessayer.`;
+                    timerBox.innerText = `⏳ Limite atteinte ! Patientez encore ${timeStr} min (Temps augmenté).`;
                     timerBox.classList.remove('hidden');
                 }
                 if (loginBtn) loginBtn.disabled = true;
@@ -753,7 +787,7 @@
                         } else {
                             const m = Math.floor(rem / 60);
                             const s = rem % 60;
-                            if (timerBox) timerBox.innerText = `⏳ Bloqué ! Veuillez patienter encore ${m}:${s < 10 ? '0' : ''}${s} min avant de réessayer.`;
+                            if (timerBox) timerBox.innerText = `⏳ Limite atteinte ! Patientez encore ${m}:${s < 10 ? '0' : ''}${s} min.`;
                         }
                     }, 1000);
                 }
@@ -946,7 +980,7 @@
                         });
                     });
 
-                    const normalizedNames = [...new Set(extractedNames.map(n => n.toLowerCase().trim()))];
+                    const normalizedNames = [...new Set(extractedNames)];
 
                     if (normalizedNames.length === 0) {
                         showToast("⚠️ Aucun nom valide trouvé dans le fichier.");
@@ -1071,6 +1105,11 @@
             const modal = document.getElementById('id-modal');
             const cardModal = document.getElementById('id-card-modal');
             if (!modal || !cardModal) return;
+
+            // Reset error banner
+            const notInListMsg = document.getElementById('not-in-whitelist-msg');
+            if (notInListMsg) notInListMsg.classList.add('hidden');
+
             modal.classList.remove('opacity-0', 'pointer-events-none');
             cardModal.classList.remove('scale-90');
             cardModal.classList.add('scale-100');
@@ -1098,11 +1137,45 @@
             return `CIA-2026-${codeNum}`;
         }
 
-        // 💳 MEMBER CARD GENERATION WITH SECURE WHITELIST CHECK
+        // 🔍 FLEXIBLE TOKEN-BASED NAME MATCHING (INDEPENDENT OF WORD ORDER & CASE)
+        function normalizeNameTokens(str) {
+            return str.toLowerCase()
+                      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+                      .replace(/[^a-z0-9\s]/g, " ")
+                      .trim()
+                      .split(/\s+/)
+                      .filter(Boolean)
+                      .sort();
+        }
+
+        function isNameInWhitelist(userInput, whitelistArray) {
+            const userTokens = normalizeNameTokens(userInput);
+            if (userTokens.length === 0) return false;
+            const userJoined = userTokens.join(" ");
+
+            return whitelistArray.some(wName => {
+                const wTokens = normalizeNameTokens(wName);
+                if (wTokens.length === 0) return false;
+
+                // Match exact tokens sorted (e.g. "Aymane El Amrani" == "El Amrani Aymane")
+                if (userJoined === wTokens.join(" ")) return true;
+
+                // Check if all tokens match regardless of array size differences
+                if (userTokens.length === wTokens.length && userTokens.every(t => wTokens.includes(t))) {
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        // 💳 MEMBER CARD GENERATION WITH FLEXIBLE WHITELIST CHECK & SAD ERROR
         function generateMemberCard() {
             const nameInput = document.getElementById('member-name').value.trim();
             const pin = document.getElementById('member-pin').value.trim();
             const filiere = document.getElementById('member-filiere').value;
+            const notInListMsg = document.getElementById('not-in-whitelist-msg');
+
+            if (notInListMsg) notInListMsg.classList.add('hidden');
 
             if (!nameInput) {
                 showToast("⚠️ Veuillez entrer votre Nom & Prénom.");
@@ -1114,16 +1187,18 @@
                 return;
             }
 
-            // 🛡️ WHITELIST CHECK (CASE-INSENSITIVE)
+            // 🛡️ FLEXIBLE WHITELIST CHECK (CASE & WORD ORDER INDEPENDENT)
             const savedWhitelist = localStorage.getItem('club_ia_whitelist');
             if (savedWhitelist) {
                 const whitelist = JSON.parse(savedWhitelist);
-                const normalizedUser = nameInput.toLowerCase().trim().replace(/\s+/g, ' ');
-
-                const isAllowed = whitelist.some(item => item.toLowerCase().trim() === normalizedUser);
+                const isAllowed = isNameInWhitelist(nameInput, whitelist);
 
                 if (!isAllowed) {
-                    showToast("❌ Votre nom ne figure pas sur la liste officielle des membres!");
+                    if (notInListMsg) {
+                        notInListMsg.classList.remove('hidden');
+                        notInListMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    showToast("😢 Nom non trouvé dans la liste des membres.");
                     return;
                 }
             }
@@ -1161,89 +1236,132 @@
         function resetIDForm() {
             document.getElementById('id-card-view').classList.add('hidden');
             document.getElementById('id-form').classList.remove('hidden');
+            const notInListMsg = document.getElementById('not-in-whitelist-msg');
+            if (notInListMsg) notInListMsg.classList.add('hidden');
+        }
+
+        // ⏳ DOWNLOAD WITH SPINNER ANIMATION
+        function showLoadingOverlay() {
+            const overlay = document.getElementById('download-loading-overlay');
+            if (overlay) overlay.classList.remove('hidden');
+        }
+
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('download-loading-overlay');
+            if (overlay) overlay.classList.add('hidden');
         }
 
         function downloadCardPDF() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
+            const btn = document.getElementById('btn-download-pdf');
             if (!cardElement) return;
 
-            showToast("⏳ Génération du PDF en cours...");
+            showLoadingOverlay();
+            let originalHTML = '';
+            if (btn) {
+                originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i><span>PDF...</span>';
+                btn.disabled = true;
+            }
 
-            html2canvas(cardElement, {
-                scale: 3,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#0f172a',
-                width: 380,
-                height: 230
-            }).then(canvas => {
-                const imgData = canvas.toDataURL("image/png");
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF({
-                    orientation: 'landscape',
-                    unit: 'px',
-                    format: [380, 230]
+            setTimeout(() => {
+                html2canvas(cardElement, {
+                    scale: 3,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#0f172a',
+                    width: 380,
+                    height: 230
+                }).then(canvas => {
+                    const imgData = canvas.toDataURL("image/png");
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [380, 230]
+                    });
+
+                    pdf.addImage(imgData, 'PNG', 0, 0, 380, 230);
+                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+                    if (isIOS) {
+                        const blob = pdf.output('blob');
+                        const blobUrl = URL.createObjectURL(blob);
+                        window.open(blobUrl, '_blank');
+                        showToast("📲 PDF ouvert dans un nouvel onglet !");
+                    } else {
+                        pdf.save(`Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.pdf`);
+                        showToast("📥 Carte PDF téléchargée !");
+                    }
+                }).catch(err => {
+                    console.error(err);
+                    showToast("❌ Erreur lors de la création du PDF.");
+                }).finally(() => {
+                    hideLoadingOverlay();
+                    if (btn) {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }
                 });
-
-                pdf.addImage(imgData, 'PNG', 0, 0, 380, 230);
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-                if (isIOS) {
-                    const blob = pdf.output('blob');
-                    const blobUrl = URL.createObjectURL(blob);
-                    window.open(blobUrl, '_blank');
-                    showToast("📲 PDF ouvert dans un nouvel onglet !");
-                } else {
-                    pdf.save(`Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.pdf`);
-                    showToast("📥 Carte PDF téléchargée !");
-                }
-            }).catch(err => {
-                console.error(err);
-                showToast("❌ Erreur lors de la création du PDF.");
-            });
+            }, 300);
         }
 
         function downloadCardImage() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
+            const btn = document.getElementById('btn-download-img');
             if (!cardElement) return;
 
-            showToast("⏳ Génération de l'image...");
+            showLoadingOverlay();
+            let originalHTML = '';
+            if (btn) {
+                originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i><span>Image...</span>';
+                btn.disabled = true;
+            }
 
-            html2canvas(cardElement, {
-                scale: 3,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#0f172a',
-                width: 380,
-                height: 230
-            }).then(canvas => {
-                const imageUrl = canvas.toDataURL("image/png");
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            setTimeout(() => {
+                html2canvas(cardElement, {
+                    scale: 3,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#0f172a',
+                    width: 380,
+                    height: 230
+                }).then(canvas => {
+                    const imageUrl = canvas.toDataURL("image/png");
+                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-                if (isIOS) {
-                    const imgWindow = window.open("");
-                    if (imgWindow) {
-                        imgWindow.document.write(`<body style="margin:0;background:#0b0f19;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;color:white;font-family:sans-serif;text-align:center;padding:20px;">
-                            <h3 style="margin-bottom:10px;color:#00f2fe;">CLUB IA ESEF-B - Votre Carte VIP</h3>
-                            <p style="font-size:12px;color:#aaa;margin-bottom:15px;">Appuyez longuement sur l'image ci-dessous puis choisissez <strong>"Enregistrer dans Photos"</strong> 📲</p>
-                            <img src="${imageUrl}" style="max-width:90%;border-radius:16px;border:1px solid #00f2fe;box-shadow:0 10px 30px rgba(0,242,254,0.3);" />
-                        </body>`);
-                        showToast("📲 Image prête ! Maintenez l'image pour enregistrer.");
+                    if (isIOS) {
+                        const imgWindow = window.open("");
+                        if (imgWindow) {
+                            imgWindow.document.write(`<body style="margin:0;background:#0b0f19;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;color:white;font-family:sans-serif;text-align:center;padding:20px;">
+                                <h3 style="margin-bottom:10px;color:#00f2fe;">CLUB IA ESEF-B - Votre Carte VIP</h3>
+                                <p style="font-size:12px;color:#aaa;margin-bottom:15px;">Appuyez longuement sur l'image ci-dessous puis choisissez <strong>"Enregistrer dans Photos"</strong> 📲</p>
+                                <img src="${imageUrl}" style="max-width:90%;border-radius:16px;border:1px solid #00f2fe;box-shadow:0 10px 30px rgba(0,242,254,0.3);" />
+                            </body>`);
+                            showToast("📲 Image prête ! Maintenez l'image pour enregistrer.");
+                        } else {
+                            window.location.href = imageUrl;
+                        }
                     } else {
-                        window.location.href = imageUrl;
+                        const link = document.createElement('a');
+                        link.download = `Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.png`;
+                        link.href = imageUrl;
+                        link.click();
+                        showToast("📥 Carte PNG téléchargée avec succès !");
                     }
-                } else {
-                    const link = document.createElement('a');
-                    link.download = `Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.png`;
-                    link.href = imageUrl;
-                    link.click();
-                    showToast("📥 Carte PNG téléchargée avec succès !");
-                }
-            }).catch(err => {
-                showToast("❌ Erreur lors de la création de l'image.");
-            });
+                }).catch(err => {
+                    showToast("❌ Erreur lors de la création de l'image.");
+                }).finally(() => {
+                    hideLoadingOverlay();
+                    if (btn) {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                    }
+                });
+            }, 300);
         }
 
         function initCanvas() {
@@ -1491,7 +1609,7 @@
             'ls': '📁 Directories:\n ├── 📄 README.md\n ├── 📂 Projects/\n ├── 📂 Workshops/\n ├── 📄 answer.txt\n └── 💳 VIP_Pass_2026.pdf',
             'cd': (args) => `Directory changed to /club_ia/${args[0] || 'root'}`,
             'theme': '🎨 Available themes: Dark Cyber, Matrix Green, Quantum Blue.',
-            'banner': "  _____ _     _   _ ____    _____    _    \n / ____| |   | | | |  _ \\  |_   _|  / \\   \n| |    | |   | | | | |_) |   | |   / _ \\  \n| |    | |   | | | |  _ <    | |  / ___ \\ \n| |____| |___| |_| | |_) |  _| |_/ /   \\ \\\n \\_____|______\\___/|____/  |_____/_/     \\_\\\n        CLUB IA ESEF-B • BERRECHID",
+            'banner': "  _____ _     _   _ ____    _____    _    \n / ____| |   | | | |  _ \\  |_   _|  / \\   \n| |    | |   | | | |  _ <    | |  / ___ \\ \n| |____| |___| |_| | |_) |  _| |_/ /   \\ \\\n \\_____|______\\___/|____/  |_____/_/     \\_\\\n        CLUB IA ESEF-B • BERRECHID",
             'joke': '😄 Why do Java developers wear glasses? Because they don\'t C# !',
             'game': '🎮 Secret Code: Tap 5 times on the CLUB IA Logo to unlock Hacker Mode !',
             'beep': () => { playCyberBeep(); return '🔊 *BEEP* Cyber Sound Activated!'; },
@@ -1520,7 +1638,7 @@
 
         function processTerminalQuery(query) {
             const output = document.getElementById('terminal-output');
-            
+
             const userLine = document.createElement('p');
             userLine.className = 'text-slate-400 font-mono';
             userLine.innerText = '> ' + query;
@@ -1639,7 +1757,7 @@
             const toastMsg = document.getElementById('toast-message');
             if (!toast || !toastMsg) return;
             toastMsg.innerText = message;
-            
+
             toast.classList.remove('-translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
 
