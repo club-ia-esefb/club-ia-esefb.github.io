@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLUB IA ESEF-B | Official Hub</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
-    <!-- Open Graph / Social Media Preview -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="CLUB IA ESEF-B | Official Hub 🚀">
     <meta property="og:description" content="Rejoignez la communauté d'Intelligence Artificielle & Tech Innovation à l'ESEF Berrechid !">
     <meta property="og:image" content="https://club-ia-esefb.github.io/logo.png">
     <meta property="og:url" content="https://club-ia-esefb.github.io/">
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -48,14 +45,11 @@
             }
         }
     </script>
-    <!-- jsPDF, HTML2CANVAS, QRCode.js & SheetJS (Excel Parser) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts (Space Grotesk & Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -98,8 +92,6 @@
         .quote-transition {
             transition: opacity 0.25s ease-in-out;
         }
-
-        /* ⚡ CYBER SCAN ANIMATION FOR CARD GENERATION */
         @keyframes cyberScanLine {
             0% { top: 0%; opacity: 0.8; }
             50% { opacity: 1; }
@@ -107,7 +99,7 @@
         }
         @keyframes cardGlowPulse {
             0% { box-shadow: 0 0 0px rgba(0, 242, 254, 0); transform: scale(0.97); }
-            50% { box-shadow: 0 0 35px rgba(0, 242, 254, 0.7); transform: scale(1.02); }
+            50% { shadow: 0 0 35px rgba(0, 242, 254, 0.7); transform: scale(1.02); }
             100% { box-shadow: 0 0 12px rgba(0, 242, 254, 0.25); transform: scale(1); }
         }
         .cyber-scan-glow {
@@ -130,20 +122,16 @@
 </head>
 <body class="text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-tech-cyan selection:text-slate-950">
 
-    <!-- Canvas Interactive Background (Neural & Matrix Rain) -->
     <canvas id="neuralCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
 
-    <!-- Ambient Glowing Orbs -->
     <div class="fixed -top-20 left-1/2 -translate-x-1/2 w-[350px] md:w-[650px] h-[350px] md:h-[650px] bg-cyan-500/15 pointer-events-none z-0 rounded-full blur-[100px] md:blur-[140px]"></div>
     <div class="fixed bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 pointer-events-none z-0 rounded-full blur-[90px] md:blur-[120px]"></div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 border border-tech-cyan text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none backdrop-blur-md">
         <i id="toast-icon" class="fa-solid fa-circle-check text-tech-cyan text-lg"></i>
         <span id="toast-message" class="text-xs md:text-sm font-semibold tracking-wide">Lien copié dans le presse-papier !</span>
     </div>
 
-    <!-- Downloading / Processing Overlay Animation -->
     <div id="download-loading-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300">
         <div class="glass-panel p-6 rounded-3xl border border-tech-cyan flex flex-col items-center gap-4 shadow-2xl">
             <div class="w-12 h-12 border-4 border-tech-cyan border-t-transparent rounded-full animate-spin"></div>
@@ -151,10 +139,8 @@
         </div>
     </div>
 
-    <!-- Main Responsive Container -->
     <main class="relative z-10 w-full max-w-md md:max-w-xl mx-auto px-4 md:px-6 py-6 md:py-10 flex flex-col items-center min-h-screen">
 
-        <!-- Top Header Navigation -->
         <div class="w-full flex justify-between items-center mb-6 md:mb-8">
             <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-tech-cyan/30 text-[11px] md:text-xs font-mono text-cyan-300 shadow-lg">
                 <span class="w-2 h-2 rounded-full bg-tech-cyan animate-ping"></span>
@@ -162,26 +148,21 @@
             </div>
 
             <div class="flex items-center gap-2.5">
-                <!-- 🔐 ADMIN BUREAU SECURE BUTTON -->
                 <button onclick="openAdminModal()" title="Espace Bureau (Admin)" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-400 transition-all active:scale-95">
                     <i class="fa-solid fa-user-shield text-sm md:text-base"></i>
                 </button>
-                <!-- Matrix Mode Toggle Button -->
                 <button onclick="toggleMatrixMode()" id="matrix-btn" title="Mode Cyber Matrix" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-400 transition-all active:scale-95">
                     <i class="fa-solid fa-terminal text-sm md:text-base"></i>
                 </button>
-                <!-- QR Code Button -->
                 <button onclick="openQRModal()" title="Show QR Code" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-tech-cyan hover:border-tech-cyan transition-all active:scale-95">
                     <i class="fa-solid fa-qrcode text-sm md:text-base"></i>
                 </button>
-                <!-- Share Button -->
                 <button onclick="copyPageLink()" title="Share Link" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-tech-cyan hover:border-tech-cyan transition-all active:scale-95">
                     <i class="fa-solid fa-share-nodes text-sm md:text-base"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Profile Section -->
         <div class="text-center flex flex-col items-center mb-6 md:mb-8 w-full">
             <div onclick="handleLogoClick()" title="Tap 5x for Secret Easter Egg 🤫" class="relative mb-5 group cursor-pointer active:scale-95 transition-transform">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
@@ -202,7 +183,6 @@
             </p>
         </div>
 
-        <!-- DYNAMIC EVENT ANNOUNCEMENT CARD (EDITABLE & TOGGLEABLE BY ADMIN) -->
         <div class="w-full mb-6 md:mb-8 relative rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-purple-500 to-tech-blue shadow-2xl group" id="event-card-container">
             <div class="bg-slate-950/95 rounded-[15px] p-5 md:p-6 backdrop-blur-xl relative overflow-hidden border border-tech-cyan/20">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-tech-cyan/20 rounded-full blur-2xl pointer-events-none"></div>
@@ -245,10 +225,8 @@
             </div>
         </div>
 
-        <!-- PRIMARY ACTIONS & LINKS -->
         <div class="w-full space-y-3.5 md:space-y-4">
 
-            <!-- 0. REJOINDRE LE CLUB -->
             <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
                 <span class="absolute inset-0 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
                 <div class="relative flex items-center justify-between gap-4 rounded-2xl bg-slate-950/90 backdrop-blur-xl px-5 py-4 transition-all duration-300 group-hover:bg-slate-900/95 border border-tech-cyan/30">
@@ -267,7 +245,6 @@
                 </div>
             </a>
 
-            <!-- 💳 VIP MEMBER ID CARD GENERATOR BUTTON -->
             <button onclick="openIDModal()" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group border-cyan-500/30 hover:border-tech-cyan">
                 <div class="flex items-center gap-3.5 md:gap-4">
                     <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
@@ -286,7 +263,6 @@
                 </div>
             </button>
 
-            <!-- 1. INSTAGRAM -->
             <a href="https://www.instagram.com/ia.esefb/" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
                 <div class="flex items-center gap-3.5 md:gap-4">
                     <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-md group-hover:scale-110 transition-transform">
@@ -302,7 +278,6 @@
                 </div>
             </a>
 
-            <!-- 2. FACEBOOK -->
             <a href="https://web.facebook.com/profile.php?id=61556812657366&_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
                 <div class="flex items-center gap-3.5 md:gap-4">
                     <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xl shadow-md shadow-blue-600/30 group-hover:scale-110 transition-transform">
@@ -318,7 +293,6 @@
                 </div>
             </a>
 
-            <!-- 3. WHATSAPP -->
             <a href="https://chat.whatsapp.com/Gz2z30Hc0lT6hjMHcvBgbK" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group border-emerald-500/20 hover:border-emerald-400/60">
                 <div class="flex items-center gap-3.5 md:gap-4">
                     <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xl shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform">
@@ -337,7 +311,6 @@
                 </div>
             </a>
 
-            <!-- 4. LINKEDIN -->
             <a href="https://www.linkedin.com/in/club-d-intelligence-artificielle-99a1333b5?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
                 <div class="flex items-center gap-3.5 md:gap-4">
                     <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-sky-700 flex items-center justify-center text-white text-xl shadow-md shadow-sky-700/30 group-hover:scale-110 transition-transform">
@@ -353,7 +326,6 @@
                 </div>
             </a>
 
-            <!-- 5. E-MAIL CONTAINER WITH COPY OPTION -->
             <div class="flex items-center gap-2 w-full my-3">
                 <a href="mailto:clubdintelligenceartificielle@gmail.com" 
                    class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-white hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
@@ -374,7 +346,6 @@
 
         </div>
 
-        <!-- 💬 DAILY AI INSIGHT & QUOTE CARD -->
         <div class="w-full my-5 glass-panel rounded-2xl p-5 border border-tech-cyan/25 relative overflow-hidden group">
             <div class="absolute -right-10 -bottom-10 w-28 h-28 bg-tech-cyan/10 rounded-full blur-xl pointer-events-none"></div>
             
@@ -398,7 +369,6 @@
             </div>
         </div>
 
-        <!-- 🤖 REAL ADVANCED CYBER TERMINAL CLI -->
         <div class="w-full mb-6 rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-blue-500 to-purple-600 shadow-xl">
             <div class="bg-slate-950/95 rounded-[15px] p-4 md:p-5 backdrop-blur-xl border border-tech-cyan/30 font-mono text-xs md:text-sm">
                 <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[10px] md:text-xs text-slate-400">
@@ -439,7 +409,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
         <footer class="mt-8 md:mt-12 text-center text-xs text-slate-500 space-y-1.5 font-mono">
             <p>© 2026 CLUB IA ESEF-B • Berrechid</p>
             <p class="text-[10px] md:text-xs text-slate-600">École Supérieure d'Éducation et de Formation</p>
@@ -447,14 +416,12 @@
 
     </main>
 
-    <!-- 🔐 MODAL ESPACE ADMIN BUREAU (SÉCURISÉ + RECOVERY + ANNONCES + MEMBRES) -->
     <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
         <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-lg w-full text-center relative border border-amber-500/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="admin-card-modal">
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Admin Login View -->
             <div id="admin-login-view" class="space-y-4 text-left">
                 <div class="text-center">
                     <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center mx-auto mb-2 text-xl shadow-lg shadow-amber-500/10">
@@ -464,7 +431,6 @@
                     <p class="text-xs text-slate-400">Authentification Sécurisée (Cryptée SHA-256)</p>
                 </div>
 
-                <!-- RED ERROR / WARNING MESSAGE BOX -->
                 <div id="admin-error-msg" class="hidden text-xs text-rose-400 font-mono font-bold bg-rose-500/15 border border-rose-500/40 p-3 rounded-xl text-center leading-relaxed animate-pulse"></div>
                 <div id="lockout-timer" class="hidden text-xs text-amber-300 font-mono font-bold text-center bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-xl"></div>
 
@@ -485,7 +451,6 @@
                 </div>
             </div>
 
-            <!-- Password Recovery / Emergency Reset View -->
             <div id="admin-recovery-view" class="hidden text-left space-y-4">
                 <div class="text-center">
                     <div class="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-400 text-cyan-400 flex items-center justify-center mx-auto mb-2 text-xl">
@@ -519,7 +484,6 @@
                 </button>
             </div>
 
-            <!-- Admin Dashboard View -->
             <div id="admin-dashboard-view" class="hidden text-left space-y-4">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div class="flex items-center gap-2">
@@ -531,7 +495,6 @@
                     </button>
                 </div>
 
-                <!-- STATS DISPLAY -->
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-slate-900/90 border border-amber-500/30 p-3 rounded-2xl text-center">
                         <span class="block text-[10px] font-mono uppercase text-slate-400">CARTES ID GÉNÉRÉES</span>
@@ -543,21 +506,19 @@
                     </div>
                 </div>
 
-                <!-- ADMIN TABS: WHITELIST | MEMBRES VIP | ANNONCE EVENT -->
                 <div class="flex gap-2 border-b border-slate-800 pb-2">
                     <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">📁 Whitelist</button>
                     <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">👥 Membres VIP</button>
                     <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">📢 Annonces</button>
                 </div>
 
-                <!-- TAB 1: EXCEL WHITELIST SECTION -->
                 <div id="admin-tab-whitelist" class="space-y-3">
                     <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-2">
                         <label class="block text-[11px] font-mono uppercase text-amber-300 font-bold">
                             📁 Importer la Liste Officielle Excel (.xlsx, .csv)
                         </label>
                         <p class="text-[10px] text-slate-400 leading-normal">
-                            Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID (Ordre des mots, majuscule/minuscule gérés automatiquement).
+                            Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID.
                         </p>
                         
                         <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelUpload(event)" class="hidden">
@@ -575,7 +536,6 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: VIP MEMBERS LIST & PIN RESET -->
                 <div id="admin-tab-members" class="hidden space-y-3">
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-mono text-cyan-300 font-bold uppercase">Membres VIP Enregistrés</span>
@@ -583,11 +543,9 @@
                     </div>
 
                     <div id="admin-members-list-container" class="max-h-48 overflow-y-auto space-y-2 pr-1 font-mono text-xs">
-                        <!-- Populated dynamically -->
                     </div>
                 </div>
 
-                <!-- TAB 3: CUSTOM EVENT ANNOUNCEMENT MANAGER & VISIBILITY TOGGLE -->
                 <div id="admin-tab-event" class="hidden space-y-3">
                     <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800">
                         <span class="text-xs font-mono text-slate-300 font-bold">Afficher l'annonce sur le site:</span>
@@ -626,7 +584,6 @@
                     </div>
                 </div>
 
-                <!-- CHANGE ADMIN PASSWORD -->
                 <div class="pt-2 border-t border-slate-800 flex gap-2">
                     <input type="password" id="new-admin-pass" placeholder="Nouveau mot de passe" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-mono outline-none">
                     <button onclick="changeAdminPassword()" class="bg-amber-500 text-slate-950 px-3 py-2 rounded-xl text-xs font-bold hover:brightness-110">
@@ -637,29 +594,32 @@
         </div>
     </div>
 
-    <!-- Modal VIP Member ID Card Generator + Recovery View -->
     <div id="id-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
         <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-sm md:max-w-md w-full text-center relative border border-tech-cyan/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="id-card-modal">
             <button onclick="closeIDModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 class="text-base md:text-lg font-bold text-white font-tech mb-0.5">Générateur de Carte Membre</h3>
-            <p class="text-xs text-slate-400 mb-4">Entrez votre Nom & PIN (1ère fois = 3 Questions)</p>
+            <p class="text-xs text-slate-400 mb-3">Obtenez ou téléchargez votre carte VIP officielle</p>
 
-            <!-- GENERATION FORM -->
+            <div class="flex rounded-xl bg-slate-900/90 p-1 border border-slate-800 mb-4 font-mono text-xs">
+                <button id="tab-mode-quick" onclick="switchMemberMode('quick')" class="flex-1 py-1.5 rounded-lg font-bold transition-all bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/40">
+                    🔑 J'ai déjà un PIN
+                </button>
+                <button id="tab-mode-new" onclick="switchMemberMode('new')" class="flex-1 py-1.5 rounded-lg font-bold transition-all text-slate-400 hover:text-white">
+                    ✨ Première fois
+                </button>
+            </div>
+
             <div id="id-form" class="space-y-3 text-left mb-4">
-                <!-- IT/CODING SAD ERROR MESSAGE IF NAME NOT IN EXCEL WHITELIST -->
                 <div id="not-in-whitelist-msg" class="hidden bg-rose-500/15 border border-rose-500/40 p-4 rounded-2xl text-center space-y-3 animate-pulse font-mono">
                     <div class="text-3xl">🤖💔</div>
                     <div class="inline-block px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-400 font-mono text-[10px] font-bold border border-rose-500/30">
                         404: MEMBER_NOT_FOUND // ACCESS_DENIED
                     </div>
                     <p class="text-xs font-semibold text-rose-300 leading-relaxed font-sans">
-                        <code class="text-[11px] text-rose-400 font-mono bg-slate-900/80 px-1.5 py-0.5 rounded">console.error("User profile not found in Club IA DB!");</code><br>
-                        Désolé, votre nom n'est pas encore compilé dans la liste officielle des membres.
-                    </p>
-                    <p class="text-[11px] text-slate-400 font-sans">
-                        Pas de panique ! Initialisez votre requête d'inscription dès maintenant via le formulaire d'adhésion.
+                        <code class="text-[11px] text-rose-400 font-mono bg-slate-900/80 px-1.5 py-0.5 rounded">console.error("User profile not found in DB!");</code><br>
+                        Désolé, votre nom n'est pas encore inscrit sur la liste officielle.
                     </p>
                     <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-rose-500 via-purple-600 to-tech-blue text-white rounded-xl text-xs font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all font-sans">
                         <i class="fa-solid fa-code-commit"></i>
@@ -672,18 +632,7 @@
                     <input type="text" id="member-name" placeholder="ex: Aymane El Amrani" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono">
                 </div>
 
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Code Secret (4 chiffres) *</label>
-                        <input type="password" id="member-pin" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Confirmer (1ère fois) *</label>
-                        <input type="password" id="member-pin-confirm" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
-                    </div>
-                </div>
-
-                <div>
+                <div id="field-filiere-box">
                     <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Filière / Spécialité *</label>
                     <select id="member-filiere" class="w-full bg-slate-900 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
                         <optgroup label="LICENCE">
@@ -706,8 +655,18 @@
                     </select>
                 </div>
 
-                <!-- 🔒 3 QUESTIONS DE SÉCURITÉ (POUR NOUVEAU MEMBRE UNIQUEMENT) -->
-                <div class="border-t border-slate-800 pt-2 space-y-2">
+                <div class="grid grid-cols-2 gap-2">
+                    <div id="pin-single-col" class="col-span-2">
+                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Code Secret (4 chiffres) *</label>
+                        <input type="password" id="member-pin" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
+                    </div>
+                    <div id="pin-confirm-col" class="hidden">
+                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Confirmer PIN *</label>
+                        <input type="password" id="member-pin-confirm" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
+                    </div>
+                </div>
+
+                <div id="sec-questions-box" class="hidden border-t border-slate-800 pt-2 space-y-2">
                     <span class="text-[10px] font-mono text-purple-300 font-bold uppercase block">🛡️ 3 Questions de Sécurité (Requis lors de la 1ère Inscription):</span>
                     <div>
                         <input type="text" id="sec-q1" placeholder="1. Votre ville de naissance ?" class="w-full bg-slate-900/90 border border-slate-800 focus:border-purple-400 rounded-lg px-2.5 py-1.5 text-[11px] text-white font-mono outline-none">
@@ -720,9 +679,9 @@
                     </div>
                 </div>
 
-                <button onclick="generateMemberCard()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/20 hover:brightness-110 active:scale-95 transition-all">
+                <button onclick="generateMemberCard()" id="btn-submit-card" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/20 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-id-badge"></i>
-                    <span>Générer Ma Carte ID</span>
+                    <span>Accéder à ma Carte</span>
                 </button>
 
                 <div class="text-center pt-1">
@@ -732,7 +691,6 @@
                 </div>
             </div>
 
-            <!-- MEMBER PIN / CARD RECOVERY VIEW -->
             <div id="id-recovery-view" class="hidden text-left space-y-3 mb-4">
                 <div class="text-center">
                     <span class="text-xs font-mono text-cyan-300 font-bold uppercase">Récupération de la Carte & PIN</span>
@@ -768,7 +726,6 @@
                 </button>
             </div>
 
-            <!-- GENERATED CARD DISPLAY VIEW -->
             <div id="id-card-view" class="hidden text-left space-y-4">
                 <div id="cyber-id-card" style="width: 380px; height: 230px; background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5); box-sizing: border-box; position: relative; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;">
                     <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
@@ -786,7 +743,7 @@
                         <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; font-family: monospace;">
                             <div>
                                 <span style="font-size: 8px; color: #94a3b8; display: block; text-transform: uppercase;">NOM & PRÉNOM</span>
-                                <span id="card-out-name" style="font-size: 11px; font-weight: bold; color: #ffffff; word-break: break-word; line-height: 1.2; display: block; font-family: 'Space Grotesk', sans-serif;">AYMANE EL AMRANI</span>
+                                <span id="card-out-name" style="font-size: 11px; font-weight: bold; color: #ffffff; word-break: break-word; line-height: 1.2; display: block; font-family: 'Space Grotesk', sans-serif;">MEMBRE VIP</span>
                             </div>
                             <div>
                                 <span style="font-size: 8px; color: #94a3b8; display: block; text-transform: uppercase;">FILIÈRE / SPÉCIALITÉ</span>
@@ -829,7 +786,6 @@
         </div>
     </div>
 
-    <!-- Modal QR Code Page -->
     <div id="qr-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
         <div class="glass-panel p-6 rounded-3xl max-w-xs w-full text-center relative border border-tech-cyan/40 shadow-2xl transform scale-90 transition-all duration-300" id="qr-card">
             <button onclick="closeQRModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -846,9 +802,7 @@
         </div>
     </div>
 
-    <!-- SCRIPTS LOGIQUE ET SÉCURITÉ ADMIN -->
     <script>
-        // SHA-256 HASH UTILITY FOR SECURE CRYPTOGRAPHIC CHECK
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -856,12 +810,39 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // HASHES SECURE - NEVER STORE PLAIN TEXT IN CODE SOURCE
-        const DEFAULT_ADMIN_HASH = "71d454db73a17448ab2bc6be1c2e3476bb333690118824864799e8b5bd7833dd"; // Hash of ESEFB#2026
-        const EMERGENCY_ID_HASH = "749bb8068e614de57b1e377b0060f9dad6724cbb1cc852ca899e85e72f5c3754"; // SHA-256 Hash of Emergency ID
+        const DEFAULT_ADMIN_HASH = "71d454db73a17448ab2bc6be1c2e3476bb333690118824864799e8b5bd7833dd";
+        const EMERGENCY_ID_HASH = "749bb8068e614de57b1e377b0060f9dad6724cbb1cc852ca899e85e72f5c3754";
 
         const MAX_ATTEMPTS = 3;
-        const BASE_LOCKOUT_TIME_MS = 5 * 60 * 1000; // 5 minutes base lockout
+        const BASE_LOCKOUT_TIME_MS = 5 * 60 * 1000;
+
+        let activeMemberMode = 'quick';
+
+        function switchMemberMode(mode) {
+            activeMemberMode = mode;
+            const btnQuick = document.getElementById('tab-mode-quick');
+            const btnNew = document.getElementById('tab-mode-new');
+            const confirmCol = document.getElementById('pin-confirm-col');
+            const singleCol = document.getElementById('pin-single-col');
+            const secBox = document.getElementById('sec-questions-box');
+            const btnSubmit = document.getElementById('btn-submit-card');
+
+            if (mode === 'quick') {
+                btnQuick.className = "flex-1 py-1.5 rounded-lg font-bold transition-all bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/40";
+                btnNew.className = "flex-1 py-1.5 rounded-lg font-bold transition-all text-slate-400 hover:text-white";
+                confirmCol.classList.add('hidden');
+                singleCol.className = "col-span-2";
+                secBox.classList.add('hidden');
+                if (btnSubmit) btnSubmit.querySelector('span').innerText = "Accéder à ma Carte";
+            } else {
+                btnNew.className = "flex-1 py-1.5 rounded-lg font-bold transition-all bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/40";
+                btnQuick.className = "flex-1 py-1.5 rounded-lg font-bold transition-all text-slate-400 hover:text-white";
+                confirmCol.classList.remove('hidden');
+                singleCol.className = "col-span-1";
+                secBox.classList.remove('hidden');
+                if (btnSubmit) btnSubmit.querySelector('span').innerText = "Créer Ma Carte ID";
+            }
+        }
 
         function getStoredAdminHash() {
             return localStorage.getItem('club_ia_admin_hash') || DEFAULT_ADMIN_HASH;
@@ -1020,8 +1001,7 @@
             const inputHash = await sha256(inputPass);
             const currentHash = getStoredAdminHash();
 
-            // SÉCURITÉ PURE PAR HASH (AUCUNE COMPARAISON CLAIRE)
-            if (inputHash === currentHash || inputHash === EMERGENCY_ID_HASH || inputPass === "ESEFB#2026") {
+            if (inputHash === currentHash || inputHash === EMERGENCY_ID_HASH) {
                 resetFailedAttempts();
                 if (errorBox) errorBox.classList.add('hidden');
                 sessionStorage.setItem('club_ia_admin_authenticated', 'true');
@@ -1060,7 +1040,6 @@
 
             const emergencyHash = await sha256(emergencyInput);
 
-            // VERIFICATION STRICTE PAR HASH CRYPTOGRAPHIQUE
             if (emergencyHash === EMERGENCY_ID_HASH) {
                 const newHash = await sha256(newPass);
                 localStorage.setItem('club_ia_admin_hash', newHash);
@@ -1121,7 +1100,6 @@
             document.getElementById(`tab-btn-${tabName}`).className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
         }
 
-        // 👥 ADMIN MEMBERS LIST & PIN RESET
         function getMembersDB() {
             try {
                 return JSON.parse(localStorage.getItem('club_ia_members_db') || '{}');
@@ -1180,7 +1158,6 @@
             renderAdminMembersList();
         }
 
-        // 📢 ADMIN EVENT ANNOUNCEMENT MANAGER & TOGGLE VISIBILITY
         function toggleEventVisibility() {
             let isVisible = localStorage.getItem('club_ia_event_visible') !== 'false';
             isVisible = !isVisible;
@@ -1426,8 +1403,6 @@
             }
         }
 
-        // 🧠 DETERMINISTIC & INVARIANT ID GENERATOR (WORD ORDER & CASE INDEPENDENT)
-        // 🔒 GUARANTEES EXCLUSION OF EMERGENCY RESET ID (codeNum !== 76831)
         function generateDeterministicID(name, filiere, pin) {
             const normName = name.toLowerCase()
                                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -1436,11 +1411,6 @@
             const tokens = normName.split(/\s+/).filter(Boolean).sort();
             const sortedName = tokens.join("");
             const cleanFiliere = filiere.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-            // Preserve specific user ID for SALAH EDDINE CHAIBI in LE-INFORMATIQUE
-            if (sortedName === "chaibieddinesalah" && cleanFiliere === "leinformatique") {
-                return "CIA-2026-67137";
-            }
 
             const strToHash = sortedName + "_" + cleanFiliere + "_" + pin;
             let hash = 0;
@@ -1452,7 +1422,6 @@
             let positiveHash = Math.abs(hash);
             let codeNum = (positiveHash % 89999) + 10000;
 
-            // 🛡️ GUARANTEE EXCLUSION OF EMERGENCY RESET ID NUMBER
             if (codeNum === 76831) {
                 codeNum = 76832;
             }
@@ -1494,12 +1463,7 @@
         function generateMemberCard() {
             const nameInput = document.getElementById('member-name').value.trim();
             const pin = document.getElementById('member-pin').value.trim();
-            const pinConfirm = document.getElementById('member-pin-confirm').value.trim();
             const filiere = document.getElementById('member-filiere').value;
-
-            const q1 = document.getElementById('sec-q1').value.trim();
-            const q2 = document.getElementById('sec-q2').value.trim();
-            const q3 = document.getElementById('sec-q3').value.trim();
 
             const notInListMsg = document.getElementById('not-in-whitelist-msg');
             if (notInListMsg) notInListMsg.classList.add('hidden');
@@ -1514,7 +1478,6 @@
                 return;
             }
 
-            // CHECK WHITELIST FIRST
             const savedWhitelist = localStorage.getItem('club_ia_whitelist');
             if (savedWhitelist) {
                 const whitelist = JSON.parse(savedWhitelist);
@@ -1533,18 +1496,26 @@
             const memberKey = getNormalizedKey(nameInput);
             const membersDb = getMembersDB();
 
-            // ⚡ ILA KAN LE MEMBRE DÉJÀ TSJJEL -> ACCÈS DIRECT SANS RESSAISIR LES 3 QUESTIONS
-            if (membersDb[memberKey]) {
-                if (membersDb[memberKey].pin === pin) {
-                    displayGeneratedCard(membersDb[memberKey].name, membersDb[memberKey].filiere, membersDb[memberKey].id);
-                    return;
+            if (activeMemberMode === 'quick') {
+                if (membersDb[memberKey]) {
+                    if (membersDb[memberKey].pin === pin) {
+                        displayGeneratedCard(membersDb[memberKey].name, membersDb[memberKey].filiere, membersDb[memberKey].id);
+                        return;
+                    } else {
+                        showToast("❌ Code PIN incorrect !");
+                        return;
+                    }
                 } else {
-                    showToast("❌ Code PIN incorrect ! Utilisez la récupération si vous l'avez oublié.");
+                    showToast("⚠️ Aucun compte trouvé b'hade l-Ism. Veuillez choisir 'Première fois'.");
                     return;
                 }
             }
 
-            // ⚡ ILA KAN MEMBRE AWAL MRA -> INSCRIPTION COMPLETE (CONFIRMATION PIN + 3 QUESTIONS)
+            const pinConfirm = document.getElementById('member-pin-confirm').value.trim();
+            const q1 = document.getElementById('sec-q1').value.trim();
+            const q2 = document.getElementById('sec-q2').value.trim();
+            const q3 = document.getElementById('sec-q3').value.trim();
+
             if (pin !== pinConfirm) {
                 showToast("❌ Les deux codes secrets ne correspondent pas!");
                 return;
@@ -1557,7 +1528,6 @@
 
             const uniqueID = generateDeterministicID(nameInput, filiere, pin);
 
-            // SAVE NEW MEMBER PROFILE IN STORAGE
             membersDb[memberKey] = {
                 name: nameInput,
                 filiere: filiere,
@@ -1581,7 +1551,6 @@
             const qrTarget = document.getElementById('qrcode-target');
             qrTarget.innerHTML = ''; 
 
-            // ⚡ QR CODE CONTIENT SEULEMENT LES INFORMATIONS PERSONNELLES SANS LE CODE SIRI
             const qrData = `CLUB IA ESEF-B VIP PASS\nNom: ${nameInput.toUpperCase()}\nFiliere: ${filiere}\nID Membre: ${uniqueID}\nStatut: VERIFIED MEMBER`;
 
             new QRCode(qrTarget, {
@@ -1599,11 +1568,10 @@
             const cardView = document.getElementById('id-card-view');
             cardView.classList.remove('hidden');
 
-            // ⚡ SUBTLE ELEGANT CYBER GLOW & SCAN EFFECT
             const cardElem = document.getElementById('cyber-id-card');
             if (cardElem) {
                 cardElem.classList.remove('cyber-scan-glow');
-                void cardElem.offsetWidth; // Force Reflow
+                void cardElem.offsetWidth;
                 cardElem.classList.add('cyber-scan-glow');
             }
             playCyberBeep();
@@ -1611,7 +1579,6 @@
             showToast("✅ Carte ID générée avec succès !");
         }
 
-        // 🔑 RECOVER MEMBER ACCESS VIA 3 SECURITY QUESTIONS
         function recoverMemberAccess() {
             const name = document.getElementById('rec-member-name').value.trim();
             const q1 = document.getElementById('rec-q1').value.trim().toLowerCase();
