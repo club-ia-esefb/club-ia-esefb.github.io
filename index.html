@@ -209,6 +209,28 @@
         <!-- PRIMARY ACTIONS & LINKS -->
         <div class="w-full space-y-3.5 md:space-y-4">
 
+            <!-- 💬 NEW: CHAT DES MEMBRES VIP BUTTON -->
+            <button onclick="openChatModal()" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
+                <span class="absolute inset-0 bg-gradient-to-r from-emerald-400 via-tech-cyan to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
+                <div class="relative flex items-center justify-between gap-4 rounded-2xl bg-slate-950/90 backdrop-blur-xl px-5 py-4 transition-all duration-300 group-hover:bg-slate-900/95 border border-emerald-400/40">
+                    <div class="flex items-center gap-3.5 md:gap-4">
+                        <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center text-xl shadow-md group-hover:scale-110 group-hover:bg-emerald-500/30 transition-all">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm md:text-base font-bold text-white group-hover:text-emerald-400 transition-colors font-tech">Chat Privé Membres VIP</h3>
+                                <span class="text-[9px] md:text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-1.5 py-0.5 rounded font-mono font-bold animate-pulse">LIVE</span>
+                            </div>
+                            <p class="text-xs md:text-sm text-slate-400">Espace de discussion (ID + Code 4 chiffres)</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-emerald-400 group-hover:translate-x-1 transition-all">
+                        <i class="fa-solid fa-lock text-xs md:text-sm"></i>
+                    </div>
+                </div>
+            </button>
+
             <!-- 0. REJOINDRE LE CLUB (FORM) -->
             <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
                 <span class="absolute inset-0 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
@@ -421,6 +443,73 @@
         </footer>
 
     </main>
+
+    <!-- 💬 MODAL MEMBER CHAT SYSTEM -->
+    <div id="chat-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
+        <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-md w-full text-center relative border border-emerald-400/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="chat-card-modal">
+            <button onclick="closeChatModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- CHAT LOGIN VIEW -->
+            <div id="chat-login-view" class="space-y-4 text-left">
+                <div class="text-center">
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto mb-2 text-xl">
+                        <i class="fa-solid fa-id-card-clip"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-tech">Espace Chat Membres VIP</h3>
+                    <p class="text-xs text-slate-400">Authentification avec votre ID Membre & Code Secret</p>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-mono uppercase text-emerald-400 mb-1">ID Membre ou Nom *</label>
+                    <input type="text" id="chat-user-id" placeholder="ex: CIA-2026-84920 ou Aymane" class="w-full bg-slate-900/90 border border-slate-700 focus:border-emerald-400 rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-mono uppercase text-emerald-400 mb-1">Code Secret (4 chiffres) *</label>
+                    <input type="password" id="chat-user-pin" maxlength="4" placeholder="••••" class="w-full bg-slate-900/90 border border-slate-700 focus:border-emerald-400 rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono tracking-widest text-center">
+                </div>
+
+                <button onclick="loginMemberChat()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-500 to-tech-cyan text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:brightness-110 active:scale-95 transition-all">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Entrer dans le Chat</span>
+                </button>
+            </div>
+
+            <!-- CHAT ROOM VIEW -->
+            <div id="chat-room-view" class="hidden flex flex-col h-[450px] text-left">
+                <!-- Chat Header -->
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <div>
+                            <h4 id="chat-display-name" class="text-xs font-bold text-white font-mono uppercase">MEMBER VIP</h4>
+                            <span id="chat-display-id" class="text-[9px] text-emerald-400 font-mono">CIA-2026-00000</span>
+                        </div>
+                    </div>
+                    <button onclick="logoutMemberChat()" class="text-[10px] text-rose-400 hover:text-rose-300 font-mono flex items-center gap-1 bg-rose-500/10 px-2 py-1 rounded border border-rose-500/30">
+                        <i class="fa-solid fa-power-off"></i> Déconnexion
+                    </button>
+                </div>
+
+                <!-- Chat Messages Feed -->
+                <div id="chat-messages-container" class="flex-1 overflow-y-auto py-3 space-y-3 font-mono text-xs pr-1 my-2">
+                    <!-- Messages will be rendered dynamically -->
+                </div>
+
+                <!-- Chat Input Form -->
+                <div class="pt-2 border-t border-slate-800 flex gap-2">
+                    <input type="text" id="chat-msg-input" placeholder="Écrivez un message aux membres..." 
+                           class="flex-1 bg-slate-900/90 border border-slate-700 focus:border-emerald-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono"
+                           onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <button onclick="sendChatMessage()" class="bg-gradient-to-r from-emerald-400 to-tech-cyan text-slate-950 px-4 py-2 rounded-xl font-bold hover:brightness-110 active:scale-95 transition-all">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal VIP Member ID Card Generator -->
     <div id="id-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
@@ -642,6 +731,168 @@
                 quoteRole.style.opacity = '1';
             }, 200);
         }
+
+        // ----------------------------------------------------
+        // 💬 MEMBER CHAT SYSTEM LOGIC
+        // ----------------------------------------------------
+        let currentChatUser = null;
+
+        function openChatModal() {
+            const modal = document.getElementById('chat-modal');
+            const card = document.getElementById('chat-card-modal');
+            if (!modal || !card) return;
+
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('club_ia_chat_session');
+            if (savedUser) {
+                currentChatUser = JSON.parse(savedUser);
+                showChatRoom();
+            } else {
+                document.getElementById('chat-login-view').classList.remove('hidden');
+                document.getElementById('chat-room-view').classList.add('hidden');
+            }
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-90');
+            card.classList.add('scale-100');
+        }
+
+        function closeChatModal() {
+            const modal = document.getElementById('chat-modal');
+            const card = document.getElementById('chat-card-modal');
+            if (!modal || !card) return;
+            card.classList.remove('scale-100');
+            card.classList.add('scale-90');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function loginMemberChat() {
+            const userId = document.getElementById('chat-user-id').value.trim();
+            const pin = document.getElementById('chat-user-pin').value.trim();
+
+            if (!userId) {
+                showToast("⚠️ Veuillez saisir votre ID Membre ou Nom.");
+                return;
+            }
+
+            if (!pin || pin.length !== 4 || isNaN(pin)) {
+                showToast("⚠️ Le code doit contenir exactement 4 chiffres.");
+                return;
+            }
+
+            // Create or load Member session
+            const memberCode = userId.toUpperCase().startsWith('CIA-') ? userId.toUpperCase() : generateDeterministicID(userId + pin);
+
+            currentChatUser = {
+                name: userId.toUpperCase(),
+                id: memberCode,
+                pin: pin
+            };
+
+            localStorage.setItem('club_ia_chat_session', JSON.stringify(currentChatUser));
+            showToast("✅ Connexion réussie au Chat VIP!");
+            showChatRoom();
+        }
+
+        function showChatRoom() {
+            document.getElementById('chat-login-view').classList.add('hidden');
+            document.getElementById('chat-room-view').classList.remove('hidden');
+
+            document.getElementById('chat-display-name').innerText = currentChatUser.name;
+            document.getElementById('chat-display-id').innerText = currentChatUser.id;
+
+            renderChatMessages();
+        }
+
+        function logoutMemberChat() {
+            localStorage.removeItem('club_ia_chat_session');
+            currentChatUser = null;
+            document.getElementById('chat-room-view').classList.add('hidden');
+            document.getElementById('chat-login-view').classList.remove('hidden');
+            showToast("🔒 Déconnecté du chat.");
+        }
+
+        function getChatMessages() {
+            const msgs = localStorage.getItem('club_ia_chat_messages');
+            if (!msgs) {
+                // Default Welcome Messages
+                const defaults = [
+                    {
+                        sender: "CLUB IA ADMIN",
+                        id: "CIA-2026-OFFICIAL",
+                        text: "Bienvenue dans l'espace Chat VIP Officiel du CLUB IA ESEF-B ! 🤖🚀",
+                        time: "10:00"
+                    },
+                    {
+                        sender: "BOT SYSTEM",
+                        id: "SYSTEM",
+                        text: "Posez vos questions ou discutez avec les autres membres du club.",
+                        time: "10:01"
+                    }
+                ];
+                localStorage.setItem('club_ia_chat_messages', JSON.stringify(defaults));
+                return defaults;
+            }
+            return JSON.parse(msgs);
+        }
+
+        function renderChatMessages() {
+            const container = document.getElementById('chat-messages-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const messages = getChatMessages();
+
+            messages.forEach(msg => {
+                const isMe = currentChatUser && (msg.id === currentChatUser.id || msg.sender === currentChatUser.name);
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'}`;
+
+                msgDiv.innerHTML = `
+                    <div class="flex items-center gap-1.5 mb-0.5 text-[10px] text-slate-400">
+                        <span class="font-bold ${isMe ? 'text-emerald-400' : 'text-tech-cyan'}">${msg.sender}</span>
+                        <span class="text-[9px] text-slate-500">(${msg.id})</span>
+                        <span class="text-[9px] text-slate-600">${msg.time}</span>
+                    </div>
+                    <div class="px-3 py-2 rounded-2xl max-w-[85%] break-words ${
+                        isMe 
+                            ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/40 rounded-tr-none' 
+                            : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'
+                    }">
+                        ${msg.text}
+                    </div>
+                `;
+                container.appendChild(msgDiv);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chat-msg-input');
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text || !currentChatUser) return;
+
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
+            const newMsg = {
+                sender: currentChatUser.name,
+                id: currentChatUser.id,
+                text: text,
+                time: timeStr
+            };
+
+            const messages = getChatMessages();
+            messages.push(newMsg);
+            localStorage.setItem('club_ia_chat_messages', JSON.stringify(messages));
+
+            input.value = '';
+            renderChatMessages();
+        }
+
 
         // VIP Member ID Card Generator Logic
         function openIDModal() {
@@ -1004,8 +1255,8 @@
 
         const terminalCommands = {
             // Category 1: System Basics
-            'help': 'Available Commands (50+ Total):\n• Basics: help, list, clear, history, date, time, whoami, pwd, echo [text], uname, uptime, version, sysinfo, hostname, ip\n• Club Info: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo\n• AI & Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n• Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n• Cyber/Fun: matrix, hacker, ping, sudo, cat [file], ls, cd [dir], theme, banner, joke, game, exit, beep, coffee',
-            'list': '📂 Categories:\n 1. System: help, clear, history, date, time, whoami, pwd, echo, uname, uptime, version, sysinfo, hostname, ip\n 2. Club: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo\n 3. AI/Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n 4. Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n 5. Cyber/Fun: matrix, hacker, ping, sudo, cat, ls, cd, theme, banner, joke, game, exit, beep, coffee',
+            'help': 'Available Commands (50+ Total):\n• Basics: help, list, clear, history, date, time, whoami, pwd, echo [text], uname, uptime, version, sysinfo, hostname, ip\n• Club Info: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo, chat\n• AI & Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n• Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n• Cyber/Fun: matrix, hacker, ping, sudo, cat [file], ls, cd [dir], theme, banner, joke, game, exit, beep, coffee',
+            'list': '📂 Categories:\n 1. System: help, clear, history, date, time, whoami, pwd, echo, uname, uptime, version, sysinfo, hostname, ip\n 2. Club: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo, chat\n 3. AI/Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n 4. Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n 5. Cyber/Fun: matrix, hacker, ping, sudo, cat, ls, cd, theme, banner, joke, game, exit, beep, coffee',
             'clear': '__CLEAR__',
             'history': () => commandHistory.length ? commandHistory.map((cmd, i) => ` ${i + 1}  ${cmd}`).join('\n') : 'No history yet.',
             'date': () => new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
@@ -1032,6 +1283,7 @@
             'bureau': '👥 Bureau Exécutif: Pôle Technique, Pôle Événementiel, Pôle Design & Pôle Communication.',
             'faq': '❓ FAQ:\n Q: Qui peut rejoindre ? Tous les étudiants d\'ESEF-B !\n Q: Faut-il savoir coder ? Non, nous vous formons à partir de zéro !',
             'vip': '💳 Pass VIP Membre: Générez votre carte d\'adhérent officielle directement via le bouton "Carte Membre VIP".',
+            'chat': () => { openChatModal(); return '💬 Ouverture du Chat Privé Membres VIP...'; },
             'qr': '📱 Scan QR: Utilisez le bouton QR Code en haut pour partager le Hub instantanément.',
             'logo': '🎨 Logo Official: Conçu avec fierté par le pôle design de CLUB IA ESEF-B.',
 
