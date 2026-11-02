@@ -171,7 +171,10 @@
             </div>
         </div>
 
+        <!-- MAIN LINKS & SOCIAL MEDIA WIDGETS -->
         <div class="w-full space-y-3.5 md:space-y-4">
+            
+            <!-- 1. Formulaire Button -->
             <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
                 <span class="absolute inset-0 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
                 <div class="relative flex items-center justify-between gap-4 rounded-2xl bg-slate-950/90 backdrop-blur-xl px-5 py-4 transition-all duration-300 group-hover:bg-slate-900/95 border border-tech-cyan/30">
@@ -190,6 +193,7 @@
                 </div>
             </a>
 
+            <!-- 2. Carte VIP Button -->
             <button onclick="openIDModal()" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group border-cyan-500/30 hover:border-tech-cyan">
                 <div class="flex items-center gap-3.5 md:gap-4">
                     <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
@@ -208,69 +212,78 @@
                 </div>
             </button>
 
-            <a href="https://www.instagram.com/ia.esefb/" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
-                <div class="flex items-center gap-3.5 md:gap-4">
-                    <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-md group-hover:scale-110 transition-transform">
-                        <i class="fa-brands fa-instagram"></i>
-                    </div>
-                    <div class="text-left">
-                        <h3 class="text-sm md:text-base font-bold text-white group-hover:text-tech-cyan transition-colors font-tech">Instagram</h3>
-                        <p class="text-xs md:text-sm text-slate-400">Follow our latest news & stories</p>
-                    </div>
-                </div>
-                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-tech-cyan transition-all">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs md:text-sm"></i>
-                </div>
-            </a>
-
-            <a href="https://web.facebook.com/profile.php?id=61556812657366&_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
-                <div class="flex items-center gap-3.5 md:gap-4">
-                    <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-xl shadow-md shadow-blue-600/30 group-hover:scale-110 transition-transform">
+            <!-- 3. iOS Style Social Media Grid (2x3) -->
+            <div class="grid grid-cols-2 gap-3 md:gap-3.5 my-2">
+                
+                <!-- Facebook (Row 1 - Left) -->
+                <a href="https://web.facebook.com/profile.php?id=61556812657366&_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" class="glass-btn p-3 md:p-3.5 rounded-2xl flex items-center gap-3 group border-blue-600/20 hover:border-blue-500/60 transition-all">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-blue-600 flex items-center justify-center text-white text-lg shadow-md shadow-blue-600/30 group-hover:scale-110 transition-transform shrink-0">
                         <i class="fa-brands fa-facebook-f"></i>
                     </div>
-                    <div class="text-left">
-                        <h3 class="text-sm md:text-base font-bold text-white group-hover:text-blue-400 transition-colors font-tech">Facebook</h3>
-                        <p class="text-xs md:text-sm text-slate-400">Join our official community</p>
+                    <div class="text-left min-w-0 flex-1">
+                        <h3 class="text-xs md:text-sm font-bold text-white group-hover:text-blue-400 transition-colors font-tech truncate">Facebook</h3>
+                        <p class="text-[10px] md:text-xs text-slate-400 truncate">Community</p>
                     </div>
-                </div>
-                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-blue-400 transition-all">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs md:text-sm"></i>
-                </div>
-            </a>
+                </a>
 
-            <a href="https://chat.whatsapp.com/Gz2z30Hc0lT6hjMHcvBgbK" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group border-emerald-500/20 hover:border-emerald-400/60">
-                <div class="flex items-center gap-3.5 md:gap-4">
-                    <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-xl shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                <!-- WhatsApp (Row 1 - Right) -->
+                <a href="https://chat.whatsapp.com/Gz2z30Hc0lT6hjMHcvBgbK" target="_blank" rel="noopener noreferrer" class="glass-btn p-3 md:p-3.5 rounded-2xl flex items-center gap-3 group border-emerald-500/20 hover:border-emerald-400/60 transition-all">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-emerald-500 flex items-center justify-center text-white text-lg shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform shrink-0">
                         <i class="fa-brands fa-whatsapp"></i>
                     </div>
-                    <div class="text-left">
-                        <div class="flex items-center gap-2">
-                            <h3 class="text-sm md:text-base font-bold text-white group-hover:text-emerald-400 transition-colors font-tech">WhatsApp Group</h3>
-                            <span class="text-[9px] md:text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-mono">OFFICIAL</span>
-                        </div>
-                        <p class="text-xs md:text-sm text-slate-400">Instant updates & student chat</p>
+                    <div class="text-left min-w-0 flex-1">
+                        <h3 class="text-xs md:text-sm font-bold text-white group-hover:text-emerald-400 transition-colors font-tech truncate">WhatsApp</h3>
+                        <p class="text-[10px] md:text-xs text-slate-400 truncate">Official Group</p>
                     </div>
-                </div>
-                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-emerald-400 transition-all">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs md:text-sm"></i>
-                </div>
-            </a>
+                </a>
 
-            <a href="https://www.linkedin.com/in/club-d-intelligence-artificielle-99a1333b5?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="glass-btn w-full p-4 rounded-2xl flex items-center justify-between group">
-                <div class="flex items-center gap-3.5 md:gap-4">
-                    <div class="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-sky-700 flex items-center justify-center text-white text-xl shadow-md shadow-sky-700/30 group-hover:scale-110 transition-transform">
+                <!-- Instagram (Row 2 - Left) -->
+                <a href="https://www.instagram.com/ia.esefb/" target="_blank" rel="noopener noreferrer" class="glass-btn p-3 md:p-3.5 rounded-2xl flex items-center gap-3 group border-rose-500/20 hover:border-rose-400/60 transition-all">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-110 transition-transform shrink-0">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="text-left min-w-0 flex-1">
+                        <h3 class="text-xs md:text-sm font-bold text-white group-hover:text-rose-400 transition-colors font-tech truncate">Instagram</h3>
+                        <p class="text-[10px] md:text-xs text-slate-400 truncate">News & Stories</p>
+                    </div>
+                </a>
+
+                <!-- TikTok (Row 2 - Right) -->
+                <a href="https://www.tiktok.com/@ia.esefb?_r=1&_t=ZS-9B51el5EHod" target="_blank" rel="noopener noreferrer" class="glass-btn p-3 md:p-3.5 rounded-2xl flex items-center gap-3 group border-cyan-500/20 hover:border-cyan-400/60 transition-all">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-110 transition-transform shrink-0">
+                        <i class="fa-brands fa-tiktok text-cyan-400"></i>
+                    </div>
+                    <div class="text-left min-w-0 flex-1">
+                        <h3 class="text-xs md:text-sm font-bold text-white group-hover:text-tech-cyan transition-colors font-tech truncate">TikTok</h3>
+                        <p class="text-[10px] md:text-xs text-slate-400 truncate">Reels & Clips</p>
+                    </div>
+                </a>
+
+                <!-- LinkedIn (Row 3 - Left) -->
+                <a href="https://www.linkedin.com/in/club-d-intelligence-artificielle-99a1333b5?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="glass-btn p-3 md:p-3.5 rounded-2xl flex items-center gap-3 group border-sky-500/20 hover:border-sky-400/60 transition-all">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-sky-700 flex items-center justify-center text-white text-lg shadow-md shadow-sky-700/30 group-hover:scale-110 transition-transform shrink-0">
                         <i class="fa-brands fa-linkedin-in"></i>
                     </div>
-                    <div class="text-left">
-                        <h3 class="text-sm md:text-base font-bold text-white group-hover:text-sky-300 transition-colors font-tech">LinkedIn</h3>
-                        <p class="text-xs md:text-sm text-slate-400">Professional network & projects</p>
+                    <div class="text-left min-w-0 flex-1">
+                        <h3 class="text-xs md:text-sm font-bold text-white group-hover:text-sky-300 transition-colors font-tech truncate">LinkedIn</h3>
+                        <p class="text-[10px] md:text-xs text-slate-400 truncate">Pro Network</p>
                     </div>
-                </div>
-                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-sky-300 transition-all">
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs md:text-sm"></i>
-                </div>
-            </a>
+                </a>
 
+                <!-- Snapchat (Row 3 - Right) -->
+                <a href="https://www.snapchat.com/add/ia.esefb" target="_blank" rel="noopener noreferrer" class="glass-btn p-3 md:p-3.5 rounded-2xl flex items-center gap-3 group border-yellow-500/20 hover:border-yellow-400/60 transition-all">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-amber-400 flex items-center justify-center text-slate-950 text-lg shadow-md shadow-amber-400/20 group-hover:scale-110 transition-transform shrink-0">
+                        <i class="fa-brands fa-snapchat"></i>
+                    </div>
+                    <div class="text-left min-w-0 flex-1">
+                        <h3 class="text-xs md:text-sm font-bold text-white group-hover:text-amber-300 transition-colors font-tech truncate">Snapchat</h3>
+                        <p class="text-[10px] md:text-xs text-slate-400 truncate">Behind Scenes</p>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- 4. Email Section (Bottom Row) -->
             <div class="flex items-center gap-2 w-full my-3">
                 <a href="mailto:clubdintelligenceartificielle@gmail.com" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-white hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
                     <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1891,7 +1904,7 @@
             'events': '📅 Prochain Événement: SORTIE D\'INTÉGRATION 2026 (Mystery Teaser Edition). Restez connectés !',
             'join': '🚀 Pour nous rejoindre: Remplissez le formulaire d\'adhésion via le bouton "Rejoindre le CLUB IA".',
             'contact': '✉️ Email: clubdintelligenceartificielle@gmail.com | 📱 WhatsApp: Groupe Officiel ESEF-B',
-            'socials': '🌐 Instagram: @ia.esefb | Facebook: Club IA ESEF Berrechid | LinkedIn: Club Intelligence Artificielle',
+            'socials': '🌐 Instagram: @ia.esefb | Facebook: Club IA ESEF Berrechid | TikTok: @ia.esefb | Snapchat: @ia.esefb | LinkedIn: Club Intelligence Artificielle',
             'location': '📍 ESEF Berrechid - Université Hassan 1er, Berrechid, Maroc.',
             'president': '👑 Présidence CLUB IA: Bureau exécutif élu pour l\'année universitaire 2025/2026.',
             'bureau': '👥 Bureau Exécutif: Pôle Technique, Pôle Événementiel, Pôle Design & Pôle Communication.',
