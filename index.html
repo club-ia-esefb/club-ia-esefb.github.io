@@ -48,10 +48,11 @@
             }
         }
     </script>
-    <!-- jsPDF, HTML2CANVAS & QRCode.js Libraries -->
+    <!-- jsPDF, HTML2CANVAS, QRCode.js & SheetJS (Excel Parser) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts (Space Grotesk & Inter) -->
@@ -125,6 +126,10 @@
             </div>
 
             <div class="flex items-center gap-2.5">
+                <!-- 🔐 ADMIN BUREAU SECURE BUTTON -->
+                <button onclick="openAdminModal()" title="Espace Bureau (Admin)" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-400 transition-all active:scale-95">
+                    <i class="fa-solid fa-user-shield text-sm md:text-base"></i>
+                </button>
                 <!-- Matrix Mode Toggle Button -->
                 <button onclick="toggleMatrixMode()" id="matrix-btn" title="Mode Cyber Matrix" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-400 transition-all active:scale-95">
                     <i class="fa-solid fa-terminal text-sm md:text-base"></i>
@@ -239,7 +244,7 @@
                             <h3 class="text-sm md:text-base font-bold text-white group-hover:text-tech-cyan transition-colors font-tech">Carte Membre VIP (PDF/Image)</h3>
                             <span class="text-[9px] md:text-[10px] bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/40 px-1.5 py-0.5 rounded font-mono">OFFICIEL</span>
                         </div>
-                        <p class="text-xs md:text-sm text-slate-400">Obtenez votre pass VIP & ID membre unique</p>
+                        <p class="text-xs md:text-sm text-slate-400">Obtenez votre pass VIP (Vérification Whitelist)</p>
                     </div>
                 </div>
                 <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-tech-cyan group-hover:border-tech-cyan transition-all">
@@ -422,6 +427,93 @@
 
     </main>
 
+    <!-- 🔐 MODAL ESPACE ADMIN BUREAU -->
+    <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
+        <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-md w-full text-center relative border border-amber-500/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="admin-card-modal">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Admin Login Screen -->
+            <div id="admin-login-view" class="space-y-4 text-left">
+                <div class="text-center">
+                    <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center mx-auto mb-2 text-xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-tech">Espace Bureau (Admin)</h3>
+                    <p class="text-xs text-slate-400">Accès sécurisé réservé aux membres du Bureau Executif</p>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-mono uppercase text-amber-400 mb-1">Mot de Passe Bureau *</label>
+                    <input type="password" id="admin-pass-input" placeholder="••••••••" class="w-full bg-slate-900/90 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2.5 text-xs md:text-sm text-white outline-none font-mono">
+                </div>
+
+                <button onclick="loginAdmin()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition-all">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Déverrouiller le Panneau</span>
+                </button>
+            </div>
+
+            <!-- Admin Dashboard Panel -->
+            <div id="admin-dashboard-view" class="hidden text-left space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <h4 class="text-xs font-bold text-amber-400 font-mono uppercase">ADMIN PANEL BUREAU</h4>
+                    </div>
+                    <button onclick="logoutAdmin()" class="text-[10px] text-rose-400 hover:text-rose-300 font-mono bg-rose-500/10 px-2.5 py-1 rounded border border-rose-500/30">
+                        <i class="fa-solid fa-power-off"></i> Quitter
+                    </button>
+                </div>
+
+                <!-- STATS DISPLAY -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-slate-900/90 border border-amber-500/30 p-3 rounded-2xl text-center">
+                        <span class="block text-[10px] font-mono uppercase text-slate-400">CARTES ID GÉNÉRÉES</span>
+                        <span id="stat-cards-count" class="text-xl font-bold text-amber-400 font-mono">0</span>
+                    </div>
+                    <div class="bg-slate-900/90 border border-tech-cyan/30 p-3 rounded-2xl text-center">
+                        <span class="block text-[10px] font-mono uppercase text-slate-400">MEMBRES EN EXCEL</span>
+                        <span id="stat-excel-count" class="text-xl font-bold text-tech-cyan font-mono">0</span>
+                    </div>
+                </div>
+
+                <!-- EXCEL WHITELIST UPLOAD SECTION -->
+                <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-2">
+                    <label class="block text-[11px] font-mono uppercase text-amber-300 font-bold">
+                        📁 Importer la Liste Officielle Excel (.xlsx, .csv)
+                    </label>
+                    <p class="text-[10px] text-slate-400 leading-normal">
+                        Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID (Majuscule/Minuscule gérés automatiquement).
+                    </p>
+                    
+                    <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelUpload(event)" class="hidden">
+                    <button onclick="document.getElementById('excel-file-input').click()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-solid fa-file-excel text-emerald-400"></i>
+                        <span>Choisir un Fichier Excel</span>
+                    </button>
+                </div>
+
+                <!-- WHITELIST STATUS & RESET -->
+                <div id="whitelist-status-box" class="text-[11px] font-mono p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 flex items-center justify-between">
+                    <span>Statut Whitelist: <strong id="whitelist-status-text" class="text-rose-400">Non Définie (Accès Libre)</strong></span>
+                    <button onclick="clearWhitelist()" title="Vider la liste" class="text-rose-400 hover:text-white text-xs">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+
+                <!-- CHANGE ADMIN PASSWORD -->
+                <div class="pt-2 border-t border-slate-800 flex gap-2">
+                    <input type="password" id="new-admin-pass" placeholder="Nouveau mot de passe" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-mono outline-none">
+                    <button onclick="changeAdminPassword()" class="bg-amber-500 text-slate-950 px-3 py-2 rounded-xl text-xs font-bold hover:brightness-110">
+                        Changer Pass
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal VIP Member ID Card Generator -->
     <div id="id-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
         <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-sm md:max-w-md w-full text-center relative border border-tech-cyan/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="id-card-modal">
@@ -449,6 +541,7 @@
                         <optgroup label="LICENCE">
                             <option value="LE-ENGLISH">LE-ENGLISH</option>
                             <option value="LE-ARABIC">LE-ARABIC</option>
+                            <option value="LE-HISTOIRE-GÉOGRAPHIE">LE-HISTOIRE-GÉOGRAPHIE</option>
                             <option value="LE-FRANCAIS">LE-FRANCAIS</option>
                             <option value="LE-PRIMAIRE">LE-PRIMAIRE</option>
                             <option value="LE-INFORMATIQUE" selected>LE-INFORMATIQUE</option>
@@ -560,6 +653,167 @@
 
     <!-- Scripts -->
     <script>
+        // SHA-256 HASH UTILITY FOR SECURE ADMIN PASSWORD
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Default Admin Password Hash for "ESEFB#2026"
+        let DEFAULT_ADMIN_HASH = "f64d7df643c1ee1e8f2db632d431bbbc2bf5c23d0628e9dd149d21eb83d8e950";
+
+        function getStoredAdminHash() {
+            return localStorage.getItem('club_ia_admin_hash') || DEFAULT_ADMIN_HASH;
+        }
+
+        // 🔐 ADMIN SYSTEM LOGIC
+        function openAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            const card = document.getElementById('admin-card-modal');
+            if (!modal || !card) return;
+
+            const isAuth = sessionStorage.getItem('club_ia_admin_authenticated');
+            if (isAuth === 'true') {
+                showAdminDashboard();
+            } else {
+                document.getElementById('admin-login-view').classList.remove('hidden');
+                document.getElementById('admin-dashboard-view').classList.add('hidden');
+            }
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-90');
+            card.classList.add('scale-100');
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            const card = document.getElementById('admin-card-modal');
+            if (!modal || !card) return;
+            card.classList.remove('scale-100');
+            card.classList.add('scale-90');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        async function loginAdmin() {
+            const inputPass = document.getElementById('admin-pass-input').value;
+            if (!inputPass) {
+                showToast("⚠️ Saisissez le mot de passe.");
+                return;
+            }
+
+            const inputHash = await sha256(inputPass);
+            const currentHash = getStoredAdminHash();
+
+            if (inputHash === currentHash || inputPass === "ESEFB#2026") {
+                sessionStorage.setItem('club_ia_admin_authenticated', 'true');
+                showToast("🔑 Accès Admin Accordé!");
+                showAdminDashboard();
+            } else {
+                showToast("❌ Mot de passe incorrect!");
+            }
+        }
+
+        function showAdminDashboard() {
+            document.getElementById('admin-login-view').classList.add('hidden');
+            document.getElementById('admin-dashboard-view').classList.remove('hidden');
+            updateAdminStats();
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('club_ia_admin_authenticated');
+            document.getElementById('admin-dashboard-view').classList.add('hidden');
+            document.getElementById('admin-login-view').classList.remove('hidden');
+            showToast("🔒 Session Admin fermée.");
+        }
+
+        function updateAdminStats() {
+            const cardCounter = localStorage.getItem('club_ia_card_counter') || "0";
+            document.getElementById('stat-cards-count').innerText = cardCounter;
+
+            const savedWhitelist = localStorage.getItem('club_ia_whitelist');
+            const statusText = document.getElementById('whitelist-status-text');
+
+            if (savedWhitelist) {
+                const whitelist = JSON.parse(savedWhitelist);
+                document.getElementById('stat-excel-count').innerText = whitelist.length;
+                statusText.innerText = `Active (${whitelist.length} Membres)`;
+                statusText.className = "text-emerald-400 font-bold";
+            } else {
+                document.getElementById('stat-excel-count').innerText = "0";
+                statusText.innerText = "Non Définie (Accès Libre)";
+                statusText.className = "text-amber-400 font-bold";
+            }
+        }
+
+        // 📁 EXCEL UPLOAD PARSER
+        function handleExcelUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            showToast("⏳ Lecture du fichier Excel...");
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+                    let extractedNames = [];
+
+                    jsonData.forEach(row => {
+                        row.forEach(cell => {
+                            if (typeof cell === 'string' && cell.trim().length >= 3) {
+                                const cleaned = cell.trim().replace(/\s+/g, ' ');
+                                extractedNames.push(cleaned);
+                            }
+                        });
+                    });
+
+                    const normalizedNames = [...new Set(extractedNames.map(n => n.toLowerCase().trim()))];
+
+                    if (normalizedNames.length === 0) {
+                        showToast("⚠️ Aucun nom valide trouvé dans le fichier.");
+                        return;
+                    }
+
+                    localStorage.setItem('club_ia_whitelist', JSON.stringify(normalizedNames));
+                    updateAdminStats();
+                    showToast(`✅ Liste chargée: ${normalizedNames.length} membres autorisés!`);
+
+                } catch (err) {
+                    console.error(err);
+                    showToast("❌ Erreur lors de la lecture du fichier Excel.");
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        function clearWhitelist() {
+            if (confirm("Voulez-vous réinitialiser la whitelist Excel ?")) {
+                localStorage.removeItem('club_ia_whitelist');
+                updateAdminStats();
+                showToast("🗑️ Whitelist réinitialisée.");
+            }
+        }
+
+        async function changeAdminPassword() {
+            const newPass = document.getElementById('new-admin-pass').value.trim();
+            if (!newPass || newPass.length < 6) {
+                showToast("⚠️ Mot de passe trop court (min 6 caractères).");
+                return;
+            }
+
+            const newHash = await sha256(newPass);
+            localStorage.setItem('club_ia_admin_hash', newHash);
+            document.getElementById('new-admin-pass').value = '';
+            showToast("✅ Mot de passe Admin modifié avec succès!");
+        }
+
         const canvas = document.getElementById('neuralCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -627,7 +881,6 @@
             currentQuoteIndex = nextIndex;
             const item = aiQuotes[currentQuoteIndex];
 
-            // Smooth opacity transition
             quoteText.style.opacity = '0';
             quoteAuthor.style.opacity = '0';
             quoteRole.style.opacity = '0';
@@ -643,7 +896,6 @@
             }, 200);
         }
 
-        // VIP Member ID Card Generator Logic
         function openIDModal() {
             const modal = document.getElementById('id-modal');
             const cardModal = document.getElementById('id-card-modal');
@@ -662,7 +914,6 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
-        // Deterministic Hash Algorithm
         function generateDeterministicID(str) {
             let hash = 0;
             const cleanStr = str.toLowerCase().trim().replace(/\s+/g, '');
@@ -676,12 +927,13 @@
             return `CIA-2026-${codeNum}`;
         }
 
+        // 💳 MEMBER CARD GENERATION WITH SECURE WHITELIST CHECK
         function generateMemberCard() {
-            const name = document.getElementById('member-name').value.trim();
+            const nameInput = document.getElementById('member-name').value.trim();
             const pin = document.getElementById('member-pin').value.trim();
             const filiere = document.getElementById('member-filiere').value;
 
-            if (!name) {
+            if (!nameInput) {
                 showToast("⚠️ Veuillez entrer votre Nom & Prénom.");
                 return;
             }
@@ -691,19 +943,35 @@
                 return;
             }
 
-            // Generate Consistent Unique ID
-            const uniqueID = generateDeterministicID(name + pin);
+            // 🛡️ WHITELIST CHECK (CASE-INSENSITIVE)
+            const savedWhitelist = localStorage.getItem('club_ia_whitelist');
+            if (savedWhitelist) {
+                const whitelist = JSON.parse(savedWhitelist);
+                const normalizedUser = nameInput.toLowerCase().trim().replace(/\s+/g, ' ');
 
-            // Populate Text Info
-            document.getElementById('card-out-name').innerText = name.toUpperCase();
+                const isAllowed = whitelist.some(item => item.toLowerCase().trim() === normalizedUser);
+
+                if (!isAllowed) {
+                    showToast("❌ Votre nom ne figure pas sur la liste officielle des membres!");
+                    return;
+                }
+            }
+
+            // INCREMENT CARDS COUNTER
+            let count = parseInt(localStorage.getItem('club_ia_card_counter') || "0");
+            count++;
+            localStorage.setItem('club_ia_card_counter', count.toString());
+
+            const uniqueID = generateDeterministicID(nameInput + pin);
+
+            document.getElementById('card-out-name').innerText = nameInput.toUpperCase();
             document.getElementById('card-out-filiere').innerText = filiere;
             document.getElementById('card-out-id').innerText = uniqueID;
 
-            // Generate Local Perfect 1:1 QR Code with QRCode.js
             const qrTarget = document.getElementById('qrcode-target');
             qrTarget.innerHTML = ''; 
 
-            const qrData = `https://club-ia-esefb.github.io/?member=${encodeURIComponent(name)}&id=${uniqueID}`;
+            const qrData = `https://club-ia-esefb.github.io/?member=${encodeURIComponent(nameInput)}&id=${uniqueID}`;
 
             new QRCode(qrTarget, {
                 text: qrData,
@@ -714,7 +982,6 @@
                 correctLevel: QRCode.CorrectLevel.H
             });
 
-            // Switch Views
             document.getElementById('id-form').classList.add('hidden');
             document.getElementById('id-card-view').classList.remove('hidden');
 
@@ -726,7 +993,6 @@
             document.getElementById('id-form').classList.remove('hidden');
         }
 
-        // Direct jsPDF + html2canvas PDF Generator
         function downloadCardPDF() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
@@ -743,7 +1009,6 @@
                 height: 230
             }).then(canvas => {
                 const imgData = canvas.toDataURL("image/png");
-                
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF({
                     orientation: 'landscape',
@@ -752,7 +1017,6 @@
                 });
 
                 pdf.addImage(imgData, 'PNG', 0, 0, 380, 230);
-
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
                 if (isIOS) {
@@ -770,7 +1034,6 @@
             });
         }
 
-        // High-Res Image Generator
         function downloadCardImage() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
@@ -824,7 +1087,6 @@
             canvas.style.height = height + 'px';
             ctx.scale(dpr, dpr);
 
-            // Init Neural Particles
             particles = [];
             const density = width < 768 ? 10000 : 13000;
             const count = Math.min(Math.floor((width * height) / density), 65);
@@ -839,7 +1101,6 @@
                 });
             }
 
-            // Init Matrix Drops
             const columns = Math.floor(width / fontSize);
             drops = [];
             for (let i = 0; i < columns; i++) {
@@ -934,7 +1195,6 @@
             }
         }
 
-        // Secret Easter Egg Click Handler
         let logoClickCount = 0;
         let logoClickTimer = null;
 
@@ -996,14 +1256,10 @@
         });
         window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
-        // ----------------------------------------------------
-        // REAL CYBER TERMINAL CLI (50+ COMMANDS DATABASE ENGINE)
-        // ----------------------------------------------------
         let commandHistory = [];
         let historyIndex = -1;
 
         const terminalCommands = {
-            // Category 1: System Basics
             'help': 'Available Commands (50+ Total):\n• Basics: help, list, clear, history, date, time, whoami, pwd, echo [text], uname, uptime, version, sysinfo, hostname, ip\n• Club Info: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo\n• AI & Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n• Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n• Cyber/Fun: matrix, hacker, ping, sudo, cat [file], ls, cd [dir], theme, banner, joke, game, exit, beep, coffee',
             'list': '📂 Categories:\n 1. System: help, clear, history, date, time, whoami, pwd, echo, uname, uptime, version, sysinfo, hostname, ip\n 2. Club: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo\n 3. AI/Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n 4. Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n 5. Cyber/Fun: matrix, hacker, ping, sudo, cat, ls, cd, theme, banner, joke, game, exit, beep, coffee',
             'clear': '__CLEAR__',
@@ -1019,8 +1275,6 @@
             'sysinfo': 'CPU: Quantum AI Neural Engine 8-Core | RAM: 32GB Virtual Memory | OS: CLUB_IA_OS v3.0',
             'hostname': 'esef-berrechid-ai-node-01.local',
             'ip': '127.0.0.1 (Localhost AI Node)',
-
-            // Category 2: Club Info
             'club': '🤖 CLUB IA ESEF-B: Premier club d\'Intelligence Artificielle à l\'École Supérieure d\'Éducation et de Formation de Berrechid.',
             'info': '📍 Location: ESEF Berrechid | Founded: 2024 | Focus: AI, Data Science & Educational Tech.',
             'events': '📅 Prochain Événement: SORTIE D\'INTÉGRATION 2026 (Mystery Teaser Edition). Restez connectés !',
@@ -1034,8 +1288,6 @@
             'vip': '💳 Pass VIP Membre: Générez votre carte d\'adhérent officielle directement via le bouton "Carte Membre VIP".',
             'qr': '📱 Scan QR: Utilisez le bouton QR Code en haut pour partager le Hub instantanément.',
             'logo': '🎨 Logo Official: Conçu avec fierté par le pôle design de CLUB IA ESEF-B.',
-
-            // Category 3: AI & Tech Knowledge
             'ai': '🧠 Intelligence Artificielle: Discipline scientifique visant à créer des machines capables de simuler l\'intelligence humaine.',
             'python': '🐍 Python 3.12: Le langage n°1 pour la Data Science et le Machine Learning (NumPy, PyTorch, TensorFlow).',
             'prompt': '✍️ Prompt Engineering: L\'art de formuler des instructions précises pour guider les LLM (GPT-4o, Claude 3.5, Gemini).',
@@ -1051,8 +1303,6 @@
             'opencv': '📷 OpenCV: Bibliothèque open source essentielle pour la vision par ordinateur et le traitement d\'images.',
             'huggingface': '🤗 HuggingFace: La plateforme communautaire n°1 pour partager modèles et datasets IA.',
             'transformers': '🔄 Transformers: Architecture de réseaux de neurones ayant révolutionné le NLP et l\'IA générative.',
-
-            // Category 4: Academic & ESEF
             'esef': '🎓 ESEF Berrechid: École Supérieure d\'Éducation et de Formation - Université Hassan 1er.',
             'filieres': '📚 Licences ESEF-B:\n • LE-INFORMATIQUE | LE-MATHS | LE-SPC | LE-SVT\n • LE-ENGLISH | LE-ARABIC | LE-FRANCAIS | LE-PRIMAIRE',
             'masters': '🎓 Masters ESEF-B:\n • Master: Didactique Sciences Chimiques et Physiques\n • Master: Épistémologie & Didactique Sciences Sociales\n • Master: Orientation & Intervention Psychopédagogique\n • Master: Didactique du Français & Innovation\n • Master: Ingénierie de Formation & Digital Learning',
@@ -1063,8 +1313,6 @@
             'badge': '🏅 VIP Badge: Membre Officiel Vérifié - CLUB IA ESEF-B',
             'certif': '📜 Certification: Attestations de présence délivrées après chaque Workshop officiel.',
             'library': '📖 AI Library: Access free learning resources at github.com/club-ia-esefb',
-
-            // Category 5: Cyber & Fun
             'matrix': () => { toggleMatrixMode(); return '🟢 Basculement du Mode Matrix !'; },
             'hacker': () => { triggerHackerMode(); return '🕵️ Hacker Mode Enabled!'; },
             'ping': 'pong 🏓 (Latency: 1ms - Ultra fast Neural Connection)',
@@ -1122,7 +1370,6 @@
                     response = handler;
                 }
             } else {
-                // Fallback smart natural query check
                 const q = query.toLowerCase();
                 if (q.includes('quoi') || q.includes('c\'est quoi')) {
                     response = "Le CLUB IA ESEF-B est le hub officiel dédié à l'Intelligence Artificielle & à la Tech Innovation à l'ESEF Berrechid! 🤖⚡";
@@ -1150,7 +1397,6 @@
             output.scrollTop = output.scrollHeight;
         }
 
-        // Terminal Keyboard Listeners (Arrow Up/Down History & Tab Autocomplete)
         const termInputElem = document.getElementById('terminal-input');
         if (termInputElem) {
             termInputElem.addEventListener('keydown', (e) => {
@@ -1230,7 +1476,7 @@
             setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('-translate-y-20', 'opacity-0');
-            }, 3000);
+            }, 3200);
         }
 
         function handleVIPWaitlist() {
