@@ -98,6 +98,34 @@
         .quote-transition {
             transition: opacity 0.25s ease-in-out;
         }
+
+        /* ⚡ CYBER SCAN ANIMATION FOR CARD GENERATION */
+        @keyframes cyberScanLine {
+            0% { top: 0%; opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        @keyframes cardGlowPulse {
+            0% { box-shadow: 0 0 0px rgba(0, 242, 254, 0); transform: scale(0.97); }
+            50% { box-shadow: 0 0 35px rgba(0, 242, 254, 0.7); transform: scale(1.02); }
+            100% { box-shadow: 0 0 12px rgba(0, 242, 254, 0.25); transform: scale(1); }
+        }
+        .cyber-scan-glow {
+            position: relative;
+            overflow: hidden;
+            animation: cardGlowPulse 0.9s ease-out forwards;
+        }
+        .cyber-scan-glow::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00f2fe, #4facfe, transparent);
+            box-shadow: 0 0 15px #00f2fe;
+            animation: cyberScanLine 1.2s ease-in-out forwards;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-tech-cyan selection:text-slate-950">
@@ -174,43 +202,43 @@
             </p>
         </div>
 
-        <!-- MYSTERY TEASER EVENT CARD -->
-        <div class="w-full mb-6 md:mb-8 relative rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-purple-500 to-tech-blue shadow-2xl group">
+        <!-- DYNAMIC EVENT ANNOUNCEMENT CARD (EDITABLE BY ADMIN) -->
+        <div class="w-full mb-6 md:mb-8 relative rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-purple-500 to-tech-blue shadow-2xl group" id="event-card-container">
             <div class="bg-slate-950/95 rounded-[15px] p-5 md:p-6 backdrop-blur-xl relative overflow-hidden border border-tech-cyan/20">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-tech-cyan/20 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl pointer-events-none"></div>
 
                 <div class="flex justify-between items-center mb-3">
-                    <span class="bg-cyan-500/15 text-tech-cyan border border-tech-cyan/40 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full flex items-center gap-1.5 animate-pulse">
+                    <span id="evt-out-badge" class="bg-cyan-500/15 text-tech-cyan border border-tech-cyan/40 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full flex items-center gap-1.5 animate-pulse">
                         <i class="fa-solid fa-user-secret text-cyan-300"></i> MYSTERY EVENT
                     </span>
                     <span class="text-[10px] md:text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 font-mono font-semibold px-2 py-0.5 rounded">EDITION 2026</span>
                 </div>
 
                 <h2 class="text-base md:text-lg font-bold text-white font-tech mb-1 flex items-center gap-2">
-                    <span>SORTIE D'INTÉGRATION</span>
+                    <span id="evt-out-title">SORTIE D'INTÉGRATION</span>
                     <span class="text-[9px] md:text-[10px] px-2 py-0.5 rounded bg-gradient-to-r from-rose-500 to-purple-600 text-white font-extrabold uppercase animate-bounce">SOON</span>
                 </h2>
-                <p class="text-xs md:text-sm text-slate-300 mb-4 leading-relaxed">
+                <p id="evt-out-desc" class="text-xs md:text-sm text-slate-300 mb-4 leading-relaxed">
                     Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment... 🔒💥
                 </p>
 
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <div class="bg-slate-900/90 border border-tech-cyan/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">DESTINATION</span>
-                        <span class="text-[10px] sm:text-xs md:text-sm font-bold text-tech-cyan font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
+                        <span id="evt-out-dest" class="text-[10px] sm:text-xs md:text-sm font-bold text-tech-cyan font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
                             <i class="fa-solid fa-lock text-[9px]"></i> [ CONFIDENTIEL ]
                         </span>
                     </div>
                     <div class="bg-slate-900/90 border border-purple-500/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">ANNONCE</span>
-                        <span class="text-[10px] sm:text-xs md:text-sm font-bold text-purple-300 font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
+                        <span id="evt-out-annonce" class="text-[10px] sm:text-xs md:text-sm font-bold text-purple-300 font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
                             <i class="fa-solid fa-clock-three text-[9px]"></i> TRÈS BIENTÔT
                         </span>
                     </div>
                 </div>
 
-                <button onclick="handleVIPWaitlist()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs md:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/25 hover:brightness-110 active:scale-95 transition-all">
+                <button id="evt-out-btn" onclick="handleVIPWaitlist()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs md:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/25 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-bell text-xs md:text-sm"></i>
                     <span>ÊTRE INFORMÉ EN PREMIER (WHATSAPP)</span>
                 </button>
@@ -419,9 +447,9 @@
 
     </main>
 
-    <!-- 🔐 MODAL ESPACE ADMIN BUREAU (SÉCURISÉ + RECOVERY) -->
+    <!-- 🔐 MODAL ESPACE ADMIN BUREAU (SÉCURISÉ + RECOVERY + ANNONCES + MEMBRES) -->
     <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
-        <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-md w-full text-center relative border border-amber-500/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="admin-card-modal">
+        <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-lg w-full text-center relative border border-amber-500/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="admin-card-modal">
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -515,28 +543,80 @@
                     </div>
                 </div>
 
-                <!-- EXCEL WHITELIST UPLOAD SECTION -->
-                <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-2">
-                    <label class="block text-[11px] font-mono uppercase text-amber-300 font-bold">
-                        📁 Importer la Liste Officielle Excel (.xlsx, .csv)
-                    </label>
-                    <p class="text-[10px] text-slate-400 leading-normal">
-                        Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID (Ordre des mots, majuscule/minuscule gérés automatiquement).
-                    </p>
-                    
-                    <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelUpload(event)" class="hidden">
-                    <button onclick="document.getElementById('excel-file-input').click()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all">
-                        <i class="fa-solid fa-file-excel text-emerald-400"></i>
-                        <span>Choisir un Fichier Excel</span>
-                    </button>
+                <!-- ADMIN TABS: WHITELIST | MEMBRES VIP | ANNONCE EVENT -->
+                <div class="flex gap-2 border-b border-slate-800 pb-2">
+                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">📁 Whitelist</button>
+                    <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">👥 Membres VIP</button>
+                    <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">📢 Annonces</button>
                 </div>
 
-                <!-- WHITELIST STATUS & RESET -->
-                <div id="whitelist-status-box" class="text-[11px] font-mono p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 flex items-center justify-between">
-                    <span>Statut Whitelist: <strong id="whitelist-status-text" class="text-rose-400">Non Définie (Accès Libre)</strong></span>
-                    <button onclick="clearWhitelist()" title="Vider la liste" class="text-rose-400 hover:text-white text-xs">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                <!-- TAB 1: EXCEL WHITELIST SECTION -->
+                <div id="admin-tab-whitelist" class="space-y-3">
+                    <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-2">
+                        <label class="block text-[11px] font-mono uppercase text-amber-300 font-bold">
+                            📁 Importer la Liste Officielle Excel (.xlsx, .csv)
+                        </label>
+                        <p class="text-[10px] text-slate-400 leading-normal">
+                            Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID (Ordre des mots, majuscule/minuscule gérés automatiquement).
+                        </p>
+                        
+                        <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelUpload(event)" class="hidden">
+                        <button onclick="document.getElementById('excel-file-input').click()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-file-excel text-emerald-400"></i>
+                            <span>Choisir un Fichier Excel</span>
+                        </button>
+                    </div>
+
+                    <div id="whitelist-status-box" class="text-[11px] font-mono p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 flex items-center justify-between">
+                        <span>Statut Whitelist: <strong id="whitelist-status-text" class="text-rose-400">Non Définie (Accès Libre)</strong></span>
+                        <button onclick="clearWhitelist()" title="Vider la liste" class="text-rose-400 hover:text-white text-xs">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 2: VIP MEMBERS LIST & PIN RESET -->
+                <div id="admin-tab-members" class="hidden space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono text-cyan-300 font-bold uppercase">Membres VIP Enregistrés</span>
+                        <input type="text" id="admin-member-search" oninput="renderAdminMembersList()" placeholder="Rechercher nom..." class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-xs text-white outline-none font-mono w-36">
+                    </div>
+
+                    <div id="admin-members-list-container" class="max-h-48 overflow-y-auto space-y-2 pr-1 font-mono text-xs">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: CUSTOM EVENT ANNOUNCEMENT MANAGER -->
+                <div id="admin-tab-event" class="hidden space-y-3">
+                    <span class="text-xs font-mono text-purple-300 font-bold uppercase block">📢 Modifier l'Événement (Sortie / Mystery)</span>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-[10px] font-mono text-slate-400">Badge Événement:</label>
+                            <input type="text" id="evt-input-badge" placeholder="ex: MYSTERY EVENT" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-mono text-slate-400">Titre de l'Événement:</label>
+                            <input type="text" id="evt-input-title" placeholder="ex: SORTIE D'INTÉGRATION" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-mono text-slate-400">Description:</label>
+                            <textarea id="evt-input-desc" rows="2" placeholder="Description de la sortie..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white font-mono"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[10px] font-mono text-slate-400">Destination:</label>
+                                <input type="text" id="evt-input-dest" placeholder="ex: [ CONFIDENTIEL ]" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-mono text-slate-400">Annonce Date:</label>
+                                <input type="text" id="evt-input-annonce" placeholder="ex: TRÈS BIENTÔT" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white font-mono">
+                            </div>
+                        </div>
+                        <button onclick="saveCustomEventData()" class="w-full py-2 bg-gradient-to-r from-purple-500 to-tech-blue text-white rounded-xl font-bold text-xs uppercase hover:brightness-110">
+                            Enregistrer L'Annonce Événement
+                        </button>
+                    </div>
                 </div>
 
                 <!-- CHANGE ADMIN PASSWORD -->
@@ -550,17 +630,18 @@
         </div>
     </div>
 
-    <!-- Modal VIP Member ID Card Generator -->
+    <!-- Modal VIP Member ID Card Generator + Recovery View -->
     <div id="id-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
         <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-sm md:max-w-md w-full text-center relative border border-tech-cyan/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="id-card-modal">
             <button onclick="closeIDModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
             <h3 class="text-base md:text-lg font-bold text-white font-tech mb-0.5">Générateur de Carte Membre</h3>
-            <p class="text-xs text-slate-400 mb-4">Saisissez votre Nom & Code à 4 Chiffres</p>
+            <p class="text-xs text-slate-400 mb-4">Saisissez vos Informations & Sécurisez votre PIN</p>
 
+            <!-- GENERATION FORM -->
             <div id="id-form" class="space-y-3 text-left mb-4">
-                <!-- IT/CODING IT SAD ERROR MESSAGE IF NAME NOT IN EXCEL WHITELIST -->
+                <!-- IT/CODING SAD ERROR MESSAGE IF NAME NOT IN EXCEL WHITELIST -->
                 <div id="not-in-whitelist-msg" class="hidden bg-rose-500/15 border border-rose-500/40 p-4 rounded-2xl text-center space-y-3 animate-pulse font-mono">
                     <div class="text-3xl">🤖💔</div>
                     <div class="inline-block px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-400 font-mono text-[10px] font-bold border border-rose-500/30">
@@ -584,9 +665,15 @@
                     <input type="text" id="member-name" placeholder="ex: Aymane El Amrani" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono">
                 </div>
 
-                <div>
-                    <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Code Secret (4 chiffres) *</label>
-                    <input type="password" id="member-pin" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs md:text-sm text-white outline-none font-mono tracking-widest text-center">
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Code Secret (4 chiffres) *</label>
+                        <input type="password" id="member-pin" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-mono uppercase text-cyan-300 mb-1">Confirmer le Code *</label>
+                        <input type="password" id="member-pin-confirm" maxlength="4" placeholder="ex: 1234" class="w-full bg-slate-900/90 border border-slate-700 focus:border-slate-700 focus:border-tech-cyan rounded-xl px-3 py-2 text-xs text-white outline-none font-mono tracking-widest text-center">
+                    </div>
                 </div>
 
                 <div>
@@ -612,12 +699,69 @@
                     </select>
                 </div>
 
+                <!-- 🔒 3 QUESTIONS DE SÉCURITÉ EN CAS D'OUBLI -->
+                <div class="border-t border-slate-800 pt-2 space-y-2">
+                    <span class="text-[10px] font-mono text-purple-300 font-bold uppercase block">🛡️ 3 Questions de Sécurité (En cas d'oubli du PIN):</span>
+                    <div>
+                        <input type="text" id="sec-q1" placeholder="1. Votre ville de naissance ?" class="w-full bg-slate-900/90 border border-slate-800 focus:border-purple-400 rounded-lg px-2.5 py-1.5 text-[11px] text-white font-mono outline-none">
+                    </div>
+                    <div>
+                        <input type="text" id="sec-q2" placeholder="2. Votre module/matière préférée ?" class="w-full bg-slate-900/90 border border-slate-800 focus:border-purple-400 rounded-lg px-2.5 py-1.5 text-[11px] text-white font-mono outline-none">
+                    </div>
+                    <div>
+                        <input type="text" id="sec-q3" placeholder="3. Nom de votre premier lycée / école ?" class="w-full bg-slate-900/90 border border-slate-800 focus:border-purple-400 rounded-lg px-2.5 py-1.5 text-[11px] text-white font-mono outline-none">
+                    </div>
+                </div>
+
                 <button onclick="generateMemberCard()" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/20 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-id-badge"></i>
                     <span>Générer Ma Carte ID</span>
                 </button>
+
+                <div class="text-center pt-1">
+                    <button onclick="toggleMemberRecoveryView()" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                        🔑 Code PIN ou Carte oubliée ? Récupérer mon accès
+                    </button>
+                </div>
             </div>
 
+            <!-- MEMBER PIN / CARD RECOVERY VIEW -->
+            <div id="id-recovery-view" class="hidden text-left space-y-3 mb-4">
+                <div class="text-center">
+                    <span class="text-xs font-mono text-cyan-300 font-bold uppercase">Récupération de la Carte & PIN</span>
+                    <p class="text-[11px] text-slate-400">Saisissez votre Nom et répondez aux 3 questions de sécurité.</p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-mono text-cyan-300 mb-1">Votre Nom et Prénom *</label>
+                    <input type="text" id="rec-member-name" placeholder="ex: Aymane El Amrani" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-mono text-purple-300 mb-1">1. Ville de naissance ?</label>
+                    <input type="text" id="rec-q1" placeholder="Réponse 1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-mono text-purple-300 mb-1">2. Module/Matière préférée ?</label>
+                    <input type="text" id="rec-q2" placeholder="Réponse 2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-mono text-purple-300 mb-1">3. Nom du premier lycée / école ?</label>
+                    <input type="text" id="rec-q3" placeholder="Réponse 3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
+                </div>
+
+                <button onclick="recoverMemberAccess()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-tech-blue text-white font-bold text-xs uppercase hover:brightness-110">
+                    Vérifier & Récupérer la Carte
+                </button>
+
+                <button onclick="toggleMemberRecoveryView()" class="w-full text-center text-xs font-mono text-slate-400 hover:text-white pt-1">
+                    ← Retour au formulaire
+                </button>
+            </div>
+
+            <!-- GENERATED CARD DISPLAY VIEW -->
             <div id="id-card-view" class="hidden text-left space-y-4">
                 <div id="cyber-id-card" style="width: 380px; height: 230px; background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5); box-sizing: border-box; position: relative; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;">
                     <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
@@ -724,7 +868,7 @@
             const lockoutUntil = parseInt(localStorage.getItem('club_ia_lockout_until') || "0");
             const now = Date.now();
             if (lockoutUntil > now) {
-                return Math.ceil((lockoutUntil - now) / 1000); // Remaining seconds
+                return Math.ceil((lockoutUntil - now) / 1000);
             }
             return 0;
         }
@@ -927,6 +1071,8 @@
             document.getElementById('admin-recovery-view').classList.add('hidden');
             document.getElementById('admin-dashboard-view').classList.remove('hidden');
             updateAdminStats();
+            renderAdminMembersList();
+            loadCustomEventData();
         }
 
         function logoutAdmin() {
@@ -937,8 +1083,9 @@
         }
 
         function updateAdminStats() {
-            const cardCounter = localStorage.getItem('club_ia_card_counter') || "0";
-            document.getElementById('stat-cards-count').innerText = cardCounter;
+            const membersDb = getMembersDB();
+            const registeredCount = Object.keys(membersDb).length;
+            document.getElementById('stat-cards-count').innerText = registeredCount;
 
             const savedWhitelist = localStorage.getItem('club_ia_whitelist');
             const statusText = document.getElementById('whitelist-status-text');
@@ -953,6 +1100,108 @@
                 statusText.innerText = "Non Définie (Accès Libre)";
                 statusText.className = "text-amber-400 font-bold";
             }
+        }
+
+        function switchAdminTab(tabName) {
+            ['whitelist', 'members', 'event'].forEach(t => {
+                document.getElementById(`admin-tab-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white";
+            });
+
+            document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabName}`).className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
+        }
+
+        // 👥 ADMIN MEMBERS LIST & PIN RESET
+        function getMembersDB() {
+            try {
+                return JSON.parse(localStorage.getItem('club_ia_members_db') || '{}');
+            } catch(e) {
+                return {};
+            }
+        }
+
+        function renderAdminMembersList() {
+            const container = document.getElementById('admin-members-list-container');
+            if (!container) return;
+            const search = (document.getElementById('admin-member-search')?.value || '').toLowerCase().trim();
+            const membersDb = getMembersDB();
+            const keys = Object.keys(membersDb);
+
+            if (keys.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 italic text-[11px] text-center py-2">Aucun membre VIP enregistré pour le moment.</p>';
+                return;
+            }
+
+            let html = '';
+            keys.forEach(k => {
+                const m = membersDb[k];
+                if (!search || m.name.toLowerCase().includes(search) || m.id.toLowerCase().includes(search)) {
+                    html += `
+                        <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-xl flex items-center justify-between gap-2">
+                            <div>
+                                <span class="font-bold text-white block text-xs">${m.name}</span>
+                                <span class="text-[10px] text-cyan-400 block">${m.filiere} • <strong class="text-purple-300">${m.id}</strong></span>
+                                <span class="text-[9px] text-slate-500 block">PIN: ••••</span>
+                            </div>
+                            <button onclick="adminResetMemberPIN('${k}')" class="px-2 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 rounded text-[10px] hover:bg-amber-500 hover:text-slate-950 transition-all font-bold">
+                                🔄 Reinitialiser PIN
+                            </button>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html || '<p class="text-slate-500 italic text-[11px] text-center py-2">Aucun résultat trouvé.</p>';
+        }
+
+        function adminResetMemberPIN(memberKey) {
+            const membersDb = getMembersDB();
+            if (!membersDb[memberKey]) return;
+
+            const newPin = prompt(`Saisir le nouveau PIN à 4 chiffres pour "${membersDb[memberKey].name}":`);
+            if (!newPin || newPin.trim().length !== 4 || isNaN(newPin.trim())) {
+                showToast("⚠️ Le PIN doit contenir exactement 4 chiffres.");
+                return;
+            }
+
+            membersDb[memberKey].pin = newPin.trim();
+            localStorage.setItem('club_ia_members_db', JSON.stringify(membersDb));
+            showToast(`✅ PIN réinitialisé pour ${membersDb[memberKey].name}! Nouveau PIN: ${newPin.trim()}`);
+            renderAdminMembersList();
+        }
+
+        // 📢 ADMIN EVENT ANNOUNCEMENT MANAGER
+        function loadCustomEventData() {
+            try {
+                const customEvt = JSON.parse(localStorage.getItem('club_ia_custom_event') || 'null');
+                if (customEvt) {
+                    if (document.getElementById('evt-out-badge')) document.getElementById('evt-out-badge').innerHTML = `<i class="fa-solid fa-star text-cyan-300"></i> ${customEvt.badge}`;
+                    if (document.getElementById('evt-out-title')) document.getElementById('evt-out-title').innerText = customEvt.title;
+                    if (document.getElementById('evt-out-desc')) document.getElementById('evt-out-desc').innerText = customEvt.desc;
+                    if (document.getElementById('evt-out-dest')) document.getElementById('evt-out-dest').innerText = customEvt.dest;
+                    if (document.getElementById('evt-out-annonce')) document.getElementById('evt-out-annonce').innerText = customEvt.annonce;
+
+                    if (document.getElementById('evt-input-badge')) document.getElementById('evt-input-badge').value = customEvt.badge;
+                    if (document.getElementById('evt-input-title')) document.getElementById('evt-input-title').value = customEvt.title;
+                    if (document.getElementById('evt-input-desc')) document.getElementById('evt-input-desc').value = customEvt.desc;
+                    if (document.getElementById('evt-input-dest')) document.getElementById('evt-input-dest').value = customEvt.dest;
+                    if (document.getElementById('evt-input-annonce')) document.getElementById('evt-input-annonce').value = customEvt.annonce;
+                }
+            } catch(e) {}
+        }
+
+        function saveCustomEventData() {
+            const badge = document.getElementById('evt-input-badge').value.trim() || "MYSTERY EVENT";
+            const title = document.getElementById('evt-input-title').value.trim() || "SORTIE D'INTÉGRATION";
+            const desc = document.getElementById('evt-input-desc').value.trim() || "Une journée épique pleine d'aventure et team building.";
+            const dest = document.getElementById('evt-input-dest').value.trim() || "[ CONFIDENTIEL ]";
+            const annonce = document.getElementById('evt-input-annonce').value.trim() || "TRÈS BIENTÔT";
+
+            const evtObj = { badge, title, desc, dest, annonce };
+            localStorage.setItem('club_ia_custom_event', JSON.stringify(evtObj));
+            loadCustomEventData();
+            showToast("✅ Annonce de l'événement mise à jour !");
         }
 
         function handleExcelUpload(event) {
@@ -1123,7 +1372,20 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
-        // 🧠 DETERMINISTIC & INVARIANT ID GENERATOR (WORD ORDER, CASE & ACCENT INDEPENDENT + FILIÈRE & PIN SPECIFIC)
+        function toggleMemberRecoveryView() {
+            const formView = document.getElementById('id-form');
+            const recView = document.getElementById('id-recovery-view');
+            if (formView.classList.contains('hidden')) {
+                formView.classList.remove('hidden');
+                recView.classList.add('hidden');
+            } else {
+                formView.classList.add('hidden');
+                recView.classList.remove('hidden');
+            }
+        }
+
+        // 🧠 DETERMINISTIC & INVARIANT ID GENERATOR (WORD ORDER & CASE INDEPENDENT)
+        // 🔒 RESERVED EXCLUSION FOR EMERGENCY ADMIN RESET ID "CIA-2026-76831"
         function generateDeterministicID(name, filiere, pin) {
             const normName = name.toLowerCase()
                                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -1145,8 +1407,14 @@
                 hash = ((hash << 5) - hash) + char;
                 hash |= 0;
             }
-            const positiveHash = Math.abs(hash);
-            const codeNum = (positiveHash % 89999) + 10000;
+            let positiveHash = Math.abs(hash);
+            let codeNum = (positiveHash % 89999) + 10000;
+
+            // 🛡️ GUARANTEE THAT CIA-2026-76831 IS NEVER ASSIGNED TO ANY REGULAR MEMBER
+            if (codeNum === 76831) {
+                codeNum = 76832;
+            }
+
             return `CIA-2026-${codeNum}`;
         }
 
@@ -1158,6 +1426,10 @@
                       .split(/\s+/)
                       .filter(Boolean)
                       .sort();
+        }
+
+        function getNormalizedKey(str) {
+            return normalizeNameTokens(str).join("");
         }
 
         function isNameInWhitelist(userInput, whitelistArray) {
@@ -1180,9 +1452,14 @@
         function generateMemberCard() {
             const nameInput = document.getElementById('member-name').value.trim();
             const pin = document.getElementById('member-pin').value.trim();
+            const pinConfirm = document.getElementById('member-pin-confirm').value.trim();
             const filiere = document.getElementById('member-filiere').value;
-            const notInListMsg = document.getElementById('not-in-whitelist-msg');
 
+            const q1 = document.getElementById('sec-q1').value.trim();
+            const q2 = document.getElementById('sec-q2').value.trim();
+            const q3 = document.getElementById('sec-q3').value.trim();
+
+            const notInListMsg = document.getElementById('not-in-whitelist-msg');
             if (notInListMsg) notInListMsg.classList.add('hidden');
 
             if (!nameInput) {
@@ -1192,6 +1469,16 @@
 
             if (!pin || pin.length !== 4 || isNaN(pin)) {
                 showToast("⚠️ Le code secret doit comporter exactement 4 chiffres.");
+                return;
+            }
+
+            if (pin !== pinConfirm) {
+                showToast("❌ Les deux codes secrets ne correspondent pas!");
+                return;
+            }
+
+            if (!q1 || !q2 || !q3) {
+                showToast("⚠️ Veuillez répondre aux 3 questions de sécurité.");
                 return;
             }
 
@@ -1210,12 +1497,33 @@
                 }
             }
 
-            let count = parseInt(localStorage.getItem('club_ia_card_counter') || "0");
-            count++;
-            localStorage.setItem('club_ia_card_counter', count.toString());
+            const memberKey = getNormalizedKey(nameInput);
+            const membersDb = getMembersDB();
+
+            if (membersDb[memberKey] && membersDb[memberKey].pin !== pin) {
+                showToast("⚠️ Un profil existe déjà avec un PIN différent. Récupérez votre PIN via le bouton d'oubli.");
+                return;
+            }
 
             const uniqueID = generateDeterministicID(nameInput, filiere, pin);
 
+            // SAVE MEMBER PROFILE IN SECURE STORAGE
+            membersDb[memberKey] = {
+                name: nameInput,
+                filiere: filiere,
+                pin: pin,
+                q1: q1.toLowerCase(),
+                q2: q2.toLowerCase(),
+                q3: q3.toLowerCase(),
+                id: uniqueID,
+                date: new Date().toISOString()
+            };
+            localStorage.setItem('club_ia_members_db', JSON.stringify(membersDb));
+
+            displayGeneratedCard(nameInput, filiere, uniqueID);
+        }
+
+        function displayGeneratedCard(nameInput, filiere, uniqueID) {
             document.getElementById('card-out-name').innerText = nameInput.toUpperCase();
             document.getElementById('card-out-filiere').innerText = filiere;
             document.getElementById('card-out-id').innerText = uniqueID;
@@ -1235,13 +1543,55 @@
             });
 
             document.getElementById('id-form').classList.add('hidden');
-            document.getElementById('id-card-view').classList.remove('hidden');
+            document.getElementById('id-recovery-view').classList.add('hidden');
+            
+            const cardView = document.getElementById('id-card-view');
+            cardView.classList.remove('hidden');
+
+            // ⚡ SUBTLE ELEGANT CYBER GLOW & SCAN EFFECT
+            const cardElem = document.getElementById('cyber-id-card');
+            if (cardElem) {
+                cardElem.classList.remove('cyber-scan-glow');
+                void cardElem.offsetWidth; // Force Reflow
+                cardElem.classList.add('cyber-scan-glow');
+            }
+            playCyberBeep();
 
             showToast("✅ Carte ID générée avec succès !");
         }
 
+        // 🔑 RECOVER MEMBER ACCESS VIA 3 SECURITY QUESTIONS
+        function recoverMemberAccess() {
+            const name = document.getElementById('rec-member-name').value.trim();
+            const q1 = document.getElementById('rec-q1').value.trim().toLowerCase();
+            const q2 = document.getElementById('rec-q2').value.trim().toLowerCase();
+            const q3 = document.getElementById('rec-q3').value.trim().toLowerCase();
+
+            if (!name || !q1 || !q2 || !q3) {
+                showToast("⚠️ Veuillez remplir tous les champs de récupération.");
+                return;
+            }
+
+            const memberKey = getNormalizedKey(name);
+            const membersDb = getMembersDB();
+            const profile = membersDb[memberKey];
+
+            if (!profile) {
+                showToast("❌ Aucun membre trouvé avec ce nom.");
+                return;
+            }
+
+            if (profile.q1 === q1 && profile.q2 === q2 && profile.q3 === q3) {
+                showToast(`✅ Accès vérifié! Votre PIN est: ${profile.pin}`);
+                displayGeneratedCard(profile.name, profile.filiere, profile.id);
+            } else {
+                showToast("❌ Réponses aux questions de sécurité incorrectes.");
+            }
+        }
+
         function resetIDForm() {
             document.getElementById('id-card-view').classList.add('hidden');
+            document.getElementById('id-recovery-view').classList.add('hidden');
             document.getElementById('id-form').classList.remove('hidden');
             const notInListMsg = document.getElementById('not-in-whitelist-msg');
             if (notInListMsg) notInListMsg.classList.add('hidden');
@@ -1804,6 +2154,7 @@
             initCanvas();
             renderLoop();
             updateLockoutUI();
+            loadCustomEventData();
         }
     </script>
 </body>
