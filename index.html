@@ -326,7 +326,7 @@
                         title="Copier l'e-mail"
                         class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                 </button>
             </div>
@@ -463,22 +463,21 @@
                 </button>
             </div>
 
-            <!-- ID Card Output View (Hidden by default) -->
+            <!-- ID Card Output View (Optimized for Canvas Render) -->
             <div id="id-card-view" class="hidden text-left space-y-4">
-                <!-- ID Card Visual Container -->
-                <div id="cyber-id-card" class="bg-slate-950 p-4 rounded-2xl border border-tech-cyan/60 relative overflow-hidden shadow-2xl font-mono text-slate-100">
-                    <div class="absolute -right-8 -top-8 w-24 h-24 bg-tech-cyan/20 rounded-full blur-xl pointer-events-none"></div>
+                <!-- ID Card Visual Container (Solid BG, No Backdrop Filters for html2pdf Compatibility) -->
+                <div id="cyber-id-card" style="background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5);" class="p-4 rounded-2xl relative overflow-hidden shadow-2xl font-mono">
                     
                     <!-- Header -->
-                    <div class="flex items-center justify-between border-b border-cyan-500/30 pb-2 mb-3">
+                    <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3);" class="flex items-center justify-between pb-2 mb-3">
                         <div class="flex items-center gap-2">
-                            <img src="logo.png" class="w-7 h-7 rounded-full bg-white p-0.5" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
+                            <img src="logo.png" class="w-7 h-7 rounded-full bg-white p-0.5" crossorigin="anonymous" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
                             <div>
                                 <h4 class="text-[11px] font-bold text-white tracking-tight leading-none font-tech">CLUB IA ESEF-B</h4>
                                 <span class="text-[8px] text-cyan-400">OFFICIAL MEMBER VIP PASS</span>
                             </div>
                         </div>
-                        <span class="text-[9px] bg-cyan-500/20 text-tech-cyan border border-cyan-400/40 px-1.5 py-0.5 rounded font-bold">2026</span>
+                        <span style="background-color: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.4);" class="text-[9px] px-1.5 py-0.5 rounded font-bold">2026</span>
                     </div>
 
                     <!-- Main Info -->
@@ -498,13 +497,13 @@
                             </div>
                         </div>
                         <div class="col-span-1 flex flex-col items-center justify-center bg-white p-1 rounded-lg shadow">
-                            <img id="card-out-qr" src="" alt="QR ID" class="w-16 h-16 rounded" />
+                            <img id="card-out-qr" src="" alt="QR ID" class="w-16 h-16 rounded" crossorigin="anonymous" />
                         </div>
                     </div>
 
                     <!-- Footer Bar -->
-                    <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[8px] text-slate-400">
-                        <span>STATUS: <strong class="text-emerald-400">VERIFIED</strong></span>
+                    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1);" class="pt-2 flex items-center justify-between text-[8px] text-slate-400">
+                        <span>STATUS: <strong style="color: #34d399;">VERIFIED</strong></span>
                         <span>ESEF BERRECHID</span>
                     </div>
                 </div>
@@ -697,24 +696,33 @@
             document.getElementById('id-form').classList.remove('hidden');
         }
 
+        // Fixed PDF Download Generator Function
         function downloadCardPDF() {
             const cardElement = document.getElementById('cyber-id-card');
             const name = document.getElementById('card-out-name').innerText;
             if (!cardElement) return;
 
-            showToast("⏳ Préparation du PDF...");
+            showToast("⏳ Génération du PDF en cours...");
 
             const opt = {
-                margin:       [0.2, 0.2, 0.2, 0.2],
-                filename:     `CLUB_IA_Carte_${name.replace(/\s+/g, '_')}.pdf`,
+                margin:       [5, 5, 5, 5],
+                filename:     `Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 3, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'a6', orientation: 'landscape' }
+                html2canvas:  { 
+                    scale: 3, 
+                    useCORS: true, 
+                    allowTaint: true,
+                    backgroundColor: '#0f172a',
+                    scrollX: 0,
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'mm', format: [110, 75], orientation: 'landscape' }
             };
 
             html2pdf().set(opt).from(cardElement).save().then(() => {
                 showToast("📥 Carte PDF téléchargée !");
-            }).catch(() => {
+            }).catch((err) => {
+                console.error(err);
                 showToast("❌ Erreur lors du téléchargement.");
             });
         }
