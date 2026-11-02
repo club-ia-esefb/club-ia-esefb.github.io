@@ -49,81 +49,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <!-- Firebase SDKs (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0f19;
-        }
-        h1, h2, h3, .font-tech {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 242, 254, 0.15);
-        }
-        .glass-btn {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .glass-btn:hover {
-            border-color: rgba(0, 242, 254, 0.6);
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.35);
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0f19;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #00f2fe;
-            border-radius: 3px;
-        }
-        .quote-transition {
-            transition: opacity 0.25s ease-in-out;
-        }
-        @keyframes cyberScanLine {
-            0% { top: 0%; opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-        @keyframes cardGlowPulse {
-            0% { box-shadow: 0 0 0px rgba(0, 242, 254, 0); transform: scale(0.97); }
-            50% { shadow: 0 0 35px rgba(0, 242, 254, 0.7); transform: scale(1.02); }
-            100% { box-shadow: 0 0 12px rgba(0, 242, 254, 0.25); transform: scale(1); }
-        }
-        .cyber-scan-glow {
-            position: relative;
-            overflow: hidden;
-            animation: cardGlowPulse 0.9s ease-out forwards;
-        }
-        .cyber-scan-glow::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #00f2fe, #4facfe, transparent);
-            box-shadow: 0 0 15px #00f2fe;
-            animation: cyberScanLine 1.2s ease-in-out forwards;
-            pointer-events: none;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }
+        h1, h2, h3, .font-tech { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0, 242, 254, 0.15); }
+        .glass-btn { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .glass-btn:hover { border-color: rgba(0, 242, 254, 0.6); transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.35); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #00f2fe; border-radius: 3px; }
+        .quote-transition { transition: opacity 0.25s ease-in-out; }
+        @keyframes cyberScanLine { 0% { top: 0%; opacity: 0.8; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+        @keyframes cardGlowPulse { 0% { box-shadow: 0 0 0px rgba(0, 242, 254, 0); transform: scale(0.97); } 50% { box-shadow: 0 0 35px rgba(0, 242, 254, 0.7); transform: scale(1.02); } 100% { box-shadow: 0 0 12px rgba(0, 242, 254, 0.25); transform: scale(1); } }
+        .cyber-scan-glow { position: relative; overflow: hidden; animation: cardGlowPulse 0.9s ease-out forwards; }
+        .cyber-scan-glow::after { content: ''; position: absolute; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, #00f2fe, #4facfe, transparent); box-shadow: 0 0 15px #00f2fe; animation: cyberScanLine 1.2s ease-in-out forwards; pointer-events: none; }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-tech-cyan selection:text-slate-950">
 
     <canvas id="neuralCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
-
     <div class="fixed -top-20 left-1/2 -translate-x-1/2 w-[350px] md:w-[650px] h-[350px] md:h-[650px] bg-cyan-500/15 pointer-events-none z-0 rounded-full blur-[100px] md:blur-[140px]"></div>
     <div class="fixed bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 pointer-events-none z-0 rounded-full blur-[90px] md:blur-[120px]"></div>
 
@@ -140,13 +93,11 @@
     </div>
 
     <main class="relative z-10 w-full max-w-md md:max-w-xl mx-auto px-4 md:px-6 py-6 md:py-10 flex flex-col items-center min-h-screen">
-
         <div class="w-full flex justify-between items-center mb-6 md:mb-8">
             <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-tech-cyan/30 text-[11px] md:text-xs font-mono text-cyan-300 shadow-lg">
                 <span class="w-2 h-2 rounded-full bg-tech-cyan animate-ping"></span>
                 <span>ESEF BERRECHID</span>
             </div>
-
             <div class="flex items-center gap-2.5">
                 <button onclick="openAdminModal()" title="Espace Bureau (Admin)" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-amber-400 hover:border-amber-400 transition-all active:scale-95">
                     <i class="fa-solid fa-user-shield text-sm md:text-base"></i>
@@ -173,7 +124,6 @@
                     AI HUB
                 </div>
             </div>
-
             <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white font-tech uppercase flex items-center justify-center gap-1">
                 <span class="bg-gradient-to-r from-tech-cyan via-cyan-200 to-white bg-clip-text text-transparent">CLUB IA ESEF-B</span>
             </h1>
@@ -187,14 +137,12 @@
             <div class="bg-slate-950/95 rounded-[15px] p-5 md:p-6 backdrop-blur-xl relative overflow-hidden border border-tech-cyan/20">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-tech-cyan/20 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-purple-600/20 rounded-full blur-2xl pointer-events-none"></div>
-
                 <div class="flex justify-between items-center mb-3">
                     <span id="evt-out-badge" class="bg-cyan-500/15 text-tech-cyan border border-tech-cyan/40 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full flex items-center gap-1.5 animate-pulse">
                         <i class="fa-solid fa-user-secret text-cyan-300"></i> MYSTERY EVENT
                     </span>
                     <span class="text-[10px] md:text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 font-mono font-semibold px-2 py-0.5 rounded">EDITION 2026</span>
                 </div>
-
                 <h2 class="text-base md:text-lg font-bold text-white font-tech mb-1 flex items-center gap-2">
                     <span id="evt-out-title">SORTIE D'INTÉGRATION</span>
                     <span class="text-[9px] md:text-[10px] px-2 py-0.5 rounded bg-gradient-to-r from-rose-500 to-purple-600 text-white font-extrabold uppercase animate-bounce">SOON</span>
@@ -202,7 +150,6 @@
                 <p id="evt-out-desc" class="text-xs md:text-sm text-slate-300 mb-4 leading-relaxed">
                     Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment... 🔒💥
                 </p>
-
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <div class="bg-slate-900/90 border border-tech-cyan/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">DESTINATION</span>
@@ -217,7 +164,6 @@
                         </span>
                     </div>
                 </div>
-
                 <button id="evt-out-btn" onclick="handleVIPWaitlist()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 text-slate-950 font-extrabold text-xs md:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-tech-cyan/25 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-bell text-xs md:text-sm"></i>
                     <span>ÊTRE INFORMÉ EN PREMIER (WHATSAPP)</span>
@@ -226,7 +172,6 @@
         </div>
 
         <div class="w-full space-y-3.5 md:space-y-4">
-
             <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
                 <span class="absolute inset-0 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
                 <div class="relative flex items-center justify-between gap-4 rounded-2xl bg-slate-950/90 backdrop-blur-xl px-5 py-4 transition-all duration-300 group-hover:bg-slate-900/95 border border-tech-cyan/30">
@@ -327,28 +272,22 @@
             </a>
 
             <div class="flex items-center gap-2 w-full my-3">
-                <a href="mailto:clubdintelligenceartificielle@gmail.com" 
-                   class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-white hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
+                <a href="mailto:clubdintelligenceartificielle@gmail.com" class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-white hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all">
                     <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                     <span class="text-xs md:text-sm font-semibold">Envoyer un E-mail</span>
                 </a>
-
-                <button id="copy-email-btn" onclick="copyEmailToClipboard()" 
-                        title="Copier l'e-mail"
-                        class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
+                <button id="copy-email-btn" onclick="copyEmailToClipboard()" title="Copier l'e-mail" class="flex items-center justify-center p-3 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                 </button>
             </div>
-
         </div>
 
         <div class="w-full my-5 glass-panel rounded-2xl p-5 border border-tech-cyan/25 relative overflow-hidden group">
             <div class="absolute -right-10 -bottom-10 w-28 h-28 bg-tech-cyan/10 rounded-full blur-xl pointer-events-none"></div>
-            
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[10px] md:text-xs font-mono font-bold text-tech-cyan uppercase tracking-widest flex items-center gap-1.5">
                     <i class="fa-solid fa-quote-left"></i> AI INSIGHT DU JOUR
@@ -358,11 +297,9 @@
                     <span>Autre Citation</span>
                 </button>
             </div>
-
             <p id="quote-text" class="text-xs md:text-sm text-slate-200 italic leading-relaxed min-h-[44px] flex items-center quote-transition">
                 "Nous ne pouvons voir qu'à une courte distance devant nous, mais nous pouvons voir largement assez de choses qui doivent être faites."
             </p>
-
             <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] md:text-xs font-mono">
                 <span id="quote-author" class="text-tech-cyan font-semibold quote-transition">— Alan Turing</span>
                 <span id="quote-role" class="text-slate-500 text-[10px] quote-transition">Père de l'Informatique</span>
@@ -380,24 +317,18 @@
                     </div>
                     <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> ONLINE</span>
                 </div>
-
                 <div id="terminal-output" class="space-y-2 mb-3 max-h-48 md:max-h-56 overflow-y-auto text-slate-300 leading-relaxed pr-1 font-mono">
                     <p class="text-slate-500">&gt; Initializing Neural CLI Engine...</p>
                     <p class="text-tech-cyan">&gt; System Ready. Type <span class="text-amber-300 font-bold">'help'</span> or <span class="text-purple-300 font-bold">'list'</span> to see all 50+ CLI commands.</p>
                 </div>
-
                 <div class="space-y-2">
                     <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 focus-within:border-tech-cyan/60 rounded-xl px-3 py-2 transition-all">
                         <span class="text-tech-cyan font-bold animate-pulse">&gt;</span>
-                        <input type="text" id="terminal-input" placeholder="Type a command (e.g., help, pfe, python, matrix, joke)..." 
-                               class="bg-transparent border-none outline-none text-xs md:text-sm text-white placeholder-slate-500 w-full font-mono"
-                               autocomplete="off" spellcheck="false"
-                               onkeypress="if(event.key==='Enter') executeTerminalCommand()">
+                        <input type="text" id="terminal-input" placeholder="Type a command (e.g., help, pfe, python, matrix, joke)..." class="bg-transparent border-none outline-none text-xs md:text-sm text-white placeholder-slate-500 w-full font-mono" autocomplete="off" spellcheck="false" onkeypress="if(event.key==='Enter') executeTerminalCommand()">
                         <button onclick="executeTerminalCommand()" class="text-tech-cyan hover:text-white transition-colors p-1">
                             <i class="fa-solid fa-paper-plane text-xs md:text-sm"></i>
                         </button>
                     </div>
-
                     <div class="flex flex-wrap gap-1.5 pt-1">
                         <button onclick="sendQuickPrompt('help')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">⚡ help</button>
                         <button onclick="sendQuickPrompt('pfe')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🎓 pfe</button>
@@ -413,7 +344,6 @@
             <p>© 2026 CLUB IA ESEF-B • Berrechid</p>
             <p class="text-[10px] md:text-xs text-slate-600">École Supérieure d'Éducation et de Formation</p>
         </footer>
-
     </main>
 
     <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
@@ -430,20 +360,16 @@
                     <h3 class="text-lg font-bold text-white font-tech">Espace Bureau Executif</h3>
                     <p class="text-xs text-slate-400">Authentification Sécurisée (Cryptée SHA-256)</p>
                 </div>
-
                 <div id="admin-error-msg" class="hidden text-xs text-rose-400 font-mono font-bold bg-rose-500/15 border border-rose-500/40 p-3 rounded-xl text-center leading-relaxed animate-pulse"></div>
                 <div id="lockout-timer" class="hidden text-xs text-amber-300 font-mono font-bold text-center bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-xl"></div>
-
                 <div>
                     <label class="block text-[11px] font-mono uppercase text-amber-400 mb-1">Mot de Passe ou ID Secours *</label>
                     <input type="password" id="admin-pass-input" placeholder="••••••••" class="w-full bg-slate-900/90 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2.5 text-xs md:text-sm text-white outline-none font-mono">
                 </div>
-
                 <button id="admin-login-btn" onclick="loginAdmin()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-key"></i>
                     <span>Déverrouiller le Panneau</span>
                 </button>
-
                 <div class="text-center pt-1">
                     <button onclick="toggleRecoveryView()" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
                         Mot de passe oublié / Récupération via Email ?
@@ -459,17 +385,13 @@
                     <h3 class="text-lg font-bold text-white font-tech">Récupération du Mot de Passe</h3>
                     <p class="text-xs text-slate-400">Via l'E-mail Officiel du Club ou ID d'Urgence</p>
                 </div>
-
                 <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl space-y-2 text-xs text-slate-300 font-mono">
                     <p class="text-cyan-300 font-bold">1. Demande par E-mail Officiel:</p>
                     <p class="text-[11px] text-slate-400">Cliquez ci-dessous pour envoyer un e-mail au Bureau Executif:</p>
-                    <a href="mailto:clubdintelligenceartificielle@gmail.com?subject=Demande%20de%20Réinitialisation%20Mot%20de%20Passe%20Admin&body=Bonjour%20l'équipe%20Club%20IA,%20veuillez%20m'aider%20à%20réinitialiser%20le%20mot%20de%20passe%20Admin." 
-                       target="_blank" 
-                       class="block text-center py-2 px-3 rounded-lg bg-slate-800 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 font-bold text-[11px]">
+                    <a href="mailto:clubdintelligenceartificielle@gmail.com?subject=Demande%20de%20Réinitialisation%20Mot%20de%20Passe%20Admin&body=Bonjour%20l'équipe%20Club%20IA,%20veuillez%20m'aider%20à%20réinitialiser%20le%20mot%20de%20passe%20Admin." target="_blank" class="block text-center py-2 px-3 rounded-lg bg-slate-800 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 font-bold text-[11px]">
                         ✉️ Contact: clubdintelligenceartificielle@gmail.com
                     </a>
                 </div>
-
                 <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl space-y-2">
                     <p class="text-amber-400 font-mono font-bold text-xs">2. Réinitialisation par ID d'Urgence Crypté:</p>
                     <input type="password" id="emergency-id-input" placeholder="Saisir Carte ID d'Urgence" class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
@@ -478,7 +400,6 @@
                         Réinitialiser le Mot de Passe
                     </button>
                 </div>
-
                 <button onclick="toggleRecoveryView()" class="w-full text-center text-xs font-mono text-slate-400 hover:text-white pt-1">
                     ← Retour à la connexion
                 </button>
@@ -488,13 +409,12 @@
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div class="flex items-center gap-2">
                         <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <h4 class="text-xs font-bold text-amber-400 font-mono uppercase">PANNEAU DE CONTRÔLE BUREAU</h4>
+                        <h4 class="text-xs font-bold text-amber-400 font-mono uppercase">PANNEAU DE CONTRÔLE BUREAU (CLOUD REALTIME)</h4>
                     </div>
                     <button onclick="logoutAdmin()" class="text-[10px] text-rose-400 hover:text-rose-300 font-mono bg-rose-500/10 px-2.5 py-1 rounded border border-rose-500/30">
                         <i class="fa-solid fa-power-off"></i> Quitter
                     </button>
                 </div>
-
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-slate-900/90 border border-amber-500/30 p-3 rounded-2xl text-center">
                         <span class="block text-[10px] font-mono uppercase text-slate-400">CARTES ID GÉNÉRÉES</span>
@@ -505,7 +425,6 @@
                         <span id="stat-excel-count" class="text-xl font-bold text-tech-cyan font-mono">0</span>
                     </div>
                 </div>
-
                 <div class="flex gap-2 border-b border-slate-800 pb-2">
                     <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">📁 Whitelist</button>
                     <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">👥 Membres VIP</button>
@@ -518,16 +437,14 @@
                             📁 Importer la Liste Officielle Excel (.xlsx, .csv)
                         </label>
                         <p class="text-[10px] text-slate-400 leading-normal">
-                            Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID.
+                            Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID sur tous les appareils.
                         </p>
-                        
                         <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" onchange="handleExcelUpload(event)" class="hidden">
                         <button onclick="document.getElementById('excel-file-input').click()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 font-mono text-xs font-bold flex items-center justify-center gap-2 transition-all">
                             <i class="fa-solid fa-file-excel text-emerald-400"></i>
                             <span>Choisir un Fichier Excel</span>
                         </button>
                     </div>
-
                     <div id="whitelist-status-box" class="text-[11px] font-mono p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 flex items-center justify-between">
                         <span>Statut Whitelist: <strong id="whitelist-status-text" class="text-rose-400">Non Définie (Accès Libre)</strong></span>
                         <button onclick="clearWhitelist()" title="Vider la liste" class="text-rose-400 hover:text-white text-xs">
@@ -541,9 +458,7 @@
                         <span class="text-xs font-mono text-cyan-300 font-bold uppercase">Membres VIP Enregistrés</span>
                         <input type="text" id="admin-member-search" oninput="renderAdminMembersList()" placeholder="Rechercher nom..." class="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-xs text-white outline-none font-mono w-36">
                     </div>
-
-                    <div id="admin-members-list-container" class="max-h-48 overflow-y-auto space-y-2 pr-1 font-mono text-xs">
-                    </div>
+                    <div id="admin-members-list-container" class="max-h-48 overflow-y-auto space-y-2 pr-1 font-mono text-xs"></div>
                 </div>
 
                 <div id="admin-tab-event" class="hidden space-y-3">
@@ -553,7 +468,6 @@
                             👁️ Visible
                         </button>
                     </div>
-
                     <span class="text-xs font-mono text-purple-300 font-bold uppercase block pt-1">📢 Modifier l'Événement (Sortie / Mystery)</span>
                     <div class="space-y-2">
                         <div>
@@ -696,22 +610,18 @@
                     <span class="text-xs font-mono text-cyan-300 font-bold uppercase">Récupération de la Carte & PIN</span>
                     <p class="text-[11px] text-slate-400">Saisissez votre Nom et répondez aux 3 questions de sécurité.</p>
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-mono text-cyan-300 mb-1">Votre Nom et Prénom *</label>
                     <input type="text" id="rec-member-name" placeholder="ex: Aymane El Amrani" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-mono text-purple-300 mb-1">1. Ville de naissance ?</label>
                     <input type="text" id="rec-q1" placeholder="Réponse 1" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-mono text-purple-300 mb-1">2. Module/Matière préférée ?</label>
                     <input type="text" id="rec-q2" placeholder="Réponse 2" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
                 </div>
-
                 <div>
                     <label class="block text-[10px] font-mono text-purple-300 mb-1">3. Nom du premier lycée / école ?</label>
                     <input type="text" id="rec-q3" placeholder="Réponse 3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none">
@@ -720,7 +630,6 @@
                 <button onclick="recoverMemberAccess()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-tech-blue text-white font-bold text-xs uppercase hover:brightness-110">
                     Vérifier & Récupérer la Carte
                 </button>
-
                 <button onclick="toggleMemberRecoveryView()" class="w-full text-center text-xs font-mono text-slate-400 hover:text-white pt-1">
                     ← Retour au formulaire
                 </button>
@@ -793,16 +702,30 @@
             </button>
             <h3 class="text-base font-bold text-white font-tech mb-1">Scan QR Code</h3>
             <p class="text-xs text-slate-400 mb-4">Access CLUB IA ESEF-B Hub instantly</p>
-            
             <div class="bg-white p-3 rounded-2xl inline-block shadow-lg mb-4">
                 <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://club-ia-esefb.github.io&color=070f1e" alt="QR Code" class="w-44 h-44 rounded-lg" />
             </div>
-            
             <p class="text-[11px] text-tech-cyan font-mono">club-ia-esefb.github.io</p>
         </div>
     </div>
 
     <script>
+        // CONFIGURATION FIREBASE CLOUD OFFICENNE
+        const firebaseConfig = {
+            apiKey: "AIzaSyCDsUlVA1HCsAsy6BnmtM1tnYRGHNFhaiA",
+            authDomain: "club-ia-esefb.firebaseapp.com",
+            databaseURL: "https://club-ia-esefb-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "club-ia-esefb",
+            storageBucket: "club-ia-esefb.firebasestorage.app",
+            messagingSenderId: "918526667900",
+            appId: "1:918526667900:web:1dda897991b5d401066df9"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
+
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -817,6 +740,54 @@
         const BASE_LOCKOUT_TIME_MS = 5 * 60 * 1000;
 
         let activeMemberMode = 'quick';
+
+        // Synchronisation Cloud en Temps Réel (Live Listener)
+        function initCloudSync() {
+            // 1. Sync Event Annonce
+            db.ref('custom_event').on('value', (snapshot) => {
+                const customEvt = snapshot.val();
+                if (customEvt) {
+                    localStorage.setItem('club_ia_custom_event', JSON.stringify(customEvt));
+                    if (document.getElementById('evt-out-badge')) document.getElementById('evt-out-badge').innerHTML = `<i class="fa-solid fa-star text-cyan-300"></i> ${customEvt.badge}`;
+                    if (document.getElementById('evt-out-title')) document.getElementById('evt-out-title').innerText = customEvt.title;
+                    if (document.getElementById('evt-out-desc')) document.getElementById('evt-out-desc').innerText = customEvt.desc;
+                    if (document.getElementById('evt-out-dest')) document.getElementById('evt-out-dest').innerText = customEvt.dest;
+                    if (document.getElementById('evt-out-annonce')) document.getElementById('evt-out-annonce').innerText = customEvt.annonce;
+
+                    if (document.getElementById('evt-input-badge')) document.getElementById('evt-input-badge').value = customEvt.badge;
+                    if (document.getElementById('evt-input-title')) document.getElementById('evt-input-title').value = customEvt.title;
+                    if (document.getElementById('evt-input-desc')) document.getElementById('evt-input-desc').value = customEvt.desc;
+                    if (document.getElementById('evt-input-dest')) document.getElementById('evt-input-dest').value = customEvt.dest;
+                    if (document.getElementById('evt-input-annonce')) document.getElementById('evt-input-annonce').value = customEvt.annonce;
+                }
+            });
+
+            // 2. Sync Event Visibility
+            db.ref('event_visible').on('value', (snapshot) => {
+                const isVisible = snapshot.val() !== false;
+                localStorage.setItem('club_ia_event_visible', isVisible ? 'true' : 'false');
+                updateEventVisibilityUI();
+            });
+
+            // 3. Sync Whitelist
+            db.ref('whitelist').on('value', (snapshot) => {
+                const list = snapshot.val();
+                if (list && Array.isArray(list)) {
+                    localStorage.setItem('club_ia_whitelist', JSON.stringify(list));
+                } else {
+                    localStorage.removeItem('club_ia_whitelist');
+                }
+                updateAdminStats();
+            });
+
+            // 4. Sync Members Database
+            db.ref('members_db').on('value', (snapshot) => {
+                const mDb = snapshot.val() || {};
+                localStorage.setItem('club_ia_members_db', JSON.stringify(mDb));
+                updateAdminStats();
+                renderAdminMembersList();
+            });
+        }
 
         function switchMemberMode(mode) {
             activeMemberMode = mode;
@@ -1060,7 +1031,6 @@
             document.getElementById('admin-dashboard-view').classList.remove('hidden');
             updateAdminStats();
             renderAdminMembersList();
-            loadCustomEventData();
         }
 
         function logoutAdmin() {
@@ -1073,18 +1043,18 @@
         function updateAdminStats() {
             const membersDb = getMembersDB();
             const registeredCount = Object.keys(membersDb).length;
-            document.getElementById('stat-cards-count').innerText = registeredCount;
+            if (document.getElementById('stat-cards-count')) document.getElementById('stat-cards-count').innerText = registeredCount;
 
             const savedWhitelist = localStorage.getItem('club_ia_whitelist');
             const statusText = document.getElementById('whitelist-status-text');
 
-            if (savedWhitelist) {
+            if (savedWhitelist && statusText) {
                 const whitelist = JSON.parse(savedWhitelist);
-                document.getElementById('stat-excel-count').innerText = whitelist.length;
-                statusText.innerText = `Active (${whitelist.length} Membres)`;
+                if (document.getElementById('stat-excel-count')) document.getElementById('stat-excel-count').innerText = whitelist.length;
+                statusText.innerText = `Active Cloud (${whitelist.length} Membres)`;
                 statusText.className = "text-emerald-400 font-bold";
-            } else {
-                document.getElementById('stat-excel-count').innerText = "0";
+            } else if (statusText) {
+                if (document.getElementById('stat-excel-count')) document.getElementById('stat-excel-count').innerText = "0";
                 statusText.innerText = "Non Définie (Accès Libre)";
                 statusText.className = "text-amber-400 font-bold";
             }
@@ -1142,28 +1112,29 @@
             container.innerHTML = html || '<p class="text-slate-500 italic text-[11px] text-center py-2">Aucun résultat trouvé.</p>';
         }
 
-        function adminResetMemberPIN(memberKey) {
-            const membersDb = getMembersDB();
-            if (!membersDb[memberKey]) return;
+        async function adminResetMemberPIN(memberKey) {
+            const snap = await db.ref(`members_db/${memberKey}`).once('value');
+            const member = snap.val();
+            if (!member) return;
 
-            const newPin = prompt(`Saisir le nouveau PIN à 4 chiffres pour "${membersDb[memberKey].name}":`);
+            const newPin = prompt(`Saisir le nouveau PIN à 4 chiffres pour "${member.name}":`);
             if (!newPin || newPin.trim().length !== 4 || isNaN(newPin.trim())) {
                 showToast("⚠️ Le PIN doit contenir exactement 4 chiffres.");
                 return;
             }
 
-            membersDb[memberKey].pin = newPin.trim();
-            localStorage.setItem('club_ia_members_db', JSON.stringify(membersDb));
-            showToast(`✅ PIN réinitialisé pour ${membersDb[memberKey].name}! Nouveau PIN: ${newPin.trim()}`);
-            renderAdminMembersList();
+            db.ref(`members_db/${memberKey}/pin`).set(newPin.trim()).then(() => {
+                showToast(`✅ PIN réinitialisé pour ${member.name}! Nouveau PIN: ${newPin.trim()}`);
+            });
         }
 
         function toggleEventVisibility() {
-            let isVisible = localStorage.getItem('club_ia_event_visible') !== 'false';
-            isVisible = !isVisible;
-            localStorage.setItem('club_ia_event_visible', isVisible ? 'true' : 'false');
-            updateEventVisibilityUI();
-            showToast(isVisible ? "👁️ Annonce affichée sur le site." : "🙈 Annonce masquée du site.");
+            db.ref('event_visible').once('value').then(snapshot => {
+                const current = snapshot.val() !== false;
+                db.ref('event_visible').set(!current).then(() => {
+                    showToast(!current ? "👁️ Annonce affichée sur le site." : "🙈 Annonce masquée du site.");
+                });
+            });
         }
 
         function updateEventVisibilityUI() {
@@ -1172,11 +1143,8 @@
             const btn = document.getElementById('evt-toggle-btn');
 
             if (card) {
-                if (isVisible) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
+                if (isVisible) card.classList.remove('hidden');
+                else card.classList.add('hidden');
             }
 
             if (btn) {
@@ -1190,26 +1158,6 @@
             }
         }
 
-        function loadCustomEventData() {
-            updateEventVisibilityUI();
-            try {
-                const customEvt = JSON.parse(localStorage.getItem('club_ia_custom_event') || 'null');
-                if (customEvt) {
-                    if (document.getElementById('evt-out-badge')) document.getElementById('evt-out-badge').innerHTML = `<i class="fa-solid fa-star text-cyan-300"></i> ${customEvt.badge}`;
-                    if (document.getElementById('evt-out-title')) document.getElementById('evt-out-title').innerText = customEvt.title;
-                    if (document.getElementById('evt-out-desc')) document.getElementById('evt-out-desc').innerText = customEvt.desc;
-                    if (document.getElementById('evt-out-dest')) document.getElementById('evt-out-dest').innerText = customEvt.dest;
-                    if (document.getElementById('evt-out-annonce')) document.getElementById('evt-out-annonce').innerText = customEvt.annonce;
-
-                    if (document.getElementById('evt-input-badge')) document.getElementById('evt-input-badge').value = customEvt.badge;
-                    if (document.getElementById('evt-input-title')) document.getElementById('evt-input-title').value = customEvt.title;
-                    if (document.getElementById('evt-input-desc')) document.getElementById('evt-input-desc').value = customEvt.desc;
-                    if (document.getElementById('evt-input-dest')) document.getElementById('evt-input-dest').value = customEvt.dest;
-                    if (document.getElementById('evt-input-annonce')) document.getElementById('evt-input-annonce').value = customEvt.annonce;
-                }
-            } catch(e) {}
-        }
-
         function saveCustomEventData() {
             const badge = document.getElementById('evt-input-badge').value.trim() || "MYSTERY EVENT";
             const title = document.getElementById('evt-input-title').value.trim() || "SORTIE D'INTÉGRATION";
@@ -1218,16 +1166,19 @@
             const annonce = document.getElementById('evt-input-annonce').value.trim() || "TRÈS BIENTÔT";
 
             const evtObj = { badge, title, desc, dest, annonce };
-            localStorage.setItem('club_ia_custom_event', JSON.stringify(evtObj));
-            loadCustomEventData();
-            showToast("✅ Annonce de l'événement mise à jour !");
+
+            db.ref('custom_event').set(evtObj).then(() => {
+                showToast("✅ Annonce mise à jour dans le Cloud!");
+            }).catch(err => {
+                showToast("❌ Erreur de sauvegarde Cloud.");
+            });
         }
 
         function handleExcelUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
 
-            showToast("⏳ Lecture du fichier Excel...");
+            showToast("⏳ Synchronisation Cloud en cours...");
             const reader = new FileReader();
 
             reader.onload = function(e) {
@@ -1255,9 +1206,11 @@
                         return;
                     }
 
-                    localStorage.setItem('club_ia_whitelist', JSON.stringify(normalizedNames));
-                    updateAdminStats();
-                    showToast(`✅ Liste chargée: ${normalizedNames.length} membres autorisés!`);
+                    db.ref('whitelist').set(normalizedNames).then(() => {
+                        showToast(`✅ Liste Cloud chargée: ${normalizedNames.length} membres autorisés!`);
+                    }).catch(err => {
+                        showToast("❌ Erreur de sauvegarde Whitelist Cloud.");
+                    });
 
                 } catch (err) {
                     console.error(err);
@@ -1269,10 +1222,10 @@
         }
 
         function clearWhitelist() {
-            if (confirm("Voulez-vous réinitialiser la whitelist Excel ?")) {
-                localStorage.removeItem('club_ia_whitelist');
-                updateAdminStats();
-                showToast("🗑️ Whitelist réinitialisée.");
+            if (confirm("Voulez-vous réinitialiser la whitelist Excel dans le Cloud ?")) {
+                db.ref('whitelist').remove().then(() => {
+                    showToast("🗑️ Whitelist Cloud réinitialisée.");
+                });
             }
         }
 
@@ -1301,41 +1254,13 @@
         let fontSize = 14;
 
         const aiQuotes = [
-            {
-                quote: "Nous ne pouvons voir qu'à une courte distance devant nous, mais nous pouvons voir largement assez de choses qui doivent être faites.",
-                author: "Alan Turing",
-                role: "Père de l'Informatique"
-            },
-            {
-                quote: "L'intelligence artificielle est la nouvelle électricité. Elle va transformer chaque industrie.",
-                author: "Andrew Ng",
-                role: "Fondateur de DeepLearning.AI"
-            },
-            {
-                quote: "L'apprentissage profond est le moteur qui alimente la révolution actuelle de l'intelligence artificielle.",
-                author: "Yann LeCun",
-                role: "Chief AI Scientist chez Meta"
-            },
-            {
-                quote: "L'IA ne remplacera pas les humains, mais les humains qui utilisent l'IA remplaceront ceux qui ne l'utilisent pas.",
-                author: "Karim Lakhani",
-                role: "Professeur à Harvard Business School"
-            },
-            {
-                quote: "L'IA sera le plus grand levier d'émancipation intellectuelle et de création de l'histoire humaine.",
-                author: "Sam Altman",
-                role: "CEO d'OpenAI"
-            },
-            {
-                quote: "Ce que nous voulons, c'est une machine capable d'apprendre de sa propre expérience.",
-                author: "Alan Turing",
-                role: "Pionnier de l'IA"
-            },
-            {
-                quote: "Le vrai risque avec l'IA n'est pas la malice, mais la compétence. Une IA ultra-compétente atteindra ses objectifs avec une précision totale.",
-                author: "Stephen Hawking",
-                role: "Physicien Théoricien"
-            }
+            { quote: "Nous ne pouvons voir qu'à une courte distance devant nous, mais nous pouvons voir largement assez de choses qui doivent être faites.", author: "Alan Turing", role: "Père de l'Informatique" },
+            { quote: "L'intelligence artificielle est la nouvelle électricité. Elle va transformer chaque industrie.", author: "Andrew Ng", role: "Fondateur de DeepLearning.AI" },
+            { quote: "L'apprentissage profond est le moteur qui alimente la révolution actuelle de l'intelligence artificielle.", author: "Yann LeCun", role: "Chief AI Scientist chez Meta" },
+            { quote: "L'IA ne remplacera pas les humains, mais les humains qui utilisent l'IA remplaceront ceux qui ne l'utilisent pas.", author: "Karim Lakhani", role: "Professeur à Harvard Business School" },
+            { quote: "L'IA sera le plus grand levier d'émancipation intellectuelle et de création de l'histoire humaine.", author: "Sam Altman", role: "CEO d'OpenAI" },
+            { quote: "Ce que nous voulons, c'est une machine capable d'apprendre de sa propre expérience.", author: "Alan Turing", role: "Pionnier de l'IA" },
+            { quote: "Le vrai risque avec l'IA n'est pas la malice, mais la compétence. Une IA ultra-compétente atteindra ses objectifs avec une précision totale.", author: "Stephen Hawking", role: "Physicien Théoricien" }
         ];
 
         let currentQuoteIndex = 0;
@@ -1460,7 +1385,7 @@
             });
         }
 
-        function generateMemberCard() {
+        async function generateMemberCard() {
             const nameInput = document.getElementById('member-name').value.trim();
             const pin = document.getElementById('member-pin').value.trim();
             const filiere = document.getElementById('member-filiere').value;
@@ -1478,39 +1403,54 @@
                 return;
             }
 
-            const savedWhitelist = localStorage.getItem('club_ia_whitelist');
-            if (savedWhitelist) {
-                const whitelist = JSON.parse(savedWhitelist);
-                const isAllowed = isNameInWhitelist(nameInput, whitelist);
+            showToast("⏳ Vérification Cloud...");
 
-                if (!isAllowed) {
-                    if (notInListMsg) {
-                        notInListMsg.classList.remove('hidden');
-                        notInListMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // 1. Check Whitelist from Cloud
+            try {
+                const snapW = await db.ref('whitelist').once('value');
+                const whitelist = snapW.val();
+                if (whitelist && Array.isArray(whitelist)) {
+                    const isAllowed = isNameInWhitelist(nameInput, whitelist);
+                    if (!isAllowed) {
+                        if (notInListMsg) {
+                            notInListMsg.classList.remove('hidden');
+                            notInListMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                        showToast("🤖💔 404: Nom non trouvé dans la Whitelist.");
+                        return;
                     }
-                    showToast("🤖💔 404: Nom non trouvé dans la Whitelist.");
-                    return;
                 }
+            } catch(e) {
+                console.warn("Offline fallback.");
             }
 
             const memberKey = getNormalizedKey(nameInput);
-            const membersDb = getMembersDB();
 
+            // 2. Existing Member Check (Quick Login)
             if (activeMemberMode === 'quick') {
-                if (membersDb[memberKey]) {
-                    if (membersDb[memberKey].pin === pin) {
-                        displayGeneratedCard(membersDb[memberKey].name, membersDb[memberKey].filiere, membersDb[memberKey].id);
-                        return;
+                try {
+                    const snapM = await db.ref(`members_db/${memberKey}`).once('value');
+                    const memberData = snapM.val();
+
+                    if (memberData) {
+                        if (memberData.pin === pin) {
+                            displayGeneratedCard(memberData.name, memberData.filiere, memberData.id);
+                            return;
+                        } else {
+                            showToast("❌ Code PIN incorrect !");
+                            return;
+                        }
                     } else {
-                        showToast("❌ Code PIN incorrect !");
+                        showToast("⚠️ Aucun compte trouvé b'hade l-Ism. Veuillez choisir 'Première fois'.");
                         return;
                     }
-                } else {
-                    showToast("⚠️ Aucun compte trouvé b'hade l-Ism. Veuillez choisir 'Première fois'.");
+                } catch(e) {
+                    showToast("❌ Erreur de connexion Cloud.");
                     return;
                 }
             }
 
+            // 3. New Member Registration
             const pinConfirm = document.getElementById('member-pin-confirm').value.trim();
             const q1 = document.getElementById('sec-q1').value.trim();
             const q2 = document.getElementById('sec-q2').value.trim();
@@ -1522,13 +1462,13 @@
             }
 
             if (!q1 || !q2 || !q3) {
-                showToast("⚠️ Premiére inscription: Veuillez remplir les 3 questions de sécurité.");
+                showToast("⚠️ Première inscription: Veuillez remplir les 3 questions de sécurité.");
                 return;
             }
 
             const uniqueID = generateDeterministicID(nameInput, filiere, pin);
 
-            membersDb[memberKey] = {
+            const newMember = {
                 name: nameInput,
                 filiere: filiere,
                 pin: pin,
@@ -1538,9 +1478,12 @@
                 id: uniqueID,
                 date: new Date().toISOString()
             };
-            localStorage.setItem('club_ia_members_db', JSON.stringify(membersDb));
 
-            displayGeneratedCard(nameInput, filiere, uniqueID);
+            db.ref(`members_db/${memberKey}`).set(newMember).then(() => {
+                displayGeneratedCard(nameInput, filiere, uniqueID);
+            }).catch(err => {
+                showToast("❌ Erreur d'enregistrement Cloud.");
+            });
         }
 
         function displayGeneratedCard(nameInput, filiere, uniqueID) {
@@ -1579,7 +1522,7 @@
             showToast("✅ Carte ID générée avec succès !");
         }
 
-        function recoverMemberAccess() {
+        async function recoverMemberAccess() {
             const name = document.getElementById('rec-member-name').value.trim();
             const q1 = document.getElementById('rec-q1').value.trim().toLowerCase();
             const q2 = document.getElementById('rec-q2').value.trim().toLowerCase();
@@ -1590,20 +1533,26 @@
                 return;
             }
 
+            showToast("⏳ Vérification Cloud...");
             const memberKey = getNormalizedKey(name);
-            const membersDb = getMembersDB();
-            const profile = membersDb[memberKey];
 
-            if (!profile) {
-                showToast("❌ Aucun membre trouvé avec ce nom.");
-                return;
-            }
+            try {
+                const snap = await db.ref(`members_db/${memberKey}`).once('value');
+                const profile = snap.val();
 
-            if (profile.q1 === q1 && profile.q2 === q2 && profile.q3 === q3) {
-                showToast(`✅ Accès vérifié! Votre PIN est: ${profile.pin}`);
-                displayGeneratedCard(profile.name, profile.filiere, profile.id);
-            } else {
-                showToast("❌ Réponses aux questions de sécurité incorrectes.");
+                if (!profile) {
+                    showToast("❌ Aucun membre trouvé avec ce nom.");
+                    return;
+                }
+
+                if (profile.q1 === q1 && profile.q2 === q2 && profile.q3 === q3) {
+                    showToast(`✅ Accès vérifié! Votre PIN est: ${profile.pin}`);
+                    displayGeneratedCard(profile.name, profile.filiere, profile.id);
+                } else {
+                    showToast("❌ Réponses aux questions de sécurité incorrectes.");
+                }
+            } catch(e) {
+                showToast("❌ Erreur de récupération Cloud.");
             }
         }
 
@@ -2051,10 +2000,11 @@
                 return;
             }
 
-            const botLine = document.createElement('p');
-            botLine.className = 'text-tech-cyan font-semibold whitespace-pre-wrap font-mono';
-            botLine.innerText = '> ' + response;
-            output.appendChild(botLine);
+            const botLine = document.getElementById('terminal-output');
+            const botLineElem = document.createElement('p');
+            botLineElem.className = 'text-tech-cyan font-semibold whitespace-pre-wrap font-mono';
+            botLineElem.innerText = '> ' + response;
+            output.appendChild(botLineElem);
 
             output.scrollTop = output.scrollHeight;
         }
@@ -2172,7 +2122,7 @@
             initCanvas();
             renderLoop();
             updateLockoutUI();
-            loadCustomEventData();
+            initCloudSync();
         }
     </script>
 </body>
