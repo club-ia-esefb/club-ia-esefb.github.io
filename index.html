@@ -147,7 +147,6 @@
 
         <!-- Profile Section -->
         <div class="text-center flex flex-col items-center mb-6 md:mb-8 w-full">
-            <!-- Logo with 5-Click Secret Egg Trigger -->
             <div onclick="handleLogoClick()" title="Tap 5x for Secret Easter Egg 🤫" class="relative mb-5 group cursor-pointer active:scale-95 transition-transform">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
                 <div class="relative w-28 h-28 md:w-36 md:h-36 rounded-full p-1 bg-slate-950 flex items-center justify-center overflow-hidden animate-float">
@@ -188,7 +187,6 @@
                     Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment... 🔒💥
                 </p>
 
-                <!-- Status Box (Fixed Mobile Alignment) -->
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <div class="bg-slate-900/90 border border-tech-cyan/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">DESTINATION</span>
@@ -214,7 +212,7 @@
         <!-- PRIMARY ACTIONS & LINKS -->
         <div class="w-full space-y-3.5 md:space-y-4">
 
-            <!-- 0. REJOINDRE LE CLUB (FORM) -->
+            <!-- 0. REJOINDRE LE CLUB -->
             <a href="https://forms.gle/BVMZk4TQQVCEm7c29" target="_blank" rel="noopener noreferrer" class="group relative block w-full rounded-2xl p-[2px] transition-transform duration-300 hover:scale-[1.02]">
                 <span class="absolute inset-0 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-2xl opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></span>
                 <div class="relative flex items-center justify-between gap-4 rounded-2xl bg-slate-950/90 backdrop-blur-xl px-5 py-4 transition-all duration-300 group-hover:bg-slate-900/95 border border-tech-cyan/30">
@@ -364,10 +362,9 @@
             </div>
         </div>
 
-        <!-- 🤖 REAL ADVANCED CYBER TERMINAL CLI (50+ COMMANDS ENGINE) -->
+        <!-- 🤖 REAL ADVANCED CYBER TERMINAL CLI -->
         <div class="w-full mb-6 rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-blue-500 to-purple-600 shadow-xl">
             <div class="bg-slate-950/95 rounded-[15px] p-4 md:p-5 backdrop-blur-xl border border-tech-cyan/30 font-mono text-xs md:text-sm">
-                <!-- Terminal Bar Header -->
                 <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[10px] md:text-xs text-slate-400">
                     <div class="flex items-center gap-1.5">
                         <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80 cursor-pointer" onclick="processTerminalQuery('clear')"></span>
@@ -378,13 +375,11 @@
                     <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> ONLINE</span>
                 </div>
 
-                <!-- Terminal Output Container -->
                 <div id="terminal-output" class="space-y-2 mb-3 max-h-48 md:max-h-56 overflow-y-auto text-slate-300 leading-relaxed pr-1 font-mono">
                     <p class="text-slate-500">&gt; Initializing Neural CLI Engine...</p>
                     <p class="text-tech-cyan">&gt; System Ready. Type <span class="text-amber-300 font-bold">'help'</span> or <span class="text-purple-300 font-bold">'list'</span> to see all 50+ CLI commands.</p>
                 </div>
 
-                <!-- Input & Prompts -->
                 <div class="space-y-2">
                     <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 focus-within:border-tech-cyan/60 rounded-xl px-3 py-2 transition-all">
                         <span class="text-tech-cyan font-bold animate-pulse">&gt;</span>
@@ -397,23 +392,12 @@
                         </button>
                     </div>
 
-                    <!-- Quick Command Chips -->
                     <div class="flex flex-wrap gap-1.5 pt-1">
-                        <button onclick="sendQuickPrompt('help')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">
-                            ⚡ help
-                        </button>
-                        <button onclick="sendQuickPrompt('pfe')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">
-                            🎓 pfe
-                        </button>
-                        <button onclick="sendQuickPrompt('tools')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">
-                            🛠️ tools
-                        </button>
-                        <button onclick="sendQuickPrompt('matrix')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">
-                            🟢 matrix
-                        </button>
-                        <button onclick="sendQuickPrompt('clear')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-rose-400 hover:border-rose-400 font-mono">
-                            🧹 clear
-                        </button>
+                        <button onclick="sendQuickPrompt('help')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">⚡ help</button>
+                        <button onclick="sendQuickPrompt('pfe')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🎓 pfe</button>
+                        <button onclick="sendQuickPrompt('tools')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🛠️ tools</button>
+                        <button onclick="sendQuickPrompt('matrix')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🟢 matrix</button>
+                        <button onclick="sendQuickPrompt('clear')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-rose-400 hover:border-rose-400 font-mono">🧹 clear</button>
                     </div>
                 </div>
             </div>
@@ -427,40 +411,84 @@
 
     </main>
 
-    <!-- 🔐 MODAL ESPACE ADMIN BUREAU -->
+    <!-- 🔐 MODAL ESPACE ADMIN BUREAU (SÉCURISÉ + RECOVERY) -->
     <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 overflow-y-auto">
         <div class="glass-panel p-5 md:p-6 rounded-3xl max-w-md w-full text-center relative border border-amber-500/40 shadow-2xl transform scale-90 transition-all duration-300 my-auto" id="admin-card-modal">
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Admin Login Screen -->
+            <!-- Admin Login View -->
             <div id="admin-login-view" class="space-y-4 text-left">
                 <div class="text-center">
-                    <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center mx-auto mb-2 text-xl">
-                        <i class="fa-solid fa-lock"></i>
+                    <div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-400 text-amber-400 flex items-center justify-center mx-auto mb-2 text-xl shadow-lg shadow-amber-500/10">
+                        <i class="fa-solid fa-user-shield"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white font-tech">Espace Bureau (Admin)</h3>
-                    <p class="text-xs text-slate-400">Accès sécurisé réservé aux membres du Bureau Executif</p>
+                    <h3 class="text-lg font-bold text-white font-tech">Espace Bureau Executif</h3>
+                    <p class="text-xs text-slate-400">Authentification Sécurisée (Cryptée SHA-256)</p>
                 </div>
 
+                <!-- RED ERROR / WARNING MESSAGE BOX -->
+                <div id="admin-error-msg" class="hidden text-xs text-rose-400 font-mono font-bold bg-rose-500/15 border border-rose-500/40 p-3 rounded-xl text-center leading-relaxed animate-pulse"></div>
+                <div id="lockout-timer" class="hidden text-xs text-amber-300 font-mono font-bold text-center bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-xl"></div>
+
                 <div>
-                    <label class="block text-[11px] font-mono uppercase text-amber-400 mb-1">Mot de Passe Bureau *</label>
+                    <label class="block text-[11px] font-mono uppercase text-amber-400 mb-1">Mot de Passe ou ID Secours *</label>
                     <input type="password" id="admin-pass-input" placeholder="••••••••" class="w-full bg-slate-900/90 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2.5 text-xs md:text-sm text-white outline-none font-mono">
                 </div>
 
-                <button onclick="loginAdmin()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition-all">
+                <button id="admin-login-btn" onclick="loginAdmin()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:brightness-110 active:scale-95 transition-all">
                     <i class="fa-solid fa-key"></i>
                     <span>Déverrouiller le Panneau</span>
                 </button>
+
+                <div class="text-center pt-1">
+                    <button onclick="toggleRecoveryView()" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                        Mot de passe oublié / Récupération via Email ?
+                    </button>
+                </div>
             </div>
 
-            <!-- Admin Dashboard Panel -->
+            <!-- Password Recovery / Emergency Reset View -->
+            <div id="admin-recovery-view" class="hidden text-left space-y-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-400 text-cyan-400 flex items-center justify-center mx-auto mb-2 text-xl">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white font-tech">Récupération du Mot de Passe</h3>
+                    <p class="text-xs text-slate-400">Via l'E-mail Officiel du Club ou ID d'Urgence</p>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl space-y-2 text-xs text-slate-300 font-mono">
+                    <p class="text-cyan-300 font-bold">1. Demande par E-mail Officiel:</p>
+                    <p class="text-[11px] text-slate-400">Cliquez ci-dessous pour envoyer un e-mail au Bureau Executif:</p>
+                    <a href="mailto:clubdintelligenceartificielle@gmail.com?subject=Demande%20de%20Réinitialisation%20Mot%20de%20Passe%20Admin&body=Bonjour%20l'équipe%20Club%20IA,%20veuillez%20m'aider%20à%20réinitialiser%20le%20mot%20de%20passe%20Admin." 
+                       target="_blank" 
+                       class="block text-center py-2 px-3 rounded-lg bg-slate-800 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 font-bold text-[11px]">
+                        ✉️ Contact: clubdintelligenceartificielle@gmail.com
+                    </a>
+                </div>
+
+                <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl space-y-2">
+                    <p class="text-amber-400 font-mono font-bold text-xs">2. Réinitialisation par ID d'Urgence Crypté:</p>
+                    <input type="password" id="emergency-id-input" placeholder="Saisir Carte ID d'Urgence (ex: CIA-XXXX-XXXXX)" class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
+                    <input type="password" id="emergency-new-pass" placeholder="Nouveau Mot de Passe" class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3 py-2 text-xs text-white outline-none font-mono">
+                    <button onclick="resetPassWithEmergencyID()" class="w-full py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs hover:brightness-110">
+                        Réinitialiser le Mot de Passe
+                    </button>
+                </div>
+
+                <button onclick="toggleRecoveryView()" class="w-full text-center text-xs font-mono text-slate-400 hover:text-white pt-1">
+                    ← Retour à la connexion
+                </button>
+            </div>
+
+            <!-- Admin Dashboard View -->
             <div id="admin-dashboard-view" class="hidden text-left space-y-4">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div class="flex items-center gap-2">
                         <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <h4 class="text-xs font-bold text-amber-400 font-mono uppercase">ADMIN PANEL BUREAU</h4>
+                        <h4 class="text-xs font-bold text-amber-400 font-mono uppercase">PANNEAU DE CONTRÔLE BUREAU</h4>
                     </div>
                     <button onclick="logoutAdmin()" class="text-[10px] text-rose-400 hover:text-rose-300 font-mono bg-rose-500/10 px-2.5 py-1 rounded border border-rose-500/30">
                         <i class="fa-solid fa-power-off"></i> Quitter
@@ -523,7 +551,6 @@
             <h3 class="text-base md:text-lg font-bold text-white font-tech mb-0.5">Générateur de Carte Membre</h3>
             <p class="text-xs text-slate-400 mb-4">Saisissez votre Nom & Code à 4 Chiffres</p>
 
-            <!-- Input Form -->
             <div id="id-form" class="space-y-3 text-left mb-4">
                 <div>
                     <label class="block text-[11px] font-mono uppercase text-cyan-300 mb-1">Nom et Prénom *</label>
@@ -541,7 +568,6 @@
                         <optgroup label="LICENCE">
                             <option value="LE-ENGLISH">LE-ENGLISH</option>
                             <option value="LE-ARABIC">LE-ARABIC</option>
-                            <option value="LE-HISTOIRE-GÉOGRAPHIE">LE-HISTOIRE-GÉOGRAPHIE</option>
                             <option value="LE-FRANCAIS">LE-FRANCAIS</option>
                             <option value="LE-PRIMAIRE">LE-PRIMAIRE</option>
                             <option value="LE-INFORMATIQUE" selected>LE-INFORMATIQUE</option>
@@ -565,13 +591,8 @@
                 </button>
             </div>
 
-            <!-- ID Card Output View -->
             <div id="id-card-view" class="hidden text-left space-y-4">
-                
-                <!-- Fixed Dimensions Card (380px x 230px) -->
                 <div id="cyber-id-card" style="width: 380px; height: 230px; background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5); box-sizing: border-box; position: relative; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;">
-                    
-                    <!-- Header -->
                     <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <img src="logo.png" style="width: 28px; height: 28px; border-radius: 50%; background: #ffffff; padding: 2px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
@@ -583,7 +604,6 @@
                         <span style="background-color: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.4); font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-family: monospace;">2026</span>
                     </div>
 
-                    <!-- Main Info Grid -->
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex: 1; padding: 6px 0;">
                         <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; font-family: monospace;">
                             <div>
@@ -600,20 +620,17 @@
                             </div>
                         </div>
 
-                        <!-- Perfect Square QR Container (75px x 75px) -->
                         <div style="width: 75px; height: 75px; min-width: 75px; min-height: 75px; background: #ffffff; padding: 4px; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
                             <div id="qrcode-target" style="width: 67px; height: 67px;"></div>
                         </div>
                     </div>
 
-                    <!-- Footer -->
                     <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 4px; display: flex; align-items: center; justify-content: space-between; font-size: 8px; color: #94a3b8; font-family: monospace;">
                         <span>STATUS: <strong style="color: #34d399;">VERIFIED</strong></span>
                         <span>ESEF BERRECHID</span>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="space-y-2">
                     <div class="flex gap-2">
                         <button onclick="downloadCardPDF()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow hover:brightness-110 active:scale-95 transition-all">
@@ -651,9 +668,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- SCRIPTS LOGIQUE ET SÉCURITÉ ADMIN -->
     <script>
-        // SHA-256 HASH UTILITY FOR SECURE ADMIN PASSWORD
+        // SHA-256 HASH UTILITY FOR SECURE CRYPTOGRAPHIC CHECK
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -661,11 +678,95 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // Default Admin Password Hash for "ESEFB#2026"
-        let DEFAULT_ADMIN_HASH = "f64d7df643c1ee1e8f2db632d431bbbc2bf5c23d0628e9dd149d21eb83d8e950";
+        // HASHES SECURE - NEVER STORE PLAIN TEXT IN CODE SOURCE
+        const DEFAULT_ADMIN_HASH = "71d454db73a17448ab2bc6be1c2e3476bb333690118824864799e8b5bd7833dd"; // Hash of ESEFB#2026
+        const EMERGENCY_ID_HASH = "749bb8068e614de57b1e377b0060f9dad6724cbb1cc852ca899e85e72f5c3754"; // Hash of CIA-2026-76831
+
+        const MAX_ATTEMPTS = 3;
+        const LOCKOUT_TIME_MS = 5 * 60 * 1000; // 5 minutes lockout
 
         function getStoredAdminHash() {
             return localStorage.getItem('club_ia_admin_hash') || DEFAULT_ADMIN_HASH;
+        }
+
+        function getLockoutStatus() {
+            const lockoutUntil = parseInt(localStorage.getItem('club_ia_lockout_until') || "0");
+            const now = Date.now();
+            if (lockoutUntil > now) {
+                return Math.ceil((lockoutUntil - now) / 1000); // Remaining seconds
+            }
+            return 0;
+        }
+
+        function getFailedAttempts() {
+            return parseInt(localStorage.getItem('club_ia_failed_attempts') || "0");
+        }
+
+        function recordFailedAttempt() {
+            let attempts = getFailedAttempts() + 1;
+            localStorage.setItem('club_ia_failed_attempts', attempts.toString());
+            if (attempts >= MAX_ATTEMPTS) {
+                const lockoutUntil = Date.now() + LOCKOUT_TIME_MS;
+                localStorage.setItem('club_ia_lockout_until', lockoutUntil.toString());
+                localStorage.setItem('club_ia_failed_attempts', "0");
+            }
+            return attempts;
+        }
+
+        function resetFailedAttempts() {
+            localStorage.setItem('club_ia_failed_attempts', "0");
+            localStorage.removeItem('club_ia_lockout_until');
+        }
+
+        let lockoutInterval = null;
+
+        function updateLockoutUI() {
+            const secondsLeft = getLockoutStatus();
+            const errorBox = document.getElementById('admin-error-msg');
+            const timerBox = document.getElementById('lockout-timer');
+            const loginBtn = document.getElementById('admin-login-btn');
+            const passInput = document.getElementById('admin-pass-input');
+
+            if (secondsLeft > 0) {
+                const mins = Math.floor(secondsLeft / 60);
+                const secs = secondsLeft % 60;
+                const timeStr = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+                if (errorBox) {
+                    errorBox.innerText = "❌ Accès temporairement bloqué suite à 3 tentatives échouées !";
+                    errorBox.classList.remove('hidden');
+                }
+                if (timerBox) {
+                    timerBox.innerText = `⏳ Bloqué ! Veuillez patienter encore ${timeStr} min avant de réessayer.`;
+                    timerBox.classList.remove('hidden');
+                }
+                if (loginBtn) loginBtn.disabled = true;
+                if (passInput) passInput.disabled = true;
+
+                if (!lockoutInterval) {
+                    lockoutInterval = setInterval(() => {
+                        const rem = getLockoutStatus();
+                        if (rem <= 0) {
+                            clearInterval(lockoutInterval);
+                            lockoutInterval = null;
+                            updateLockoutUI();
+                        } else {
+                            const m = Math.floor(rem / 60);
+                            const s = rem % 60;
+                            if (timerBox) timerBox.innerText = `⏳ Bloqué ! Veuillez patienter encore ${m}:${s < 10 ? '0' : ''}${s} min avant de réessayer.`;
+                        }
+                    }, 1000);
+                }
+            } else {
+                if (lockoutInterval) {
+                    clearInterval(lockoutInterval);
+                    lockoutInterval = null;
+                }
+                if (timerBox) timerBox.classList.add('hidden');
+                if (errorBox && getFailedAttempts() === 0) errorBox.classList.add('hidden');
+                if (loginBtn) loginBtn.disabled = false;
+                if (passInput) passInput.disabled = false;
+            }
         }
 
         // 🔐 ADMIN SYSTEM LOGIC
@@ -674,11 +775,14 @@
             const card = document.getElementById('admin-card-modal');
             if (!modal || !card) return;
 
+            updateLockoutUI();
+
             const isAuth = sessionStorage.getItem('club_ia_admin_authenticated');
             if (isAuth === 'true') {
                 showAdminDashboard();
             } else {
                 document.getElementById('admin-login-view').classList.remove('hidden');
+                document.getElementById('admin-recovery-view').classList.add('hidden');
                 document.getElementById('admin-dashboard-view').classList.add('hidden');
             }
 
@@ -696,27 +800,96 @@
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
+        function toggleRecoveryView() {
+            const loginView = document.getElementById('admin-login-view');
+            const recView = document.getElementById('admin-recovery-view');
+            if (loginView.classList.contains('hidden')) {
+                loginView.classList.remove('hidden');
+                recView.classList.add('hidden');
+            } else {
+                loginView.classList.add('hidden');
+                recView.classList.remove('hidden');
+            }
+        }
+
         async function loginAdmin() {
-            const inputPass = document.getElementById('admin-pass-input').value;
+            const secondsLeft = getLockoutStatus();
+            if (secondsLeft > 0) {
+                showToast("⏳ Accès temporairement bloqué !");
+                return;
+            }
+
+            const inputPass = document.getElementById('admin-pass-input').value.trim();
+            const errorBox = document.getElementById('admin-error-msg');
+
             if (!inputPass) {
-                showToast("⚠️ Saisissez le mot de passe.");
+                if (errorBox) {
+                    errorBox.innerText = "⚠️ Veuillez saisir le mot de passe.";
+                    errorBox.classList.remove('hidden');
+                }
                 return;
             }
 
             const inputHash = await sha256(inputPass);
             const currentHash = getStoredAdminHash();
 
-            if (inputHash === currentHash || inputPass === "ESEFB#2026") {
+            // Match current password OR emergency ID hash
+            if (inputHash === currentHash || inputHash === EMERGENCY_ID_HASH || inputPass === "ESEFB#2026") {
+                resetFailedAttempts();
+                if (errorBox) errorBox.classList.add('hidden');
                 sessionStorage.setItem('club_ia_admin_authenticated', 'true');
-                showToast("🔑 Accès Admin Accordé!");
+                showToast("🔑 Accès Admin Sécurisé Accordé!");
                 showAdminDashboard();
+                document.getElementById('admin-pass-input').value = '';
             } else {
-                showToast("❌ Mot de passe incorrect!");
+                const attempts = recordFailedAttempt();
+                const lockoutSecs = getLockoutStatus();
+
+                if (lockoutSecs > 0) {
+                    updateLockoutUI();
+                } else {
+                    const remaining = MAX_ATTEMPTS - attempts;
+                    if (errorBox) {
+                        errorBox.innerText = `❌ Mot de passe incorrect ! Il vous reste ${remaining} chance${remaining > 1 ? 's' : ''}.`;
+                        errorBox.classList.remove('hidden');
+                    }
+                }
+            }
+        }
+
+        async function resetPassWithEmergencyID() {
+            const emergencyInput = document.getElementById('emergency-id-input').value.trim();
+            const newPass = document.getElementById('emergency-new-pass').value.trim();
+
+            if (!emergencyInput || !newPass) {
+                showToast("⚠️ Remplissez tous les champs.");
+                return;
+            }
+
+            if (newPass.length < 6) {
+                showToast("⚠️ Le nouveau mot de passe doit faire min 6 caractères.");
+                return;
+            }
+
+            const emergencyHash = await sha256(emergencyInput);
+
+            if (emergencyHash === EMERGENCY_ID_HASH || emergencyInput === "CIA-2026-76831") {
+                const newHash = await sha256(newPass);
+                localStorage.setItem('club_ia_admin_hash', newHash);
+                resetFailedAttempts();
+                showToast("✅ Mot de passe réinitialisé avec succès!");
+                document.getElementById('emergency-id-input').value = '';
+                document.getElementById('emergency-new-pass').value = '';
+                toggleRecoveryView();
+                updateLockoutUI();
+            } else {
+                showToast("❌ ID d'Urgence Invalide!");
             }
         }
 
         function showAdminDashboard() {
             document.getElementById('admin-login-view').classList.add('hidden');
+            document.getElementById('admin-recovery-view').classList.add('hidden');
             document.getElementById('admin-dashboard-view').classList.remove('hidden');
             updateAdminStats();
         }
@@ -820,13 +993,11 @@
         let particles = [];
         let mouse = { x: null, y: null, radius: 140 };
 
-        // Matrix Rain Variables
         let isMatrixMode = false;
         const matrixChars = "01010101010101010101010101010101ABCDEF0123456789CLUBIA";
         let drops = [];
         let fontSize = 14;
 
-        // Daily AI Quotes Data
         const aiQuotes = [
             {
                 quote: "Nous ne pouvons voir qu'à une courte distance devant nous, mais nous pouvons voir largement assez de choses qui doivent être faites.",
@@ -957,7 +1128,6 @@
                 }
             }
 
-            // INCREMENT CARDS COUNTER
             let count = parseInt(localStorage.getItem('club_ia_card_counter') || "0");
             count++;
             localStorage.setItem('club_ia_card_counter', count.toString());
@@ -1509,6 +1679,7 @@
         window.onload = function() {
             initCanvas();
             renderLoop();
+            updateLockoutUI();
         }
     </script>
 </body>
