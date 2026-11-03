@@ -933,13 +933,13 @@
                 localStorage.setItem('club_ia_theme', 'light');
                 if (themeIcon) themeIcon.className = "fa-solid fa-sun text-sm md:text-base text-amber-500 transition-transform duration-500 group-hover:rotate-90";
                 if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
-                showToast("☀️ Mode Nahari (Ayonin Light) Activé !");
+                showToast("☀️ Light Mode Active!");
             } else {
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('club_ia_theme', 'dark');
                 if (themeIcon) themeIcon.className = "fa-solid fa-moon text-sm md:text-base text-cyan-400 transition-transform duration-500 group-hover:rotate-45";
                 if (metaTheme) metaTheme.setAttribute('content', '#0b0f19');
-                showToast("🌙 Mode Layli (Dark Cyber) Activé !");
+                showToast("🌙 Dark Mode Active!");
             }
         }
 
