@@ -285,7 +285,7 @@
             <div onclick="handleLogoClick()" title="Tap 5x for Secret Easter Egg 🤫" class="relative mb-5 group cursor-pointer active:scale-95 transition-transform">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
                 <div class="relative w-28 h-28 md:w-36 md:h-36 rounded-full p-1 bg-slate-950 flex items-center justify-center overflow-hidden animate-float border border-cyan-400/40">
-                    <img src="logo.png" alt="CLUB IA ESEF-B Logo" class="w-full h-full object-contain rounded-full bg-white p-1" onerror="this.onerror=null; this.src='https://placehold.co/300x300/ffffff/00f2fe?text=CLUB+IA+ESEF-B';" />
+                    <img src="logo.png" alt="CLUB IA ESEF-B Logo" class="app-logo-img w-full h-full object-contain rounded-full bg-white p-1" onerror="this.onerror=null; this.src='https://placehold.co/300x300/ffffff/00f2fe?text=CLUB+IA+ESEF-B';" />
                 </div>
                 <div class="absolute -bottom-1 -right-1 bg-gradient-to-r from-tech-cyan to-tech-blue text-slate-950 text-[9px] md:text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-slate-950 uppercase tracking-widest shadow-lg">
                     AI HUB
@@ -605,10 +605,11 @@
                         <span id="stat-excel-count" class="text-xl font-bold text-tech-cyan font-mono">0</span>
                     </div>
                 </div>
-                <div class="flex gap-2 border-b border-slate-800 pb-2">
-                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">📁 Whitelist</button>
-                    <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">👥 Membres VIP</button>
-                    <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white">📢 Annonces</button>
+                <div class="flex gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
+                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">📁 Whitelist</button>
+                    <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">👥 Membres VIP</button>
+                    <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">📢 Annonces</button>
+                    <button onclick="switchAdminTab('logo')" id="tab-btn-logo" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">🎨 Logo</button>
                 </div>
 
                 <div id="admin-tab-whitelist" class="space-y-3">
@@ -675,6 +676,30 @@
                         <button onclick="saveCustomEventData()" class="w-full py-2 bg-gradient-to-r from-purple-500 to-tech-blue text-white rounded-xl font-bold text-xs uppercase hover:brightness-110">
                             Enregistrer L'Annonce Événement
                         </button>
+                    </div>
+                </div>
+
+                <!-- TAB LOGO MANAGEMENT -->
+                <div id="admin-tab-logo" class="hidden space-y-3">
+                    <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-3">
+                        <span class="text-xs font-mono text-cyan-300 font-bold uppercase block">🎨 Changer le Logo du Site (Realtime Cloud)</span>
+                        <p class="text-[10px] text-slate-400 leading-normal">
+                            Téléchargez n'importe quelle image (PNG, JPG, WebP, SVG, avec ou sans arrière-plan). Elle sera automatiquement synchronisée sur tout le site et dans la Carte VIP pour tous les utilisateurs.
+                        </p>
+                        
+                        <div class="flex flex-col items-center justify-center p-4 border-2 border-dashed border-slate-700 hover:border-tech-cyan rounded-xl bg-slate-950/50 cursor-pointer transition-all group" onclick="document.getElementById('logo-file-input').click()">
+                            <i class="fa-solid fa-cloud-arrow-up text-2xl text-tech-cyan group-hover:scale-110 transition-transform mb-1"></i>
+                            <span class="text-xs font-mono text-slate-300 font-bold">Cliquer pour choisir un nouveau Logo</span>
+                            <span class="text-[9px] font-mono text-slate-500">Formats supportés: PNG, JPG, WEBP, SVG</span>
+                        </div>
+                        <input type="file" id="logo-file-input" accept="image/*" onchange="handleLogoUpload(event)" class="hidden">
+
+                        <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-slate-400">Rétablir le logo par défaut (logo.png):</span>
+                            <button onclick="resetCustomLogo()" class="px-2.5 py-1 rounded bg-rose-500/10 border border-rose-500/30 text-rose-400 hover:bg-rose-500 hover:text-white text-[10px] font-mono font-bold transition-all">
+                                <i class="fa-solid fa-rotate-left"></i> Réinitialiser
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -819,7 +844,7 @@
                 <div id="cyber-id-card" style="width: 380px; height: 230px; background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5); box-sizing: border-box; position: relative; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;">
                     <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <img src="logo.png" style="width: 28px; height: 28px; border-radius: 50%; background: #ffffff; padding: 2px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
+                            <img src="logo.png" class="app-logo-img" style="width: 28px; height: 28px; border-radius: 50%; background: #ffffff; padding: 2px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/ffffff/00f2fe?text=IA';" />
                             <div>
                                 <h4 style="font-size: 12px; font-weight: bold; color: #ffffff; margin: 0; line-height: 1; font-family: 'Space Grotesk', sans-serif;">CLUB IA ESEF-B</h4>
                                 <span style="font-size: 8px; color: #00f2fe; font-family: monospace;">OFFICIAL MEMBER VIP PASS</span>
@@ -974,6 +999,11 @@
 
         let activeMemberMode = 'quick';
 
+        function updateLogoElements(src) {
+            const imgs = document.querySelectorAll('.app-logo-img');
+            imgs.forEach(img => { img.src = src; });
+        }
+
         // Synchronisation Cloud en Temps Réel
         function initCloudSync() {
             db.ref('custom_event').on('value', (snapshot) => {
@@ -991,6 +1021,17 @@
                     if (document.getElementById('evt-input-desc')) document.getElementById('evt-input-desc').value = customEvt.desc;
                     if (document.getElementById('evt-input-dest')) document.getElementById('evt-input-dest').value = customEvt.dest;
                     if (document.getElementById('evt-input-annonce')) document.getElementById('evt-input-annonce').value = customEvt.annonce;
+                }
+            });
+
+            db.ref('custom_logo').on('value', (snapshot) => {
+                const logoData = snapshot.val();
+                if (logoData) {
+                    localStorage.setItem('club_ia_custom_logo', logoData);
+                    updateLogoElements(logoData);
+                } else {
+                    localStorage.removeItem('club_ia_custom_logo');
+                    updateLogoElements('logo.png');
                 }
             });
 
@@ -1016,6 +1057,36 @@
                 updateAdminStats();
                 renderAdminMembersList();
             });
+        }
+
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (file.size > 3 * 1024 * 1024) {
+                showToast("⚠️ Image trop lourde ! (Max 3 Mo).");
+                return;
+            }
+
+            showToast("⏳ Chargement & synchronisation du logo...");
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result;
+                db.ref('custom_logo').set(base64Data).then(() => {
+                    showToast("✅ Logo mis à jour dans le Cloud !");
+                }).catch(err => {
+                    showToast("❌ Erreur de sauvegarde du logo.");
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetCustomLogo() {
+            if (confirm("Voulez-vous rétablir le logo par défaut (logo.png) ?")) {
+                db.ref('custom_logo').remove().then(() => {
+                    showToast("🔄 Logo rétabli par défaut (logo.png).");
+                });
+            }
         }
 
         function switchMemberMode(mode) {
@@ -1290,13 +1361,17 @@
         }
 
         function switchAdminTab(tabName) {
-            ['whitelist', 'members', 'event'].forEach(t => {
-                document.getElementById(`admin-tab-${t}`).classList.add('hidden');
-                document.getElementById(`tab-btn-${t}`).className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white";
+            ['whitelist', 'members', 'event', 'logo'].forEach(t => {
+                const el = document.getElementById(`admin-tab-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (el) el.classList.add('hidden');
+                if (btn) btn.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap";
             });
 
-            document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-btn-${tabName}`).className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
+            const activeEl = document.getElementById(`admin-tab-${tabName}`);
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap";
         }
 
         function getMembersDB() {
@@ -2012,11 +2087,11 @@
         }
 
         let lastFrameTime = 0;
-        const fpsInterval = 1000 / 35; // Cap at 35 FPS for battery & smooth performance
+        const fpsInterval = 1000 / 35;
 
         function renderLoop(currentTime) {
             requestAnimationFrame(renderLoop);
-            if (document.hidden) return; // Pause canvas when page is not visible
+            if (document.hidden) return;
 
             const elapsed = currentTime - lastFrameTime;
             if (elapsed > fpsInterval) {
