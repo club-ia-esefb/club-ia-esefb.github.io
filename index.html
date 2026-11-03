@@ -78,7 +78,7 @@
             user-select: none;
         }
         html.dark body { background-color: #0b0f19; color: #f8fafc; }
-        html:not(.dark) body { background-color: #f8fafc; color: #0f172a; }
+        html:not(.dark) body { background-color: #f0f7ff; color: #0f172a; }
 
         h1, h2, h3, .font-tech { font-family: 'Space Grotesk', sans-serif; }
 
@@ -91,11 +91,11 @@
         }
         /* Light Glass Panel */
         html:not(.dark) .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 242, 254, 0.35);
-            box-shadow: 0 10px 30px -5px rgba(0, 242, 254, 0.15);
+            border: 1px solid rgba(2, 132, 199, 0.25);
+            box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.12);
         }
 
         /* Dark Glass Button */
@@ -115,30 +115,115 @@
 
         /* Light Glass Button */
         html:not(.dark) .glass-btn {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 242, 254, 0.25);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(2, 132, 199, 0.2);
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
         html:not(.dark) .glass-btn:hover {
+            background: #ffffff;
             border-color: rgba(2, 132, 199, 0.6);
             transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.25);
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.2);
         }
 
-        /* Light Mode Adaptive Tweaks */
-        html:not(.dark) .text-white { color: #0f172a !important; }
-        html:not(.dark) .text-slate-100, html:not(.dark) .text-slate-200, html:not(.dark) .text-slate-300 { color: #1e293b !important; }
-        html:not(.dark) .text-slate-400, html:not(.dark) .text-slate-500 { color: #475569 !important; }
-        html:not(.dark) .bg-slate-950, html:not(.dark) .bg-slate-900 { background-color: #ffffff !important; border-color: rgba(0, 242, 254, 0.3) !important; }
-        html:not(.dark) .bg-slate-950\/95, html:not(.dark) .bg-slate-900\/90, html:not(.dark) .bg-slate-900\/80, html:not(.dark) .bg-slate-900\/60 { background-color: rgba(255, 255, 255, 0.92) !important; }
+        /* --- LIGHT MODE (MODE NAHRI) EYES-FRIENDLY & HIGH-CONTRAST OVERRIDES --- */
+        html:not(.dark) main h1 span {
+            background: linear-gradient(135deg, #0284c7 0%, #1d4ed8 50%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        html:not(.dark) .text-white:not(#cyber-id-card *):not(.bg-gradient-to-r *):not(button.bg-gradient-to-r *):not(#terminal-output *):not(.bg-blue-600 *):not(.bg-emerald-500 *):not(.bg-sky-700 *):not(.bg-rose-500 *) {
+            color: #0f172a !important;
+        }
+        html:not(.dark) .text-slate-100:not(#cyber-id-card *):not(#terminal-output *),
+        html:not(.dark) .text-slate-200:not(#cyber-id-card *):not(#terminal-output *),
+        html:not(.dark) .text-slate-300:not(#cyber-id-card *):not(#terminal-output *) {
+            color: #334155 !important;
+        }
+        html:not(.dark) .text-slate-400:not(#cyber-id-card *):not(#terminal-output *),
+        html:not(.dark) .text-slate-500:not(#cyber-id-card *):not(#terminal-output *) {
+            color: #475569 !important;
+        }
+
+        /* Light mode containers (Cards, Modals, Primary Buttons) */
+        html:not(.dark) .bg-slate-950\/95,
+        html:not(.dark) .bg-slate-950\/90,
+        html:not(.dark) .bg-slate-950\/85,
+        html:not(.dark) .bg-slate-950\/80,
+        html:not(.dark) .bg-slate-900\/95,
+        html:not(.dark) .bg-slate-900\/90,
+        html:not(.dark) .bg-slate-900\/80,
+        html:not(.dark) .bg-slate-900\/60 {
+            background-color: rgba(255, 255, 255, 0.94) !important;
+            border-color: rgba(2, 132, 199, 0.25) !important;
+            box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.1) !important;
+        }
+
+        html:not(.dark) .bg-slate-900:not(#terminal-output *):not(#cyber-id-card *),
+        html:not(.dark) .bg-slate-950:not(#terminal-output *):not(#cyber-id-card *) {
+            background-color: #f8fafc !important;
+            border-color: rgba(2, 132, 199, 0.2) !important;
+        }
+
+        /* Buttons & Badges light mode tweaks */
+        html:not(.dark) .text-tech-cyan {
+            color: #0284c7 !important;
+        }
+        html:not(.dark) .border-tech-cyan\/30,
+        html:not(.dark) .border-tech-cyan\/40,
+        html:not(.dark) .border-tech-cyan\/20 {
+            border-color: rgba(2, 132, 199, 0.35) !important;
+        }
+        html:not(.dark) .bg-tech-cyan\/15,
+        html:not(.dark) .bg-tech-cyan\/20 {
+            background-color: rgba(2, 132, 199, 0.12) !important;
+            color: #0284c7 !important;
+        }
+
+        /* Keep dark elements truly dark (Terminal & VIP Pass ID Card) */
+        html:not(.dark) #terminal-output {
+            background-color: #0b0f19 !important;
+        }
+        html:not(.dark) #terminal-output p.text-slate-500 { color: #64748b !important; }
+        html:not(.dark) #terminal-output p.text-slate-400 { color: #94a3b8 !important; }
+        html:not(.dark) #terminal-output p.text-slate-300 { color: #cbd5e1 !important; }
+        html:not(.dark) #terminal-output p.text-tech-cyan { color: #00f2fe !important; }
+        html:not(.dark) #terminal-input { color: #ffffff !important; }
+        html:not(.dark) #cyber-id-card { background-color: #0f172a !important; color: #ffffff !important; }
+
+        /* Light Mode Gradient Buttons (CTA text white) */
+        html:not(.dark) button.bg-gradient-to-r,
+        html:not(.dark) a.bg-gradient-to-r {
+            color: #ffffff !important;
+        }
+        html:not(.dark) button.bg-gradient-to-r span,
+        html:not(.dark) a.bg-gradient-to-r span,
+        html:not(.dark) button.bg-gradient-to-r i,
+        html:not(.dark) a.bg-gradient-to-r i {
+            color: #ffffff !important;
+        }
+
+        /* Form Inputs in Light Mode Modals */
+        html:not(.dark) input[type="text"],
+        html:not(.dark) input[type="password"],
+        html:not(.dark) select,
+        html:not(.dark) textarea {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+        html:not(.dark) input::placeholder,
+        html:not(.dark) textarea::placeholder {
+            color: #94a3b8 !important;
+        }
 
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #00f2fe; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 3px; }
         .quote-transition { transition: opacity 0.25s ease-in-out; }
 
         @keyframes cyberScanLine { 0% { top: 0%; opacity: 0.8; } 50% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
