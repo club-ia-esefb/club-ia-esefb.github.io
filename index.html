@@ -140,16 +140,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        html:not(.dark) .text-white:not(#cyber-id-card *):not(.bg-gradient-to-r *):not(button.bg-gradient-to-r *):not(#terminal-output *):not(.bg-blue-600 *):not(.bg-emerald-500 *):not(.bg-sky-700 *):not(.bg-rose-500 *) {
+        html:not(.dark) .text-white:not(#cyber-id-card *):not(.bg-gradient-to-r *):not(button.bg-gradient-to-r *):not(.bg-blue-600 *):not(.bg-emerald-500 *):not(.bg-sky-700 *):not(.bg-rose-500 *) {
             color: #0f172a !important;
         }
-        html:not(.dark) .text-slate-100:not(#cyber-id-card *):not(#terminal-output *),
-        html:not(.dark) .text-slate-200:not(#cyber-id-card *):not(#terminal-output *),
-        html:not(.dark) .text-slate-300:not(#cyber-id-card *):not(#terminal-output *) {
+        html:not(.dark) .text-slate-100:not(#cyber-id-card *),
+        html:not(.dark) .text-slate-200:not(#cyber-id-card *),
+        html:not(.dark) .text-slate-300:not(#cyber-id-card *) {
             color: #334155 !important;
         }
-        html:not(.dark) .text-slate-400:not(#cyber-id-card *):not(#terminal-output *),
-        html:not(.dark) .text-slate-500:not(#cyber-id-card *):not(#terminal-output *) {
+        html:not(.dark) .text-slate-400:not(#cyber-id-card *),
+        html:not(.dark) .text-slate-500:not(#cyber-id-card *) {
             color: #475569 !important;
         }
 
@@ -166,8 +166,8 @@
             box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.1) !important;
         }
 
-        html:not(.dark) .bg-slate-900:not(#terminal-output *):not(#cyber-id-card *),
-        html:not(.dark) .bg-slate-950:not(#terminal-output *):not(#cyber-id-card *) {
+        html:not(.dark) .bg-slate-900:not(#cyber-id-card *),
+        html:not(.dark) .bg-slate-950:not(#cyber-id-card *) {
             background-color: #f8fafc !important;
             border-color: rgba(2, 132, 199, 0.2) !important;
         }
@@ -184,12 +184,6 @@
             color: #0284c7 !important;
         }
 
-        html:not(.dark) #terminal-output { background-color: #0b0f19 !important; }
-        html:not(.dark) #terminal-output p.text-slate-500 { color: #64748b !important; }
-        html:not(.dark) #terminal-output p.text-slate-400 { color: #94a3b8 !important; }
-        html:not(.dark) #terminal-output p.text-slate-300 { color: #cbd5e1 !important; }
-        html:not(.dark) #terminal-output p.text-tech-cyan { color: #00f2fe !important; }
-        html:not(.dark) #terminal-input { color: #ffffff !important; }
         html:not(.dark) #cyber-id-card { background-color: #0f172a !important; color: #ffffff !important; }
 
         html:not(.dark) button.bg-gradient-to-r,
@@ -257,7 +251,7 @@
                 </button>
 
                 <button onclick="toggleMatrixMode()" id="matrix-btn" title="Mode Cyber Matrix" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-400 transition-all active:scale-95">
-                    <i class="fa-solid fa-terminal text-sm md:text-base"></i>
+                    <i class="fa-solid fa-wand-magic-sparkles text-sm md:text-base"></i>
                 </button>
                 <button onclick="openQRModal()" title="Show QR Code" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-tech-cyan hover:border-tech-cyan transition-all active:scale-95">
                     <i class="fa-solid fa-qrcode text-sm md:text-base"></i>
@@ -272,7 +266,6 @@
             <div onclick="handleLogoClick()" title="Tap 5x for Secret Easter Egg 🤫" class="relative mb-5 group cursor-pointer active:scale-95 transition-transform">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
                 <div class="relative w-28 h-28 md:w-36 md:h-36 rounded-full p-1 bg-slate-950/80 flex items-center justify-center overflow-hidden animate-float border border-cyan-400/40">
-                    <!-- REMOVED bg-white SO TRANSPARENT IMAGES SHOW PERFECTLY -->
                     <img src="logo.png" alt="CLUB IA ESEF-B Logo" class="app-logo-img w-full h-full object-contain rounded-full bg-transparent p-0.5" onerror="this.onerror=null; this.src='https://placehold.co/300x300/0f172a/00f2fe?text=CLUB+IA';" />
                 </div>
                 <div class="absolute -bottom-1 -right-1 bg-gradient-to-r from-tech-cyan to-tech-blue text-slate-950 text-[9px] md:text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-slate-950 uppercase tracking-widest shadow-lg">
@@ -461,40 +454,6 @@
             <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] md:text-xs font-mono">
                 <span id="quote-author" class="text-tech-cyan font-semibold quote-transition">— Alan Turing</span>
                 <span id="quote-role" class="text-slate-500 text-[10px] quote-transition">Père de l'Informatique</span>
-            </div>
-        </div>
-
-        <div class="w-full mb-6 rounded-2xl p-[1.5px] bg-gradient-to-r from-tech-cyan via-blue-500 to-purple-600 shadow-xl">
-            <div class="bg-slate-950/95 rounded-[15px] p-4 md:p-5 backdrop-blur-xl border border-tech-cyan/30 font-mono text-xs md:text-sm">
-                <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800 text-[10px] md:text-xs text-slate-400">
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80 cursor-pointer" onclick="processTerminalQuery('clear')"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
-                        <span class="ml-2 font-bold text-tech-cyan uppercase tracking-wider">CLUB_IA_OS v3.0 [50+ CLI COMMANDS]</span>
-                    </div>
-                    <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> ONLINE</span>
-                </div>
-                <div id="terminal-output" class="space-y-2 mb-3 max-h-48 md:max-h-56 overflow-y-auto text-slate-300 leading-relaxed pr-1 font-mono">
-                    <p class="text-slate-500">&gt; Initializing Neural CLI Engine...</p>
-                    <p class="text-tech-cyan">&gt; System Ready. Type <span class="text-amber-300 font-bold">'help'</span> or <span class="text-purple-300 font-bold">'list'</span> to see all 50+ CLI commands.</p>
-                </div>
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 focus-within:border-tech-cyan/60 rounded-xl px-3 py-2 transition-all">
-                        <span class="text-tech-cyan font-bold animate-pulse">&gt;</span>
-                        <input type="text" id="terminal-input" placeholder="Type a command (e.g., help, pfe, python, matrix, joke)..." class="bg-transparent border-none outline-none text-xs md:text-sm text-white placeholder-slate-500 w-full font-mono" autocomplete="off" spellcheck="false" onkeypress="if(event.key==='Enter') executeTerminalCommand()">
-                        <button onclick="executeTerminalCommand()" class="text-tech-cyan hover:text-white transition-colors p-1">
-                            <i class="fa-solid fa-paper-plane text-xs md:text-sm"></i>
-                        </button>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5 pt-1">
-                        <button onclick="sendQuickPrompt('help')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">⚡ help</button>
-                        <button onclick="sendQuickPrompt('pfe')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🎓 pfe</button>
-                        <button onclick="sendQuickPrompt('tools')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🛠️ tools</button>
-                        <button onclick="sendQuickPrompt('matrix')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300 hover:border-tech-cyan hover:text-tech-cyan font-mono">🟢 matrix</button>
-                        <button onclick="sendQuickPrompt('clear')" class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-rose-400 hover:border-rose-400 font-mono">🧹 clear</button>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -822,7 +781,6 @@
                 <div id="cyber-id-card" style="width: 380px; height: 230px; background-color: #0f172a; color: #ffffff; border: 1px solid rgba(0, 242, 254, 0.5); box-sizing: border-box; position: relative; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; margin: 0 auto;">
                     <div style="border-bottom: 1px solid rgba(0, 242, 254, 0.3); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
                         <div style="display: flex; align-items: center; gap: 8px;">
-                            <!-- REMOVED SOLID WHITE BACKGROUND ON CARDE LOGO -->
                             <img src="logo.png" class="app-logo-img" style="width: 28px; height: 28px; border-radius: 50%; background: transparent; padding: 0px; object-fit: contain;" onerror="this.src='https://placehold.co/100x100/0f172a/00f2fe?text=IA';" />
                             <div>
                                 <h4 style="font-size: 12px; font-weight: bold; color: #ffffff; margin: 0; line-height: 1; font-family: 'Space Grotesk', sans-serif;">CLUB IA ESEF-B</h4>
@@ -2116,7 +2074,6 @@
             if (!isMatrixMode) toggleMatrixMode();
             playCyberBeep();
             showToast("🕵️‍♂️ SECRET UNLOCKED: CYBER HACKER MODE!");
-            processTerminalQuery('banner');
         }
 
         function playCyberBeep() {
@@ -2153,180 +2110,6 @@
             }
         }, { passive: true });
         window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
-
-        let commandHistory = [];
-        let historyIndex = -1;
-
-        const terminalCommands = {
-            'help': 'Available Commands (50+ Total):\n• Basics: help, list, clear, history, date, time, whoami, pwd, echo [text], uname, uptime, version, sysinfo, hostname, ip\n• Club Info: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo\n• AI & Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n• Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n• Cyber/Fun: matrix, hacker, ping, sudo, cat [file], ls, cd [dir], theme, banner, joke, game, exit, beep, coffee',
-            'list': '📂 Categories:\n 1. System: help, clear, history, date, time, whoami, pwd, echo, uname, uptime, version, sysinfo, hostname, ip\n 2. Club: club, info, events, join, contact, socials, location, president, bureau, faq, vip, qr, logo\n 3. AI/Tech: ai, python, prompt, ml, dl, nlp, llm, gpt, vision, tools, tensorflow, pytorch, opencv, huggingface, transformers\n 4. Academic: esef, filieres, pfe, stage, quiz, quote, badge, certif, library, masters\n 5. Cyber/Fun: matrix, hacker, ping, sudo, cat, ls, cd, theme, banner, joke, game, exit, beep, coffee',
-            'clear': '__CLEAR__',
-            'history': () => commandHistory.length ? commandHistory.map((cmd, i) => ` ${i + 1}  ${cmd}`).join('\n') : 'No history yet.',
-            'date': () => new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-            'time': () => new Date().toLocaleTimeString('fr-FR') + ' (GMT+1)',
-            'whoami': 'guest@club-ia-esefb:~ (VIP Student Member)',
-            'pwd': '/home/esefb/club_ia/official_hub',
-            'echo': (args) => args.join(' ') || 'Echo parameter missing.',
-            'uname': 'Linux ClubIA-Kernel v3.0.2026 x86_64 ESEF-B',
-            'uptime': 'System running smoothly since September 2024 (Zero Downtime 🚀)',
-            'version': 'CLUB IA OS v3.0 (Build 2026.11.02)',
-            'sysinfo': 'CPU: Quantum AI Neural Engine 8-Core | RAM: 32GB Virtual Memory | OS: CLUB_IA_OS v3.0',
-            'hostname': 'esef-berrechid-ai-node-01.local',
-            'ip': '127.0.0.1 (Localhost AI Node)',
-            'club': '🤖 CLUB IA ESEF-B: Premier club d\'Intelligence Artificielle à l\'École Supérieure d\'Éducation et de Formation de Berrechid.',
-            'info': '📍 Location: ESEF Berrechid | Founded: 2024 | Focus: AI, Data Science & Educational Tech.',
-            'events': '📅 Prochain Événement: SORTIE D\'INTÉGRATION 2026 (Mystery Teaser Edition). Restez connectés !',
-            'join': '🚀 Pour nous rejoindre: Remplissez le formulaire d\'adhésion via le bouton "Rejoindre le CLUB IA".',
-            'contact': '✉️ Email: clubdintelligenceartificielle@gmail.com | 📱 WhatsApp: Groupe Officiel ESEF-B',
-            'socials': '🌐 Instagram: @ia.esefb | Facebook: Club IA ESEF Berrechid | TikTok: @ia.esefb | Snapchat: @ia.esefb | LinkedIn: Club Intelligence Artificielle',
-            'location': '📍 ESEF Berrechid - Université Hassan 1er, Berrechid, Maroc.',
-            'president': '👑 Présidence CLUB IA: Bureau exécutif élu pour l\'année universitaire 2025/2026.',
-            'bureau': '👥 Bureau Exécutif: Pôle Technique, Pôle Événementiel, Pôle Design & Pôle Communication.',
-            'faq': '❓ FAQ:\n Q: Qui peut rejoindre ? Tous les étudiants d\'ESEF-B !\n Q: Faut-il savoir coder ? Non, nous vous formons à partir de zéro !',
-            'vip': '💳 Pass VIP Membre: Générez votre carte d\'adhérent officielle directement via le bouton "Carte Membre VIP".',
-            'qr': '📱 Scan QR: Utilisez le bouton QR Code en haut pour partager le Hub instantanément.',
-            'logo': '🎨 Logo Official: Conçu avec fierté par le pôle design de CLUB IA ESEF-B.',
-            'ai': '🧠 Intelligence Artificielle: Discipline scientifique visant à créer des machines capables de simuler l\'intelligence humaine.',
-            'python': '🐍 Python 3.12: Le langage n°1 pour la Data Science et le Machine Learning (NumPy, PyTorch, TensorFlow).',
-            'prompt': '✍️ Prompt Engineering: L\'art de formuler des instructions précises pour guider les LLM (GPT-4o, Claude 3.5, Gemini).',
-            'ml': '📊 Machine Learning: Apprentissage automatique à partir de données pour prédire des tendances.',
-            'dl': '🕸️ Deep Learning: Réseaux de neurones artificiels profonds inspirés du cerveau humain.',
-            'nlp': '🗣️ Natural Language Processing: Traitement automatique du langage naturel (Chatbots, Traduction).',
-            'llm': '📚 Large Language Models: Modèles géants entraînés sur des milliards de textes (ex: Llama 3, GPT-4o).',
-            'gpt': '🤖 Generative Pre-trained Transformer: Architecture basée sur le mécanisme d\'Attention.',
-            'vision': '👁️ Computer Vision: Perception et analyse d\'images/vidéos par ordinateur (OpenCV, YOLO).',
-            'tools': '🛠️ Recommended Tools:\n 1. Cursor / VS Code (Coding)\n 2. Perplexity AI (Research)\n 3. HuggingFace (Open Models)\n 4. NotebookLM (Study Notes)',
-            'tensorflow': '⚡ TensorFlow: Framework Open Source d\'apprentissage automatique développé par Google.',
-            'pytorch': '🔥 PyTorch: Framework de Deep Learning flexible et très populaire en recherche IA (Meta).',
-            'opencv': '📷 OpenCV: Bibliothèque open source essentielle pour la vision par ordinateur et le traitement d\'images.',
-            'huggingface': '🤗 HuggingFace: La plateforme communautaire n°1 pour partager modèles et datasets IA.',
-            'transformers': '🔄 Transformers: Architecture de réseaux de neurones ayant révolutionné le NLP et l\'IA générative.',
-            'esef': '🎓 ESEF Berrechid: École Supérieure d\'Éducation et de Formation - Université Hassan 1er.',
-            'filieres': '📚 Licences ESEF-B:\n • LE-INFORMATIQUE | LE-MATHS | LE-SPC | LE-SVT\n • LE-ENGLISH | LE-ARABIC | LE-FRANCAIS | LE-PRIMAIRE',
-            'masters': '🎓 Masters ESEF-B:\n • Master: Didactique Sciences Chimiques et Physiques\n • Master: Épistémologie & Didactique Sciences Sociales\n • Master: Orientation & Intervention Psychopédagogique\n • Master: Didactique du Français & Innovation\n • Master: Ingénierie de Formation & Digital Learning',
-            'pfe': '💡 Idées PFE (AI + Éducation):\n 1. Correcteur automatique d\'exercices par Vision AI\n 2. Bilan de compétences d\'apprentissage personnalisé\n 3. Bot tuteur pédagogique interactif',
-            'stage': '💼 Conseil Stage: Développez vos projets sur GitHub et créez un profil LinkedIn actif !',
-            'quiz': '❓ AI Mini Quiz: Quel est le composant principal d\'un Transformer ? (Tapez \'cat answer.txt\' pour la réponse)',
-            'quote': '💬 "L\'IA ne remplacera pas les enseignants, mais les enseignants qui utilisent l\'IA remplaceront ceux qui ne l\'utilisent pas."',
-            'badge': '🏅 VIP Badge: Membre Officiel Vérifié - CLUB IA ESEF-B',
-            'certif': '📜 Certification: Attestations de présence délivrées après chaque Workshop officiel.',
-            'library': '📖 AI Library: Access free learning resources at github.com/club-ia-esefb',
-            'matrix': () => { toggleMatrixMode(); return '🟢 Basculement du Mode Matrix !'; },
-            'hacker': () => { triggerHackerMode(); return '🕵️ Hacker Mode Enabled!'; },
-            'ping': 'pong 🏓 (Latency: 1ms - Ultra fast Neural Connection)',
-            'sudo': '⛔ Permission Denied: You are not Root! (Nice try hacker 😉)',
-            'cat': (args) => args[0] === 'answer.txt' ? '💡 Réponse Quiz: Le mécanisme d\'Attention (Self-Attention Mechanism) !' : '🐱 Meow! File not found.',
-            'ls': '📁 Directories:\n ├── 📄 README.md\n ├── 📂 Projects/\n ├── 📂 Workshops/\n ├── 📄 answer.txt\n └── 💳 VIP_Pass_2026.pdf',
-            'cd': (args) => `Directory changed to /club_ia/${args[0] || 'root'}`,
-            'theme': () => { toggleTheme(); return '🎨 Theme Mode Toggled!'; },
-            'banner': "  _____ _     _   _ ____    _____    _    \n / ____| |   | | | |  _ \\  |_   _|  / \\   \n| |    | |   | | | |  _ <    | |  / ___ \\ \n| |____| |___| |_| | |_) |  _| |_/ /   \\ \\\n \\_____|______\\___/|____/  |_____/_/     \\_\\\n        CLUB IA ESEF-B • BERRECHID",
-            'joke': '😄 Why do Java developers wear glasses? Because they don\'t C# !',
-            'game': '🎮 Secret Code: Tap 5 times on the CLUB IA Logo to unlock Hacker Mode !',
-            'beep': () => { playCyberBeep(); return '🔊 *BEEP* Cyber Sound Activated!'; },
-            'coffee': '☕ Here is your hot coffee ☕ (Fueling AI Engineers since day 1)',
-            'exit': '👋 Session closed. Refresh the page to reboot terminal.'
-        };
-
-        function executeTerminalCommand() {
-            const input = document.getElementById('terminal-input');
-            if (!input) return;
-            const query = input.value.trim();
-            if (!query) return;
-
-            commandHistory.push(query);
-            historyIndex = commandHistory.length;
-
-            processTerminalQuery(query);
-            input.value = '';
-        }
-
-        function sendQuickPrompt(promptText) {
-            const input = document.getElementById('terminal-input');
-            if (input) input.value = promptText;
-            executeTerminalCommand();
-        }
-
-        function processTerminalQuery(query) {
-            const output = document.getElementById('terminal-output');
-
-            const userLine = document.createElement('p');
-            userLine.className = 'text-slate-400 font-mono';
-            userLine.innerText = '> ' + query;
-            output.appendChild(userLine);
-
-            const parts = query.trim().split(' ');
-            const cmd = parts[0].toLowerCase();
-            const args = parts.slice(1);
-
-            let response = '';
-
-            if (terminalCommands.hasOwnProperty(cmd)) {
-                const handler = terminalCommands[cmd];
-                if (typeof handler === 'function') {
-                    response = handler(args);
-                } else {
-                    response = handler;
-                }
-            } else {
-                const q = query.toLowerCase();
-                if (q.includes('quoi') || q.includes('c\'est quoi')) {
-                    response = "Le CLUB IA ESEF-B est le hub officiel dédié à l'Intelligence Artificielle & à la Tech Innovation à l'ESEF Berrechid! 🤖⚡";
-                } else if (q.includes('inscr') || q.includes('rejoindre')) {
-                    response = "Pour rejoindre l'aventure, remplissez le formulaire d'adhésion officiel via le bouton en haut de la page! 📋✨";
-                } else if (q.includes('événement') || q.includes('event') || q.includes('sortie')) {
-                    response = "Sortie d'Intégration 2026 très bientôt! Restez connectés sur notre groupe WhatsApp officiel! 🔒💥";
-                } else if (q.includes('bonjour') || q.includes('salut') || q.includes('hello')) {
-                    response = "Salut futur membre! Prêt à explorer le monde de l'IA avec nous ? 🤖 Type 'help' to see CLI commands!";
-                } else {
-                    response = `❌ Unknown command: '${cmd}'. Type 'help' or 'list' to display available CLI commands.`;
-                }
-            }
-
-            if (response === '__CLEAR__') {
-                output.innerHTML = '<p class="text-tech-cyan">&gt; Terminal cleared. Type \'help\' for CLI commands.</p>';
-                return;
-            }
-
-            const botLineElem = document.createElement('p');
-            botLineElem.className = 'text-tech-cyan font-semibold whitespace-pre-wrap font-mono';
-            botLineElem.innerText = '> ' + response;
-            output.appendChild(botLineElem);
-
-            output.scrollTop = output.scrollHeight;
-        }
-
-        const termInputElem = document.getElementById('terminal-input');
-        if (termInputElem) {
-            termInputElem.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    if (commandHistory.length && historyIndex > 0) {
-                        historyIndex--;
-                        termInputElem.value = commandHistory[historyIndex];
-                    }
-                } else if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    if (historyIndex < commandHistory.length - 1) {
-                        historyIndex++;
-                        termInputElem.value = commandHistory[historyIndex];
-                    } else {
-                        historyIndex = commandHistory.length;
-                        termInputElem.value = '';
-                    }
-                } else if (e.key === 'Tab') {
-                    e.preventDefault();
-                    const val = termInputElem.value.toLowerCase().trim();
-                    if (val) {
-                        const matches = Object.keys(terminalCommands).filter(c => c.startsWith(val));
-                        if (matches.length === 1) {
-                            termInputElem.value = matches[0];
-                        } else if (matches.length > 1) {
-                            showToast("💡 Commands: " + matches.join(', '));
-                        }
-                    }
-                }
-            });
-        }
 
         function copyPageLink() {
             const currentUrl = window.location.href;
