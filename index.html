@@ -2,7 +2,7 @@
 <html lang="fr" class="dark">
 <head>
     <meta charset="UTF-8">
-    <!-- Security Meta Tags -->
+    <!-- Security & Meta Configuration -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
@@ -10,7 +10,7 @@
     <title>CLUB IA ESEF-B | Official Hub</title>
     <link rel="icon" type="image/png" href="logo.png">
 
-    <!-- PWA & Mobile App Meta Tags -->
+    <!-- PWA Application Meta Tags -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,13 +18,14 @@
     <meta name="theme-color" id="theme-color-meta" content="#0b0f19">
     <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22CLUB%20IA%20ESEF-B%22%2C%22short_name%22%3A%22CLUB%20IA%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b0f19%22%2C%22theme_color%22%3A%22%230b0f19%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22logo.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
 
-    <!-- Open Graph -->
+    <!-- Open Graph Metadata -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="CLUB IA ESEF-B | Official Hub 🚀">
+    <meta property="og:title" content="CLUB IA ESEF-B | Official Hub">
     <meta property="og:description" content="Rejoignez la communauté d'Intelligence Artificielle & Tech Innovation à l'ESEF Berrechid !">
     <meta property="og:image" content="https://club-ia-esefb.github.io/logo.png">
     <meta property="og:url" content="https://club-ia-esefb.github.io/">
 
+    <!-- UI Framework & Core Engine Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -66,17 +67,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-    <!-- HTML5 QR Code Scanner Engine -->
+    <!-- HTML5 QR Code Engine -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-    <!-- Firebase SDKs (Compat Version) -->
+    <!-- Firebase Realtime Infrastructure -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
+    <!-- Fonts & Vector Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -202,6 +205,17 @@
         html:not(.dark) input::placeholder,
         html:not(.dark) textarea::placeholder { color: #94a3b8 !important; }
 
+        /* Crisp Pixel Rendering for High-Resolution QR Codes */
+        #qrcode-target canvas, 
+        #qrcode-target img {
+            width: 100% !important;
+            height: 100% !important;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 3px; }
@@ -219,9 +233,15 @@
     <div class="fixed -top-20 left-1/2 -translate-x-1/2 w-[350px] md:w-[650px] h-[350px] md:h-[650px] bg-cyan-500/15 pointer-events-none z-0 rounded-full blur-[100px] md:blur-[140px]"></div>
     <div class="fixed bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-blue-600/15 pointer-events-none z-0 rounded-full blur-[90px] md:blur-[120px]"></div>
 
-    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 border border-tech-cyan text-slate-100 px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none backdrop-blur-md">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-tech-cyan text-lg"></i>
-        <span id="toast-message" class="text-xs md:text-sm font-semibold tracking-wide">Lien copié dans le presse-papier !</span>
+    <!-- Tech UI HUD Toast Notification System -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-950/90 border border-tech-cyan/60 text-slate-100 px-5 py-3 rounded-2xl shadow-[0_0_25px_rgba(0,242,254,0.25)] flex items-center gap-3 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none backdrop-blur-xl">
+        <div class="w-8 h-8 rounded-xl bg-tech-cyan/15 border border-tech-cyan/40 flex items-center justify-center text-tech-cyan shrink-0">
+            <i id="toast-icon" class="fa-solid fa-terminal text-sm"></i>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-[9px] font-mono text-cyan-400 font-extrabold uppercase tracking-wider">SYSTEM_NOTIFICATION</span>
+            <span id="toast-message" class="text-xs font-medium tracking-wide text-slate-200">Execution successful.</span>
+        </div>
     </div>
 
     <div id="download-loading-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300">
@@ -249,7 +269,7 @@
                 </button>
 
                 <button onclick="toggleMatrixMode()" id="matrix-btn" title="Mode Cyber Matrix" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-400 transition-all active:scale-95">
-                    <i class="fa-solid fa-wand-magic-sparkles text-sm md:text-base"></i>
+                    <i class="fa-solid fa-code text-sm md:text-base"></i>
                 </button>
                 <button onclick="openQRModal()" title="Show QR Code" class="w-10 h-10 md:w-11 md:h-11 rounded-full glass-panel flex items-center justify-center text-slate-300 hover:text-tech-cyan hover:border-tech-cyan transition-all active:scale-95">
                     <i class="fa-solid fa-qrcode text-sm md:text-base"></i>
@@ -261,7 +281,7 @@
         </div>
 
         <div class="text-center flex flex-col items-center mb-6 md:mb-8 w-full">
-            <div onclick="handleLogoClick()" title="Tap 5x for Secret Easter Egg 🤫" class="relative mb-5 group cursor-pointer active:scale-95 transition-transform">
+            <div onclick="handleLogoClick()" title="Interactive Terminal Access" class="relative mb-5 group cursor-pointer active:scale-95 transition-transform">
                 <div class="absolute -inset-1.5 bg-gradient-to-r from-tech-cyan via-tech-blue to-purple-600 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse-glow"></div>
                 <div class="relative w-28 h-28 md:w-36 md:h-36 rounded-full p-1 bg-slate-950/80 flex items-center justify-center overflow-hidden animate-float border border-cyan-400/40">
                     <img src="logo.png" alt="CLUB IA ESEF-B Logo" class="app-logo-img w-full h-full object-contain rounded-full bg-transparent p-0.5" onerror="this.onerror=null; this.src='https://placehold.co/300x300/0f172a/00f2fe?text=CLUB+IA';" />
@@ -275,7 +295,7 @@
             </h1>
             <p class="text-xs md:text-sm font-mono font-medium text-cyan-500 tracking-wider uppercase mt-1">Artificial Intelligence & Tech Community</p>
             <p class="text-xs md:text-sm text-slate-400 mt-2.5 max-w-sm leading-relaxed">
-                Empowering future leaders in Artificial Intelligence, Machine Learning & Tech Innovation at ESEF Berrechid. 🚀🤖
+                Empowering future leaders in Artificial Intelligence, Machine Learning & Tech Innovation at ESEF Berrechid.
             </p>
         </div>
 
@@ -294,7 +314,7 @@
                     <span class="text-[9px] md:text-[10px] px-2 py-0.5 rounded bg-gradient-to-r from-rose-500 to-purple-600 text-white font-extrabold uppercase animate-bounce">SOON</span>
                 </h2>
                 <p id="evt-out-desc" class="text-xs md:text-sm text-slate-300 mb-4 leading-relaxed">
-                    Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment... 🔒💥
+                    Une journée épique pleine d'aventure, adrénaline et team building. La destination et la date officielle restent sous scellés pour le moment...
                 </p>
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <div class="bg-slate-900/90 border border-tech-cyan/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
@@ -306,7 +326,7 @@
                     <div class="bg-slate-900/90 border border-purple-500/30 p-2 md:p-3 rounded-xl text-center flex flex-col justify-center items-center">
                         <span class="block text-[9px] md:text-[10px] font-mono uppercase text-slate-400">ANNONCE</span>
                         <span id="evt-out-annonce" class="text-[10px] sm:text-xs md:text-sm font-bold text-purple-300 font-mono tracking-wider flex items-center justify-center gap-1 mt-0.5 whitespace-nowrap">
-                            <i class="fa-solid fa-clock-three text-[9px]"></i> TRÈS BIENTÔT
+                            <i class="fa-solid fa-clock text-[9px]"></i> TRÈS BIENTÔT
                         </span>
                     </div>
                 </div>
@@ -352,7 +372,7 @@
                     </div>
                 </div>
                 <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/60 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-tech-cyan group-hover:border-tech-cyan transition-all">
-                    <i class="fa-solid fa-wand-magic-sparkles text-xs md:text-sm"></i>
+                    <i class="fa-solid fa-microchip text-xs md:text-sm"></i>
                 </div>
             </button>
 
@@ -504,7 +524,7 @@
                     <p class="text-cyan-300 font-bold">1. Demande par E-mail Officiel:</p>
                     <p class="text-[11px] text-slate-400">Cliquez ci-dessous pour envoyer un e-mail au Bureau Executif:</p>
                     <a href="mailto:clubdintelligenceartificielle@gmail.com?subject=Demande%20de%20Réinitialisation%20Mot%20de%20Passe%20Admin&body=Bonjour%20l'équipe%20Club%20IA,%20veuillez%20m'aider%20à%20réinitialiser%20le%20mot%20de%20passe%20Admin." target="_blank" class="block text-center py-2 px-3 rounded-lg bg-slate-800 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 font-bold text-[11px]">
-                        ✉️ Contact: clubdintelligenceartificielle@gmail.com
+                        <i class="fa-solid fa-envelope mr-1"></i> Contact: clubdintelligenceartificielle@gmail.com
                     </a>
                 </div>
                 <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl space-y-2">
@@ -543,19 +563,19 @@
 
                 <!-- ADMIN TABS REGISTRATION -->
                 <div class="flex gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
-                    <button onclick="switchAdminTab('attendance')" id="tab-btn-attendance" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">📷 Présence QR</button>
-                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">📁 Whitelist</button>
-                    <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">👥 Membres VIP</button>
-                    <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">📢 Annonces</button>
-                    <button onclick="switchAdminTab('logo')" id="tab-btn-logo" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">🎨 Logo</button>
+                    <button onclick="switchAdminTab('attendance')" id="tab-btn-attendance" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap"><i class="fa-solid fa-camera mr-1"></i> Présence QR</button>
+                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-folder mr-1"></i> Whitelist</button>
+                    <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-users mr-1"></i> Membres VIP</button>
+                    <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-bullhorn mr-1"></i> Annonces</button>
+                    <button onclick="switchAdminTab('logo')" id="tab-btn-logo" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap"><i class="fa-solid fa-palette mr-1"></i> Logo</button>
                 </div>
 
-                <!-- TAB ATTENDANCE SCANNER MULTI-DEVICE OK -->
+                <!-- TAB ATTENDANCE SCANNER MULTI-DEVICE -->
                 <div id="admin-tab-attendance" class="space-y-3">
                     <div class="bg-slate-900/80 border border-cyan-500/30 p-3.5 rounded-2xl space-y-3 relative overflow-hidden">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-mono text-cyan-300 font-bold uppercase block">⚡ Émargement Live QR</span>
-                            <span id="scanner-status-indicator" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">🔴 الكاميرا معطلة</span>
+                            <span class="text-xs font-mono text-cyan-300 font-bold uppercase block">Émargement Live QR</span>
+                            <span id="scanner-status-indicator" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">SCANNER STANDBY</span>
                         </div>
                         
                         <div>
@@ -592,17 +612,17 @@
                         <div class="flex gap-2">
                             <button id="btn-start-scanner" onclick="startQRScanner()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:brightness-110 active:scale-95 transition-all">
                                 <i class="fa-solid fa-camera"></i>
-                                <span>تشغيل الكاميرا (Start Scanner)</span>
+                                <span>Activer Scanner</span>
                             </button>
                             <button id="btn-stop-scanner" onclick="stopQRScanner()" class="hidden flex-1 py-2.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400 font-bold text-xs uppercase hover:bg-rose-500 hover:text-white transition-all">
-                                ⏹️ إيقاف الكاميرا (Stop)
+                                Désactiver Scanner
                             </button>
                         </div>
 
                         <!-- Last Scanned Member Notification Card -->
                         <div id="last-scanned-card" class="hidden bg-slate-950 p-3 rounded-xl border border-emerald-500/40 space-y-1 font-mono text-xs">
                             <div class="flex items-center justify-between text-emerald-400 font-bold text-[11px]">
-                                <span>🟢 Dernier Émargement Réussi:</span>
+                                <span>Dernier Émargement Réussi:</span>
                                 <span id="last-scanned-time" class="text-slate-400 text-[10px]"></span>
                             </div>
                             <div id="last-scanned-info" class="text-white font-semibold"></div>
@@ -623,7 +643,7 @@
                 <div id="admin-tab-whitelist" class="hidden space-y-3">
                     <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-2">
                         <label class="block text-[11px] font-mono uppercase text-amber-300 font-bold">
-                            📁 Importer la Liste Officielle Excel (.xlsx, .csv)
+                            Importer la Liste Officielle Excel (.xlsx, .csv)
                         </label>
                         <p class="text-[10px] text-slate-400 leading-normal">
                             Chargez le fichier des adhérents. Le système autorisera <strong>uniquement</strong> ces personnes à créer leur Carte ID sur tous les appareils.
@@ -654,10 +674,10 @@
                     <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800">
                         <span class="text-xs font-mono text-slate-300 font-bold">Afficher l'annonce sur le site:</span>
                         <button id="evt-toggle-btn" onclick="toggleEventVisibility()" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
-                            👁️ Visible
+                            Visible
                         </button>
                     </div>
-                    <span class="text-xs font-mono text-purple-300 font-bold uppercase block pt-1">📢 Modifier l'Événement (Sortie / Mystery)</span>
+                    <span class="text-xs font-mono text-purple-300 font-bold uppercase block pt-1">Modifier l'Événement (Sortie / Mystery)</span>
                     <div class="space-y-2">
                         <div>
                             <label class="block text-[10px] font-mono text-slate-400">Badge Événement:</label>
@@ -690,7 +710,7 @@
                 <!-- TAB LOGO MANAGEMENT -->
                 <div id="admin-tab-logo" class="hidden space-y-3">
                     <div id="logo-upload-box" class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-3">
-                        <span class="text-xs font-mono text-cyan-300 font-bold uppercase block">🎨 Changer le Logo du Site (Realtime Cloud)</span>
+                        <span class="text-xs font-mono text-cyan-300 font-bold uppercase block">Changer le Logo du Site (Realtime Cloud)</span>
                         <p class="text-[10px] text-slate-400 leading-normal">
                             Téléchargez n'importe quelle image (PNG, JPG, WebP, SVG, avec ou sans arrière-plan). Elle sera automatiquement synchronisée sur tout le site et dans la Carte VIP pour tous les utilisateurs.
                         </p>
@@ -731,18 +751,17 @@
 
             <div class="flex rounded-xl bg-slate-900/90 p-1 border border-slate-800 mb-4 font-mono text-xs">
                 <button id="tab-mode-quick" onclick="switchMemberMode('quick')" class="flex-1 py-1.5 rounded-lg font-bold transition-all bg-tech-cyan/20 text-tech-cyan border border-tech-cyan/40">
-                    🔑 J'ai déjà un PIN
+                    <i class="fa-solid fa-key mr-1"></i> J'ai déjà un PIN
                 </button>
                 <button id="tab-mode-new" onclick="switchMemberMode('new')" class="flex-1 py-1.5 rounded-lg font-bold transition-all text-slate-400 hover:text-white">
-                    ✨ Première fois
+                    <i class="fa-solid fa-user-plus mr-1"></i> Première fois
                 </button>
             </div>
 
             <div id="id-form" class="space-y-3 text-left mb-4">
                 <div id="not-in-whitelist-msg" class="hidden bg-rose-500/15 border border-rose-500/40 p-4 rounded-2xl text-center space-y-3 animate-pulse font-mono">
-                    <div class="text-3xl">🤖💔</div>
                     <div class="inline-block px-2.5 py-1 rounded-md bg-rose-500/20 text-rose-400 font-mono text-[10px] font-bold border border-rose-500/30">
-                        404: MEMBER_NOT_FOUND // ACCESS_DENIED
+                        [404: ACCESS_DENIED]
                     </div>
                     <p class="text-xs font-semibold text-rose-300 leading-relaxed font-sans">
                         <code class="text-[11px] text-rose-400 font-mono bg-slate-900/80 px-1.5 py-0.5 rounded">console.error("User profile not found in DB!");</code><br>
@@ -794,7 +813,7 @@
                 </div>
 
                 <div id="sec-questions-box" class="hidden border-t border-slate-800 pt-2 space-y-2">
-                    <span class="text-[10px] font-mono text-purple-300 font-bold uppercase block">🛡️ 3 Questions de Sécurité (Requis lors de la 1ère Inscription):</span>
+                    <span class="text-[10px] font-mono text-purple-300 font-bold uppercase block">3 Questions de Sécurité (Requis lors de la 1ère Inscription):</span>
                     <div>
                         <input type="text" id="sec-q1" placeholder="1. Votre ville de naissance ?" class="w-full bg-slate-900/90 border border-slate-800 focus:border-purple-400 rounded-lg px-2.5 py-1.5 text-[11px] text-white font-mono outline-none">
                     </div>
@@ -813,7 +832,7 @@
 
                 <div class="text-center pt-1">
                     <button onclick="toggleMemberRecoveryView()" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
-                        🔑 Code PIN ou Carte oubliée ? Récupérer mon accès
+                        Code PIN ou Carte oubliée ? Récupérer mon accès
                     </button>
                 </div>
             </div>
@@ -877,8 +896,8 @@
                             </div>
                         </div>
 
-                        <div style="width: 75px; height: 75px; min-width: 75px; min-height: 75px; background: #ffffff; padding: 4px; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
-                            <div id="qrcode-target" style="width: 67px; height: 67px;"></div>
+                        <div style="width: 82px; height: 82px; min-width: 82px; min-height: 82px; background: #ffffff; padding: 4px; border-radius: 8px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
+                            <div id="qrcode-target" style="width: 74px; height: 74px;"></div>
                         </div>
                     </div>
 
@@ -923,7 +942,7 @@
     </div>
 
     <script>
-        // FIREBASE CLOUD CONFIGURATION
+        // Realtime Firebase Integration
         const firebaseConfig = {
             apiKey: "AIzaSyCDsUlVA1HCsAsy6BnmtM1tnYRGHNFhaiA",
             authDomain: "club-ia-esefb.firebaseapp.com",
@@ -939,7 +958,7 @@
         }
         const db = firebase.database();
 
-        // INLINE BUTTON FEEDBACK SYSTEM (Mssg khfif fo0 lbotton)
+        // High-Tech Inline Button Feedback System
         function showInlineNotify(elementOrId, msg, type = 'success') {
             const el = typeof elementOrId === 'string' ? document.getElementById(elementOrId) : elementOrId;
             if (!el) return;
@@ -949,13 +968,17 @@
             if (old) old.remove();
 
             const msgBox = document.createElement('div');
-            msgBox.className = `inline-feedback-msg text-[11px] font-mono font-bold px-3 py-1.5 rounded-lg mb-2 text-center transition-all duration-300 animate-bounce ${
-                type === 'success' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' :
-                type === 'error' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' :
-                'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+            msgBox.className = `inline-feedback-msg text-[11px] font-mono font-bold px-3 py-1.5 rounded-xl mb-2 text-center transition-all duration-300 animate-bounce flex items-center justify-center gap-2 ${
+                type === 'success' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.2)]' :
+                type === 'error' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-[0_0_15px_rgba(244,63,94,0.2)]' :
+                'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
             }`;
-            msgBox.innerHTML = msg;
+            
+            const iconTag = type === 'success' ? '<i class="fa-solid fa-circle-check text-xs"></i>' :
+                            type === 'error' ? '<i class="fa-solid fa-triangle-exclamation text-xs"></i>' :
+                            '<i class="fa-solid fa-circle-info text-xs"></i>';
 
+            msgBox.innerHTML = `${iconTag} <span>${msg}</span>`;
             el.parentNode.insertBefore(msgBox, el);
 
             setTimeout(() => {
@@ -964,7 +987,7 @@
             }, 2500);
         }
 
-        // THEME MANAGER
+        // Theme Configuration Manager
         function initTheme() {
             const savedTheme = localStorage.getItem('club_ia_theme');
             const themeIcon = document.getElementById('theme-icon');
@@ -991,13 +1014,13 @@
                 localStorage.setItem('club_ia_theme', 'light');
                 if (themeIcon) themeIcon.className = "fa-solid fa-sun text-sm md:text-base text-amber-500 transition-transform duration-500 group-hover:rotate-90";
                 if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
-                showToast("☀️ Light Mode Active!");
+                showToast("Mode Clair Activé", "fa-sun");
             } else {
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('club_ia_theme', 'dark');
                 if (themeIcon) themeIcon.className = "fa-solid fa-moon text-sm md:text-base text-cyan-400 transition-transform duration-500 group-hover:rotate-45";
                 if (metaTheme) metaTheme.setAttribute('content', '#0b0f19');
-                showToast("🌙 Dark Mode Active!");
+                showToast("Mode Sombre Activé", "fa-moon");
             }
         }
 
@@ -1041,13 +1064,13 @@
             const input = document.getElementById('activity-name-input');
             const val = input ? input.value.trim() : '';
             if (!val) {
-                showInlineNotify('btn-valider-activity', '⚠️ Entrez le nom de l\'activité', 'warn');
+                showInlineNotify('btn-valider-activity', 'Saisir le nom de l\'activité', 'warn');
                 return;
             }
             currentActivityName = val;
             const badge = document.getElementById('current-activity-badge');
             if (badge) badge.innerText = currentActivityName;
-            showInlineNotify('btn-valider-activity', `✅ Activité modifiée: ${currentActivityName}`, 'success');
+            showInlineNotify('btn-valider-activity', `Activité modifiée: ${currentActivityName}`, 'success');
             listenAttendanceData();
         }
 
@@ -1066,10 +1089,10 @@
             if (!indicator) return;
             if (active) {
                 indicator.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 animate-pulse";
-                indicator.innerText = msg || "🟢 الكاميرا شغالة (Scanner Live)";
+                indicator.innerText = msg || "SCANNER LIVE";
             } else {
                 indicator.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700";
-                indicator.innerText = msg || "🔴 الكاميرا معطلة";
+                indicator.innerText = msg || "SCANNER STANDBY";
             }
         }
 
@@ -1081,7 +1104,7 @@
             const btnStart = document.getElementById('btn-start-scanner');
             const btnStop = document.getElementById('btn-stop-scanner');
 
-            updateScannerStatus(false, "⏳ جاري تشغيل الكاميرا...");
+            updateScannerStatus(false, "INITIALISATION CAMÉRA...");
 
             const qrContainer = document.getElementById('qr-reader');
             if (!qrContainer) return;
@@ -1112,8 +1135,8 @@
                 ).then(() => {
                     if (btnStart) btnStart.classList.add('hidden');
                     if (btnStop) btnStop.classList.remove('hidden');
-                    updateScannerStatus(true, "🟢 الكاميرا شغالة (جاهز للمسح)");
-                    showInlineNotify('btn-start-scanner', '🟢 Scanner activé !', 'success');
+                    updateScannerStatus(true, "SCANNER ACTIVE");
+                    showInlineNotify('btn-start-scanner', 'Scanner activé', 'success');
                 }).catch(err => {
                     console.warn("Camera fallback triggered...", err);
                     Html5Qrcode.getCameras().then(devices => {
@@ -1127,21 +1150,21 @@
                             ).then(() => {
                                 if (btnStart) btnStart.classList.add('hidden');
                                 if (btnStop) btnStop.classList.remove('hidden');
-                                updateScannerStatus(true, "🟢 الكاميرا شغالة (جاهز للمسح)");
-                                showInlineNotify('btn-start-scanner', '🟢 Scanner activé !', 'success');
+                                updateScannerStatus(true, "SCANNER ACTIVE");
+                                showInlineNotify('btn-start-scanner', 'Scanner activé', 'success');
                             }).catch(e => {
-                                showInlineNotify('btn-start-scanner', "❌ Autorisation caméra refusée.", 'error');
-                                updateScannerStatus(false, "❌ خطأ ففتح الكاميرا");
+                                showInlineNotify('btn-start-scanner', "Autorisation caméra refusée.", 'error');
+                                updateScannerStatus(false, "ERREUR CAMÉRA");
                                 stopQRScanner();
                             });
                         } else {
-                            showInlineNotify('btn-start-scanner', "❌ Aucune caméra détectée.", 'error');
-                            updateScannerStatus(false, "❌ لا توجد كاميرا");
+                            showInlineNotify('btn-start-scanner', "Aucune caméra détectée.", 'error');
+                            updateScannerStatus(false, "PAS DE CAMÉRA");
                             stopQRScanner();
                         }
                     }).catch(e => {
-                        showInlineNotify('btn-start-scanner', "❌ Autorisation refusée.", 'error');
-                        updateScannerStatus(false, "❌ Autorisation refusée");
+                        showInlineNotify('btn-start-scanner', "Autorisation refusée.", 'error');
+                        updateScannerStatus(false, "AUTORISATION REFUSÉE");
                         stopQRScanner();
                     });
                 });
@@ -1160,8 +1183,8 @@
             const btnStop = document.getElementById('btn-stop-scanner');
             if (btnStart) btnStart.classList.remove('hidden');
             if (btnStop) btnStop.classList.add('hidden');
-            updateScannerStatus(false, "🔴 الكاميرا معطلة");
-            showInlineNotify('btn-start-scanner', '🔴 الكاميرا متوقفة', 'warn');
+            updateScannerStatus(false, "SCANNER STANDBY");
+            showInlineNotify('btn-start-scanner', 'Caméra arrêtée', 'warn');
         }
 
         function showScanSuccessFlash(name, memberId, timeStr) {
@@ -1214,10 +1237,11 @@
                 if (line.toLowerCase().startsWith('nom:')) name = line.substring(4).trim();
                 if (line.toLowerCase().startsWith('filiere:')) filiere = line.substring(8).trim();
                 if (line.toLowerCase().startsWith('id membre:')) memberId = line.substring(10).trim();
+                if (line.toLowerCase().startsWith('id:')) memberId = line.substring(3).trim();
             });
 
             if (!name && !memberId) {
-                showToast("⚠️ QR Code non valide / Inconnu.");
+                showToast("QR Code invalide ou inconnu", "fa-triangle-exclamation");
                 return;
             }
 
@@ -1230,7 +1254,7 @@
 
             attendRef.once('value').then(snap => {
                 if (snap.exists()) {
-                    showToast(`⚠️ Déjà enregistré: ${name || memberId}`);
+                    showToast(`Déjà enregistré: ${name || memberId}`, "fa-circle-info");
                 } else {
                     attendRef.set({
                         name: name || "INCONNU",
@@ -1240,7 +1264,7 @@
                         timestamp: Date.now()
                     }).then(() => {
                         showScanSuccessFlash(name, memberId, timeOnly);
-                        showToast(`🟢 VALIDE: ${name} (${timeOnly})`);
+                        showToast(`VALIDÉ: ${name} (${timeOnly})`, "fa-circle-check");
                     });
                 }
             });
@@ -1248,12 +1272,12 @@
 
         function downloadAttendanceExcel() {
             const actKey = sanitizeActivityKey(currentActivityName);
-            showInlineNotify('btn-download-att-excel', "⏳ Téléchargement Excel...", 'info');
+            showInlineNotify('btn-download-att-excel', "Génération Excel...", 'info');
 
             db.ref(`attendance/${actKey}`).once('value').then(snap => {
                 const data = snap.val();
                 if (!data) {
-                    showInlineNotify('btn-download-att-excel', "⚠️ Aucun présent enregistré.", 'warn');
+                    showInlineNotify('btn-download-att-excel', "Aucun présent enregistré.", 'warn');
                     return;
                 }
 
@@ -1269,9 +1293,9 @@
 
                 const fileName = `Presence_${actKey}_${new Date().toISOString().slice(0,10)}.xlsx`;
                 XLSX.writeFile(wb, fileName);
-                showInlineNotify('btn-download-att-excel', "📥 Fichier Excel Téléchargé !", 'success');
+                showInlineNotify('btn-download-att-excel', "Fichier Téléchargé !", 'success');
             }).catch(err => {
-                showInlineNotify('btn-download-att-excel', "❌ Erreur de téléchargement.", 'error');
+                showInlineNotify('btn-download-att-excel', "Erreur de téléchargement.", 'error');
             });
         }
 
@@ -1343,18 +1367,18 @@
             if (!file) return;
 
             if (file.size > 3 * 1024 * 1024) {
-                showInlineNotify('logo-upload-box', "⚠️ Image trop lourde ! (Max 3 Mo).", 'error');
+                showInlineNotify('logo-upload-box', "Image trop lourde ! (Max 3 Mo).", 'error');
                 return;
             }
 
-            showInlineNotify('logo-upload-box', "⏳ Chargement...", 'info');
+            showInlineNotify('logo-upload-box', "Chargement...", 'info');
             const reader = new FileReader();
             reader.onload = function(e) {
                 const base64Data = e.target.result;
                 db.ref('custom_logo').set(base64Data).then(() => {
-                    showInlineNotify('logo-upload-box', "✅ Nouveau Logo Enregistré !", 'success');
+                    showInlineNotify('logo-upload-box', "Nouveau Logo Enregistré !", 'success');
                 }).catch(err => {
-                    showInlineNotify('logo-upload-box', "❌ Erreur de sauvegarde.", 'error');
+                    showInlineNotify('logo-upload-box', "Erreur de sauvegarde.", 'error');
                 });
             };
             reader.readAsDataURL(file);
@@ -1363,7 +1387,7 @@
         function resetCustomLogo() {
             if (confirm("Voulez-vous rétablir le logo par défaut (logo.png) ?")) {
                 db.ref('custom_logo').remove().then(() => {
-                    showInlineNotify('btn-reset-logo', "🔄 Logo Rétabli par défaut !", 'success');
+                    showInlineNotify('btn-reset-logo', "Logo Rétabli par défaut !", 'success');
                 });
             }
         }
@@ -1452,11 +1476,11 @@
                 const timeStr = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 
                 if (errorBox) {
-                    errorBox.innerText = `❌ Accès bloqué suite à ${MAX_ATTEMPTS} tentatives échouées !`;
+                    errorBox.innerText = `Accès bloqué suite à ${MAX_ATTEMPTS} tentatives échouées !`;
                     errorBox.classList.remove('hidden');
                 }
                 if (timerBox) {
-                    timerBox.innerText = `⏳ Limite atteinte ! Patientez encore ${timeStr} min.`;
+                    timerBox.innerText = `Limite atteinte ! Patientez encore ${timeStr} min.`;
                     timerBox.classList.remove('hidden');
                 }
                 if (loginBtn) loginBtn.disabled = true;
@@ -1472,7 +1496,7 @@
                         } else {
                             const m = Math.floor(rem / 60);
                             const s = rem % 60;
-                            if (timerBox) timerBox.innerText = `⏳ Limite atteinte ! Patientez encore ${m}:${s < 10 ? '0' : ''}${s} min.`;
+                            if (timerBox) timerBox.innerText = `Limite atteinte ! Patientez encore ${m}:${s < 10 ? '0' : ''}${s} min.`;
                         }
                     }, 1000);
                 }
@@ -1533,7 +1557,7 @@
         async function loginAdmin() {
             const secondsLeft = getLockoutStatus();
             if (secondsLeft > 0) {
-                showInlineNotify('admin-login-btn', "⏳ Accès temporairement bloqué !", 'warn');
+                showInlineNotify('admin-login-btn', "Accès temporairement bloqué !", 'warn');
                 return;
             }
 
@@ -1542,7 +1566,7 @@
 
             if (!inputPass) {
                 if (errorBox) {
-                    errorBox.innerText = "⚠️ Veuillez saisir le mot de passe.";
+                    errorBox.innerText = "Veuillez saisir le mot de passe.";
                     errorBox.classList.remove('hidden');
                 }
                 return;
@@ -1566,7 +1590,7 @@
                 } else {
                     const remaining = MAX_ATTEMPTS - attempts;
                     if (errorBox) {
-                        errorBox.innerText = `❌ Mot de passe incorrect ! Il vous reste ${remaining} chance${remaining > 1 ? 's' : ''}.`;
+                        errorBox.innerText = `Mot de passe incorrect ! Il vous reste ${remaining} chance${remaining > 1 ? 's' : ''}.`;
                         errorBox.classList.remove('hidden');
                     }
                 }
@@ -1578,12 +1602,12 @@
             const newPass = document.getElementById('emergency-new-pass').value.trim();
 
             if (!emergencyInput || !newPass) {
-                showToast("⚠️ Remplissez tous les champs.");
+                showToast("Remplissez tous les champs", "fa-triangle-exclamation");
                 return;
             }
 
             if (newPass.length < 6) {
-                showToast("⚠️ Le nouveau mot de passe doit faire min 6 caractères.");
+                showToast("Le mot de passe doit faire min 6 caractères", "fa-triangle-exclamation");
                 return;
             }
 
@@ -1593,13 +1617,13 @@
                 const newHash = await sha256(newPass);
                 localStorage.setItem('club_ia_admin_hash', newHash);
                 resetFailedAttempts();
-                showToast("✅ Mot de passe réinitialisé avec succès!");
+                showToast("Mot de passe réinitialisé", "fa-circle-check");
                 document.getElementById('emergency-id-input').value = '';
                 document.getElementById('emergency-new-pass').value = '';
                 toggleRecoveryView();
                 updateLockoutUI();
             } else {
-                showToast("❌ ID d'Urgence Invalide!");
+                showToast("ID d'Urgence Invalide", "fa-shield-halved");
             }
         }
 
@@ -1615,7 +1639,7 @@
             sessionStorage.removeItem('club_ia_admin_authenticated');
             document.getElementById('admin-dashboard-view').classList.add('hidden');
             document.getElementById('admin-login-view').classList.remove('hidden');
-            showToast("🔒 Session Admin fermée.");
+            showToast("Session Admin fermée", "fa-lock");
         }
 
         function updateAdminStats() {
@@ -1684,7 +1708,7 @@
                                 <span class="text-[9px] text-slate-500 block">PIN: ••••</span>
                             </div>
                             <button id="btn-pin-${k}" onclick="adminResetMemberPIN('${k}')" class="px-2 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 rounded text-[10px] hover:bg-amber-500 hover:text-slate-950 transition-all font-bold">
-                                🔄 Reinitialiser PIN
+                                Reinitialiser PIN
                             </button>
                         </div>
                     `;
@@ -1701,12 +1725,12 @@
 
             const newPin = prompt(`Saisir le nouveau PIN à 4 chiffres pour "${member.name}":`);
             if (!newPin || newPin.trim().length !== 4 || isNaN(newPin.trim())) {
-                showInlineNotify(`btn-pin-${memberKey}`, "⚠️ Le PIN doit avoir 4 chiffres.", 'warn');
+                showInlineNotify(`btn-pin-${memberKey}`, "Le PIN doit avoir 4 chiffres.", 'warn');
                 return;
             }
 
             db.ref(`members_db/${memberKey}/pin`).set(newPin.trim()).then(() => {
-                showInlineNotify(`btn-pin-${memberKey}`, `✅ PIN réinitialisé: ${newPin.trim()}`, 'success');
+                showInlineNotify(`btn-pin-${memberKey}`, `PIN réinitialisé: ${newPin.trim()}`, 'success');
             });
         }
 
@@ -1714,7 +1738,7 @@
             db.ref('event_visible').once('value').then(snapshot => {
                 const current = snapshot.val() !== false;
                 db.ref('event_visible').set(!current).then(() => {
-                    showInlineNotify('evt-toggle-btn', !current ? "👁️ Annonce publiée !" : "🙈 Annonce masquée !", 'success');
+                    showInlineNotify('evt-toggle-btn', !current ? "Annonce publiée !" : "Annonce masquée !", 'success');
                 });
             });
         }
@@ -1732,10 +1756,10 @@
             if (btn) {
                 if (isVisible) {
                     btn.className = "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40";
-                    btn.innerText = "👁️ Visible";
+                    btn.innerText = "Visible";
                 } else {
                     btn.className = "px-3 py-1 rounded-lg text-xs font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40";
-                    btn.innerText = "🙈 Masqué";
+                    btn.innerText = "Masqué";
                 }
             }
         }
@@ -1750,9 +1774,9 @@
             const evtObj = { badge, title, desc, dest, annonce };
 
             db.ref('custom_event').set(evtObj).then(() => {
-                showInlineNotify('btn-save-event', "✅ Annonce Enregistrée !", 'success');
+                showInlineNotify('btn-save-event', "Annonce Enregistrée !", 'success');
             }).catch(err => {
-                showInlineNotify('btn-save-event', "❌ Erreur de sauvegarde Cloud.", 'error');
+                showInlineNotify('btn-save-event', "Erreur de sauvegarde Cloud.", 'error');
             });
         }
 
@@ -1760,7 +1784,7 @@
             const file = event.target.files[0];
             if (!file) return;
 
-            showInlineNotify('btn-excel-upload', "⏳ Synchronisation Cloud...", 'info');
+            showInlineNotify('btn-excel-upload', "Synchronisation Cloud...", 'info');
             const reader = new FileReader();
 
             reader.onload = function(e) {
@@ -1784,19 +1808,19 @@
                     const normalizedNames = [...new Set(extractedNames)];
 
                     if (normalizedNames.length === 0) {
-                        showInlineNotify('btn-excel-upload', "⚠️ Aucun nom valide.", 'warn');
+                        showInlineNotify('btn-excel-upload', "Aucun nom valide.", 'warn');
                         return;
                     }
 
                     db.ref('whitelist').set(normalizedNames).then(() => {
-                        showInlineNotify('btn-excel-upload', `✅ Whitelist chargée: ${normalizedNames.length} membres !`, 'success');
+                        showInlineNotify('btn-excel-upload', `Whitelist chargée: ${normalizedNames.length} membres !`, 'success');
                     }).catch(err => {
-                        showInlineNotify('btn-excel-upload', "❌ Erreur Cloud.", 'error');
+                        showInlineNotify('btn-excel-upload', "Erreur Cloud.", 'error');
                     });
 
                 } catch (err) {
                     console.error(err);
-                    showInlineNotify('btn-excel-upload', "❌ Erreur Fichier Excel.", 'error');
+                    showInlineNotify('btn-excel-upload', "Erreur Fichier Excel.", 'error');
                 }
             };
 
@@ -1806,7 +1830,7 @@
         function clearWhitelist() {
             if (confirm("Voulez-vous réinitialiser la whitelist Excel dans le Cloud ?")) {
                 db.ref('whitelist').remove().then(() => {
-                    showInlineNotify('btn-clear-whitelist', "🗑️ Whitelist Réinitialisée !", 'success');
+                    showInlineNotify('btn-clear-whitelist', "Whitelist Réinitialisée !", 'success');
                 });
             }
         }
@@ -1814,14 +1838,14 @@
         async function changeAdminPassword() {
             const newPass = document.getElementById('new-admin-pass').value.trim();
             if (!newPass || newPass.length < 6) {
-                showInlineNotify('btn-change-pass', "⚠️ Mot de passe court (min 6 chars).", 'warn');
+                showInlineNotify('btn-change-pass', "Mot de passe court (min 6 chars).", 'warn');
                 return;
             }
 
             const newHash = await sha256(newPass);
             localStorage.setItem('club_ia_admin_hash', newHash);
             document.getElementById('new-admin-pass').value = '';
-            showInlineNotify('btn-change-pass', "✅ Mot de passe Modifié !", 'success');
+            showInlineNotify('btn-change-pass', "Mot de passe Modifié !", 'success');
         }
 
         const canvas = document.getElementById('neuralCanvas');
@@ -1910,6 +1934,7 @@
             }
         }
 
+        /* DETERMINISTIC UNIQUE ID ALGORITHM (UNCHANGED) */
         function generateDeterministicID(name, filiere, pin) {
             const normName = name.toLowerCase()
                                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -1976,16 +2001,16 @@
             if (notInListMsg) notInListMsg.classList.add('hidden');
 
             if (!nameInput) {
-                showToast("⚠️ Veuillez entrer votre Nom & Prénom.");
+                showToast("Veuillez entrer votre Nom & Prénom", "fa-circle-info");
                 return;
             }
 
             if (!pin || pin.length !== 4 || isNaN(pin)) {
-                showToast("⚠️ Le code secret doit comporter exactement 4 chiffres.");
+                showToast("Le code secret doit comporter 4 chiffres", "fa-circle-info");
                 return;
             }
 
-            showToast("⏳ Vérification Cloud...");
+            showToast("Vérification Cloud en cours...", "fa-cloud");
 
             try {
                 const snapW = await db.ref('whitelist').once('value');
@@ -1997,7 +2022,7 @@
                             notInListMsg.classList.remove('hidden');
                             notInListMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                         }
-                        showToast("🤖💔 404: Nom non trouvé dans la Whitelist.");
+                        showToast("Nom non trouvé dans la Whitelist", "fa-user-slash");
                         return;
                     }
                 }
@@ -2017,15 +2042,15 @@
                             displayGeneratedCard(memberData.name, memberData.filiere, memberData.id);
                             return;
                         } else {
-                            showToast("❌ Code PIN incorrect !");
+                            showToast("Code PIN incorrect !", "fa-triangle-exclamation");
                             return;
                         }
                     } else {
-                        showToast("⚠️ Aucun compte trouvé b'hade l-Ism. Veuillez choisir 'Première fois'.");
+                        showToast("Aucun compte trouvé. Choisissez 'Première fois'.", "fa-circle-info");
                         return;
                     }
                 } catch(e) {
-                    showToast("❌ Erreur de connexion Cloud.");
+                    showToast("Erreur de connexion Cloud", "fa-wifi");
                     return;
                 }
             }
@@ -2036,12 +2061,12 @@
             const q3 = document.getElementById('sec-q3').value.trim();
 
             if (pin !== pinConfirm) {
-                showToast("❌ Les deux codes secrets ne correspondent pas!");
+                showToast("Les deux codes secrets ne correspondent pas", "fa-triangle-exclamation");
                 return;
             }
 
             if (!q1 || !q2 || !q3) {
-                showToast("⚠️ Première inscription: Veuillez remplir les 3 questions de sécurité.");
+                showToast("Veuillez remplir les 3 questions de sécurité", "fa-shield-halved");
                 return;
             }
 
@@ -2061,10 +2086,11 @@
             db.ref(`members_db/${memberKey}`).set(newMember).then(() => {
                 displayGeneratedCard(nameInput, filiere, uniqueID);
             }).catch(err => {
-                showToast("❌ Erreur d'enregistrement Cloud.");
+                showToast("Erreur d'enregistrement Cloud", "fa-wifi");
             });
         }
 
+        /* HD Pixel Sharp QR Code Generator */
         function displayGeneratedCard(nameInput, filiere, uniqueID) {
             document.getElementById('card-out-name').innerText = nameInput.toUpperCase();
             document.getElementById('card-out-filiere').innerText = filiere;
@@ -2073,15 +2099,16 @@
             const qrTarget = document.getElementById('qrcode-target');
             qrTarget.innerHTML = ''; 
 
-            const qrData = `CLUB IA ESEF-B VIP PASS\nNom: ${nameInput.toUpperCase()}\nFiliere: ${filiere}\nID Membre: ${uniqueID}\nStatut: VERIFIED MEMBER`;
+            // QR Code payload carrying full member name & unique ID
+            const qrData = `Nom: ${nameInput.toUpperCase()}\nID Membre: ${uniqueID}`;
 
             new QRCode(qrTarget, {
                 text: qrData,
-                width: 67,
-                height: 67,
+                width: 256,
+                height: 256,
                 colorDark: "#070f1e",
                 colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
+                correctLevel: QRCode.CorrectLevel.M
             });
 
             document.getElementById('id-form').classList.add('hidden');
@@ -2098,7 +2125,7 @@
             }
             playCyberBeep();
 
-            showToast("✅ Carte ID générée avec succès !");
+            showToast("Carte ID générée avec succès !", "fa-id-card");
         }
 
         async function recoverMemberAccess() {
@@ -2108,11 +2135,11 @@
             const q3 = document.getElementById('rec-q3').value.trim().toLowerCase();
 
             if (!name || !q1 || !q2 || !q3) {
-                showToast("⚠️ Veuillez remplir tous les champs de récupération.");
+                showToast("Veuillez remplir tous les champs", "fa-circle-info");
                 return;
             }
 
-            showToast("⏳ Vérification Cloud...");
+            showToast("Vérification Cloud en cours...", "fa-cloud");
             const memberKey = getNormalizedKey(name);
 
             try {
@@ -2120,18 +2147,18 @@
                 const profile = snap.val();
 
                 if (!profile) {
-                    showToast("❌ Aucun membre trouvé avec ce nom.");
+                    showToast("Aucun membre trouvé avec ce nom", "fa-user-slash");
                     return;
                 }
 
                 if (profile.q1 === q1 && profile.q2 === q2 && profile.q3 === q3) {
-                    showToast(`✅ Accès vérifié! Votre PIN est: ${profile.pin}`);
+                    showToast(`Accès vérifié ! Code PIN: ${profile.pin}`, "fa-key");
                     displayGeneratedCard(profile.name, profile.filiere, profile.id);
                 } else {
-                    showToast("❌ Réponses aux questions de sécurité incorrectes.");
+                    showToast("Réponses de sécurité incorrectes", "fa-shield-cat");
                 }
             } catch(e) {
-                showToast("❌ Erreur de récupération Cloud.");
+                showToast("Erreur de récupération Cloud", "fa-wifi");
             }
         }
 
@@ -2191,14 +2218,14 @@
                         const blob = pdf.output('blob');
                         const blobUrl = URL.createObjectURL(blob);
                         window.open(blobUrl, '_blank');
-                        showToast("📲 PDF ouvert dans un nouvel onglet !");
+                        showToast("PDF ouvert dans un nouvel onglet", "fa-file-pdf");
                     } else {
                         pdf.save(`Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.pdf`);
-                        showToast("📥 Carte PDF téléchargée !");
+                        showToast("Carte PDF téléchargée !", "fa-download");
                     }
                 }).catch(err => {
                     console.error(err);
-                    showToast("❌ Erreur lors de la création du PDF.");
+                    showToast("Erreur lors de la création du PDF", "fa-triangle-exclamation");
                 }).finally(() => {
                     hideLoadingOverlay();
                     if (btn) {
@@ -2240,10 +2267,10 @@
                         if (imgWindow) {
                             imgWindow.document.write(`<body style="margin:0;background:#0b0f19;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;color:white;font-family:sans-serif;text-align:center;padding:20px;">
                                 <h3 style="margin-bottom:10px;color:#00f2fe;">CLUB IA ESEF-B - Votre Carte VIP</h3>
-                                <p style="font-size:12px;color:#aaa;margin-bottom:15px;">Appuyez longuement sur l'image ci-dessous puis choisissez <strong>"Enregistrer dans Photos"</strong> 📲</p>
+                                <p style="font-size:12px;color:#aaa;margin-bottom:15px;">Appuyez longuement sur l'image ci-dessous puis choisissez <strong>"Enregistrer dans Photos"</strong></p>
                                 <img src="${imageUrl}" style="max-width:90%;border-radius:16px;border:1px solid #00f2fe;box-shadow:0 10px 30px rgba(0,242,254,0.3);" />
                             </body>`);
-                            showToast("📲 Image prête ! Maintenez l'image pour enregistrer.");
+                            showToast("Maintenez l'image pour enregistrer", "fa-mobile-screen-button");
                         } else {
                             window.location.href = imageUrl;
                         }
@@ -2252,10 +2279,10 @@
                         link.download = `Carte_VIP_ClubIA_${name.replace(/\s+/g, '_')}.png`;
                         link.href = imageUrl;
                         link.click();
-                        showToast("📥 Carte PNG téléchargée avec succès !");
+                        showToast("Carte PNG téléchargée avec succès !", "fa-download");
                     }
                 }).catch(err => {
-                    showToast("❌ Erreur lors de la création de l'image.");
+                    showToast("Erreur lors de la création de l'image", "fa-triangle-exclamation");
                 }).finally(() => {
                     hideLoadingOverlay();
                     if (btn) {
@@ -2266,7 +2293,7 @@
             }, 300);
         }
 
-        // CANVAS ANIMATION
+        // Canvas Neural Network Visual Engine
         function initCanvas() {
             const dpr = window.devicePixelRatio || 1;
             width = window.innerWidth;
@@ -2386,10 +2413,10 @@
             isMatrixMode = !isMatrixMode;
             const btn = document.getElementById('matrix-btn');
             if (isMatrixMode) {
-                showToast("🟢 Mode Cyber Matrix Activé !");
+                showToast("Mode Cyber Matrix Activé", "fa-code");
                 if (btn) btn.classList.add('text-emerald-400', 'border-emerald-400', 'bg-emerald-500/10');
             } else {
-                showToast("⚡ Mode Neural Network Activé !");
+                showToast("Mode Neural Network Activé", "fa-network-wired");
                 if (btn) btn.classList.remove('text-emerald-400', 'border-emerald-400', 'bg-emerald-500/10');
             }
         }
@@ -2402,7 +2429,7 @@
             if (logoClickTimer) clearTimeout(logoClickTimer);
 
             if (logoClickCount === 1) {
-                showToast("🤫 Indice: Tap encore pour déverrouiller...");
+                showToast("Tap encore pour déverrouiller...", "fa-user-secret");
             }
 
             if (logoClickCount >= 5) {
@@ -2416,7 +2443,7 @@
         function triggerHackerMode() {
             if (!isMatrixMode) toggleMatrixMode();
             playCyberBeep();
-            showToast("🕵️‍♂️ SECRET UNLOCKED: CYBER HACKER MODE!");
+            showToast("SECRET UNLOCKED: CYBER HACKER MODE!", "fa-terminal");
         }
 
         function playCyberBeep() {
@@ -2457,7 +2484,7 @@
         function copyPageLink() {
             const currentUrl = window.location.href;
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(currentUrl).then(() => showToast("Lien copié avec succès !"));
+                navigator.clipboard.writeText(currentUrl).then(() => showToast("Lien copié avec succès !", "fa-link"));
             } else {
                 const textArea = document.createElement("textarea");
                 textArea.value = currentUrl;
@@ -2465,9 +2492,9 @@
                 textArea.select();
                 try {
                     document.execCommand('copy');
-                    showToast("Lien copié dans le presse-papier !");
+                    showToast("Lien copié dans le presse-papier !", "fa-link");
                 } catch (err) {
-                    showToast("Erreur lors de la copie du lien.");
+                    showToast("Erreur lors de la copie du lien.", "fa-triangle-exclamation");
                 }
                 document.body.removeChild(textArea);
             }
@@ -2476,7 +2503,7 @@
         function copyEmailToClipboard() {
             const email = "clubdintelligenceartificielle@gmail.com";
             navigator.clipboard.writeText(email).then(() => {
-                showToast("E-mail copié dans le presse-papier !");
+                showToast("E-mail copié dans le presse-papier !", "fa-envelope");
                 const btn = document.getElementById('copy-email-btn');
                 if (btn) {
                     const originalHTML = btn.innerHTML;
@@ -2488,11 +2515,17 @@
             });
         }
 
-        function showToast(message) {
+        /* Modern UI HUD Toast Notification Engine */
+        function showToast(message, iconClass = "fa-terminal") {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
             if (!toast || !toastMsg) return;
+            
             toastMsg.innerText = message;
+            if (toastIcon) {
+                toastIcon.className = `fa-solid ${iconClass} text-sm`;
+            }
 
             toast.classList.remove('-translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
@@ -2504,7 +2537,7 @@
         }
 
         function handleVIPWaitlist() {
-            showToast("🔒 Restez connectés sur WhatsApp pour la grande annonce !");
+            showToast("Restez connectés sur WhatsApp pour la grande annonce !", "fa-brands fa-whatsapp");
             setTimeout(() => {
                 window.open("https://chat.whatsapp.com/Gz2z30Hc0lT6hjMHcvBgbK", "_blank");
             }, 1200);
