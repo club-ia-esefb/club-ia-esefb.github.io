@@ -1013,28 +1013,42 @@
         }
 
         function startQRScanner() {
-            if (html5QrcodeScanner) {
-                stopQRScanner();
-            }
+    if (html5QrcodeScanner) {
+        stopQRScanner();
+    }
 
-            const btnStart = document.getElementById('btn-start-scanner');
-            const btnStop = document.getElementById('btn-stop-scanner');
-            if (btnStart) btnStart.classList.add('hidden');
-            if (btnStop) btnStop.classList.remove('hidden');
+    const btnStart = document.getElementById('btn-start-scanner');
+    const btnStop = document.getElementById('btn-stop-scanner');
+    if (btnStart) btnStart.classList.add('hidden');
+    if (btnStop) btnStop.classList.remove('hidden');
 
-            html5QrcodeScanner = new Html5Qrcode("qr-reader");
-            const config = { fps: 10, qrbox: { width: 220, height: 220 } };
+    html5QrcodeScanner = new Html5Qrcode("qr-reader");
 
-            html5QrcodeScanner.start(
-                { facingMode: "environment" },
-                config,
-                onQRCodeScanned,
-                (errorMessage) => {}
-            ).catch(err => {
-                showToast("❌ Impossible d'accéder à la caméra.");
-                stopQRScanner();
-            });
+    const config = { 
+        fps: 15,
+        qrbox: function(viewfinderWidth, viewfinderHeight) {
+            const minEdgePercentage = 0.75; 
+            const minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+            return {
+                width: Math.floor(minEdgeSize * minEdgePercentage),
+                height: Math.floor(minEdgeSize * minEdgePercentage)
+            };
+        },
+        experimentalFeatures: {
+            useBarCodeDetectorIfSupported: true
         }
+    };
+
+    html5QrcodeScanner.start(
+        { facingMode: "environment" },
+        config,
+        onQRCodeScanned,
+        (errorMessage) => {}
+    ).catch(err => {
+        showToast("❌ Impossible d'accéder à la caméra.");
+        stopQRScanner();
+    });
+}
 
         function stopQRScanner() {
             if (html5QrcodeScanner) {
