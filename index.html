@@ -65,6 +65,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- HTML5 QR Code Scanner Engine -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
     <!-- Firebase SDKs (Compat Version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -543,13 +545,59 @@
                     </div>
                 </div>
                 <div class="flex gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
-                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">📁 Whitelist</button>
+                    <button onclick="switchAdminTab('attendance')" id="tab-btn-attendance" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap">📷 Présence QR</button>
+                    <button onclick="switchAdminTab('whitelist')" id="tab-btn-whitelist" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">📁 Whitelist</button>
                     <button onclick="switchAdminTab('members')" id="tab-btn-members" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">👥 Membres VIP</button>
                     <button onclick="switchAdminTab('event')" id="tab-btn-event" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">📢 Annonces</button>
                     <button onclick="switchAdminTab('logo')" id="tab-btn-logo" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-900 text-slate-400 hover:text-white whitespace-nowrap">🎨 Logo</button>
                 </div>
 
-                <div id="admin-tab-whitelist" class="space-y-3">
+                <!-- TAB ATTENDANCE SCANNER -->
+                <div id="admin-tab-attendance" class="space-y-3">
+                    <div class="bg-slate-900/80 border border-cyan-500/30 p-3.5 rounded-2xl space-y-3">
+                        <span class="text-xs font-mono text-cyan-300 font-bold uppercase block">⚡ Gestion d'Émargement & Scanner Live</span>
+                        
+                        <div>
+                            <label class="block text-[10px] font-mono text-slate-400 mb-1">Nom de l'Activité / Événement *</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="activity-name-input" placeholder="ex: Workshop AI 101" class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none focus:border-cyan-400">
+                                <button onclick="setCurrentActivity()" class="px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-mono font-bold hover:bg-cyan-500 hover:text-slate-950 transition-all">
+                                    Valider
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-xs font-mono">
+                            <span class="text-slate-300 font-semibold">Activité sélectionnée:</span>
+                            <span id="current-activity-badge" class="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Sortie Intégration 2026</span>
+                        </div>
+
+                        <!-- Live Scanner Window -->
+                        <div id="qr-reader" class="overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 min-h-[160px] flex items-center justify-center"></div>
+
+                        <div class="flex gap-2">
+                            <button id="btn-start-scanner" onclick="startQRScanner()" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 font-bold text-xs uppercase flex items-center justify-center gap-1.5 hover:brightness-110">
+                                <i class="fa-solid fa-camera"></i>
+                                <span>Activer الكاميرا</span>
+                            </button>
+                            <button id="btn-stop-scanner" onclick="stopQRScanner()" class="hidden flex-1 py-2 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400 font-bold text-xs uppercase hover:bg-rose-500 hover:text-white">
+                                ⏹️ Arreter
+                            </button>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <div class="text-[11px] font-mono text-slate-300">
+                                Présents: <strong id="attendance-count" class="text-cyan-400 text-sm">0</strong> personne(s)
+                            </div>
+                            <button onclick="downloadAttendanceExcel()" class="py-1.5 px-3 rounded-xl bg-slate-800 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 font-mono text-xs font-bold flex items-center gap-1.5 transition-all">
+                                <i class="fa-solid fa-file-excel"></i>
+                                <span>Télécharger Excel</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="admin-tab-whitelist" class="hidden space-y-3">
                     <div class="bg-slate-900/60 border border-slate-800 p-3.5 rounded-2xl space-y-2">
                         <label class="block text-[11px] font-mono uppercase text-amber-300 font-bold">
                             📁 Importer la Liste Officielle Excel (.xlsx, .csv)
@@ -933,6 +981,144 @@
         const MAX_ATTEMPTS = 3;
         const BASE_LOCKOUT_TIME_MS = 5 * 60 * 1000;
 
+        let currentActivityName = "Sortie Intégration 2026";
+        let html5QrcodeScanner = null;
+
+        function sanitizeActivityKey(name) {
+            return name.toLowerCase().replace(/[^a-z0-9]/g, "_");
+        }
+
+        function setCurrentActivity() {
+            const input = document.getElementById('activity-name-input');
+            const val = input ? input.value.trim() : '';
+            if (!val) {
+                showToast("⚠️ Entrez le nom de la nouvelle activité.");
+                return;
+            }
+            currentActivityName = val;
+            const badge = document.getElementById('current-activity-badge');
+            if (badge) badge.innerText = currentActivityName;
+            showToast(`✅ Activité sélectionnée: ${currentActivityName}`);
+            listenAttendanceData();
+        }
+
+        function listenAttendanceData() {
+            const actKey = sanitizeActivityKey(currentActivityName);
+            db.ref(`attendance/${actKey}`).on('value', (snapshot) => {
+                const data = snapshot.val() || {};
+                const count = Object.keys(data).length;
+                const counterElem = document.getElementById('attendance-count');
+                if (counterElem) counterElem.innerText = count.toString();
+            });
+        }
+
+        function startQRScanner() {
+            if (html5QrcodeScanner) {
+                stopQRScanner();
+            }
+
+            const btnStart = document.getElementById('btn-start-scanner');
+            const btnStop = document.getElementById('btn-stop-scanner');
+            if (btnStart) btnStart.classList.add('hidden');
+            if (btnStop) btnStop.classList.remove('hidden');
+
+            html5QrcodeScanner = new Html5Qrcode("qr-reader");
+            const config = { fps: 10, qrbox: { width: 220, height: 220 } };
+
+            html5QrcodeScanner.start(
+                { facingMode: "environment" },
+                config,
+                onQRCodeScanned,
+                (errorMessage) => {}
+            ).catch(err => {
+                showToast("❌ Impossible d'accéder à la caméra.");
+                stopQRScanner();
+            });
+        }
+
+        function stopQRScanner() {
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    html5QrcodeScanner = null;
+                }).catch(() => { html5QrcodeScanner = null; });
+            }
+            const btnStart = document.getElementById('btn-start-scanner');
+            const btnStop = document.getElementById('btn-stop-scanner');
+            if (btnStart) btnStart.classList.remove('hidden');
+            if (btnStop) btnStop.classList.add('hidden');
+        }
+
+        function onQRCodeScanned(decodedText, decodedResult) {
+            playCyberBeep();
+
+            let name = "";
+            let filiere = "";
+            let memberId = "";
+
+            const lines = decodedText.split('\n');
+            lines.forEach(line => {
+                if (line.toLowerCase().startsWith('nom:')) name = line.substring(4).trim();
+                if (line.toLowerCase().startsWith('filiere:')) filiere = line.substring(8).trim();
+                if (line.toLowerCase().startsWith('id membre:')) memberId = line.substring(10).trim();
+            });
+
+            if (!name && !memberId) {
+                showToast("⚠️ QR Code non valide / Inconnu.");
+                return;
+            }
+
+            const actKey = sanitizeActivityKey(currentActivityName);
+            const mKey = memberId || getNormalizedKey(name);
+            const nowStr = new Date().toLocaleString('fr-FR');
+
+            const attendRef = db.ref(`attendance/${actKey}/${mKey}`);
+
+            attendRef.once('value').then(snap => {
+                if (snap.exists()) {
+                    showToast(`⚠️ Déjà enregistré: ${name || memberId}`);
+                } else {
+                    attendRef.set({
+                        name: name || "INCONNU",
+                        filiere: filiere || "N/A",
+                        member_id: memberId || "N/A",
+                        scanned_at: nowStr,
+                        timestamp: Date.now()
+                    }).then(() => {
+                        showToast(`🟢 VALIDE: ${name} (${nowStr})`);
+                    });
+                }
+            });
+        }
+
+        function downloadAttendanceExcel() {
+            const actKey = sanitizeActivityKey(currentActivityName);
+            showToast("⏳ Préparation du fichier Excel...");
+
+            db.ref(`attendance/${actKey}`).once('value').then(snap => {
+                const data = snap.val();
+                if (!data) {
+                    showToast("⚠️ Aucun présent enregistré pour cette activité.");
+                    return;
+                }
+
+                let rows = [["Nom & Prénom", "Filière", "ID Membre VIP", "Date & Heure d'émargement"]];
+                Object.keys(data).forEach(k => {
+                    const item = data[k];
+                    rows.push([item.name, item.filiere, item.member_id, item.scanned_at]);
+                });
+
+                const ws = XLSX.utils.aoa_to_sheet(rows);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Émargement");
+
+                const fileName = `Presence_${actKey}_${new Date().toISOString().slice(0,10)}.xlsx`;
+                XLSX.writeFile(wb, fileName);
+                showToast("📥 Fichier d'émargement téléchargé !");
+            }).catch(err => {
+                showToast("❌ Erreur lors du téléchargement.");
+            });
+        }
+
         let activeMemberMode = 'quick';
 
         function updateLogoElements(src) {
@@ -992,6 +1178,8 @@
                 updateAdminStats();
                 renderAdminMembersList();
             });
+
+            listenAttendanceData();
         }
 
         function handleLogoUpload(event) {
@@ -1172,6 +1360,7 @@
             card.classList.remove('scale-100');
             card.classList.add('scale-90');
             modal.classList.add('opacity-0', 'pointer-events-none');
+            stopQRScanner();
         }
 
         function toggleRecoveryView() {
@@ -1266,9 +1455,11 @@
             document.getElementById('admin-dashboard-view').classList.remove('hidden');
             updateAdminStats();
             renderAdminMembersList();
+            listenAttendanceData();
         }
 
         function logoutAdmin() {
+            stopQRScanner();
             sessionStorage.removeItem('club_ia_admin_authenticated');
             document.getElementById('admin-dashboard-view').classList.add('hidden');
             document.getElementById('admin-login-view').classList.remove('hidden');
@@ -1296,7 +1487,7 @@
         }
 
         function switchAdminTab(tabName) {
-            ['whitelist', 'members', 'event', 'logo'].forEach(t => {
+            ['attendance', 'whitelist', 'members', 'event', 'logo'].forEach(t => {
                 const el = document.getElementById(`admin-tab-${t}`);
                 const btn = document.getElementById(`tab-btn-${t}`);
                 if (el) el.classList.add('hidden');
@@ -1307,6 +1498,10 @@
             const activeBtn = document.getElementById(`tab-btn-${tabName}`);
             if (activeEl) activeEl.classList.remove('hidden');
             if (activeBtn) activeBtn.className = "px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 whitespace-nowrap";
+
+            if (tabName !== 'attendance') {
+                stopQRScanner();
+            }
         }
 
         function getMembersDB() {
@@ -1457,7 +1652,7 @@
                 }
             };
 
-            reader.readAsArrayBuffer(file);
+            reader.readAsBuffer(file);
         }
 
         function clearWhitelist() {
